@@ -1,0 +1,864 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>RACStream Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">ReactiveCocoa 1.0.0 </a></h1>
+				<a id="developerHome" href="../index.html">Josh Abernathy</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">RACStream Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/name">&nbsp;&nbsp;&nbsp;&nbsp;name</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/concat:">&nbsp;&nbsp;&nbsp;&nbsp;+ concat:</option>
+	
+	<option value="//api/name/empty">&nbsp;&nbsp;&nbsp;&nbsp;+ empty</option>
+	
+	<option value="//api/name/return:">&nbsp;&nbsp;&nbsp;&nbsp;+ return:</option>
+	
+	<option value="//api/name/zip:">&nbsp;&nbsp;&nbsp;&nbsp;+ zip:</option>
+	
+	<option value="//api/name/zip:reduce:">&nbsp;&nbsp;&nbsp;&nbsp;+ zip:reduce:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/bind:">&nbsp;&nbsp;&nbsp;&nbsp;- bind:</option>
+	
+	<option value="//api/name/concat:">&nbsp;&nbsp;&nbsp;&nbsp;- concat:</option>
+	
+	<option value="//api/name/filter:">&nbsp;&nbsp;&nbsp;&nbsp;- filter:</option>
+	
+	<option value="//api/name/flatten">&nbsp;&nbsp;&nbsp;&nbsp;- flatten</option>
+	
+	<option value="//api/name/flattenMap:">&nbsp;&nbsp;&nbsp;&nbsp;- flattenMap:</option>
+	
+	<option value="//api/name/map:">&nbsp;&nbsp;&nbsp;&nbsp;- map:</option>
+	
+	<option value="//api/name/mapPreviousWithStart:combine:">&nbsp;&nbsp;&nbsp;&nbsp;- mapPreviousWithStart:combine:</option>
+	
+	<option value="//api/name/mapReplace:">&nbsp;&nbsp;&nbsp;&nbsp;- mapReplace:</option>
+	
+	<option value="//api/name/reduceEach:">&nbsp;&nbsp;&nbsp;&nbsp;- reduceEach:</option>
+	
+	<option value="//api/name/scanWithStart:combine:">&nbsp;&nbsp;&nbsp;&nbsp;- scanWithStart:combine:</option>
+	
+	<option value="//api/name/sequenceMany:">&nbsp;&nbsp;&nbsp;&nbsp;- sequenceMany:</option>
+	
+	<option value="//api/name/setNameWithFormat:">&nbsp;&nbsp;&nbsp;&nbsp;- setNameWithFormat:</option>
+	
+	<option value="//api/name/skip:">&nbsp;&nbsp;&nbsp;&nbsp;- skip:</option>
+	
+	<option value="//api/name/skipUntilBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- skipUntilBlock:</option>
+	
+	<option value="//api/name/skipWhileBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- skipWhileBlock:</option>
+	
+	<option value="//api/name/startWith:">&nbsp;&nbsp;&nbsp;&nbsp;- startWith:</option>
+	
+	<option value="//api/name/take:">&nbsp;&nbsp;&nbsp;&nbsp;- take:</option>
+	
+	<option value="//api/name/takeUntilBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- takeUntilBlock:</option>
+	
+	<option value="//api/name/takeWhileBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- takeWhileBlock:</option>
+	
+	<option value="//api/name/zipWith:">&nbsp;&nbsp;&nbsp;&nbsp;- zipWith:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Operations Methods">Operations Methods</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/name">name</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/concat:">concat:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/empty">empty</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/return:">return:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/zip:">zip:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/zip:reduce:">zip:reduce:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/bind:">bind:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/concat:">concat:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/filter:">filter:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/flatten">flatten</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/flattenMap:">flattenMap:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/map:">map:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/mapPreviousWithStart:combine:">mapPreviousWithStart:combine:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/mapReplace:">mapReplace:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reduceEach:">reduceEach:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/scanWithStart:combine:">scanWithStart:combine:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sequenceMany:">sequenceMany:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setNameWithFormat:">setNameWithFormat:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/skip:">skip:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/skipUntilBlock:">skipUntilBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/skipWhileBlock:">skipWhileBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startWith:">startWith:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/take:">take:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/takeUntilBlock:">takeUntilBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/takeWhileBlock:">takeWhileBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/zipWith:">zipWith:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="RACStream Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">RACStream Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">RACStream.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/empty">+&nbsp;empty</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/return:">+&nbsp;return:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/bind:">&ndash;&nbsp;bind:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/concat:">&ndash;&nbsp;concat:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/zipWith:">&ndash;&nbsp;zipWith:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Operations Methods" name="task_Operations Methods"></a>
+						<h3 class="subsubtitle task-title">Operations Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/flattenMap:">&ndash;&nbsp;flattenMap:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/flatten">&ndash;&nbsp;flatten</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/map:">&ndash;&nbsp;map:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/mapReplace:">&ndash;&nbsp;mapReplace:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/mapPreviousWithStart:combine:">&ndash;&nbsp;mapPreviousWithStart:combine:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/filter:">&ndash;&nbsp;filter:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/reduceEach:">&ndash;&nbsp;reduceEach:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/startWith:">&ndash;&nbsp;startWith:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/skip:">&ndash;&nbsp;skip:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/take:">&ndash;&nbsp;take:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sequenceMany:">&ndash;&nbsp;sequenceMany:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/zip:">+&nbsp;zip:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/zip:reduce:">+&nbsp;zip:reduce:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/concat:">+&nbsp;concat:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/scanWithStart:combine:">&ndash;&nbsp;scanWithStart:combine:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/takeUntilBlock:">&ndash;&nbsp;takeUntilBlock:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/takeWhileBlock:">&ndash;&nbsp;takeWhileBlock:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/skipUntilBlock:">&ndash;&nbsp;skipUntilBlock:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/skipWhileBlock:">&ndash;&nbsp;skipWhileBlock:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/name">&nbsp;&nbsp;name</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setNameWithFormat:">&ndash;&nbsp;setNameWithFormat:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/name" title="name"></a>
+	<h3 class="subsubtitle method-title">name</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (copy) NSString *name</code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/concat:" title="concat:"></a>
+	<h3 class="subsubtitle method-title">concat:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)concat:(id&lt;NSFastEnumeration&gt;)<em>streams</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/empty" title="empty"></a>
+	<h3 class="subsubtitle method-title">empty</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)empty</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/return:" title="return:"></a>
+	<h3 class="subsubtitle method-title">return:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)return:(id)<em>value</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/zip:" title="zip:"></a>
+	<h3 class="subsubtitle method-title">zip:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)zip:(id&lt;NSFastEnumeration&gt;)<em>streams</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/zip:reduce:" title="zip:reduce:"></a>
+	<h3 class="subsubtitle method-title">zip:reduce:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)zip:(id&lt;NSFastEnumeration&gt;)<em>streams</em> reduce:(id)<em>reduceBlock</em></code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/bind:" title="bind:"></a>
+	<h3 class="subsubtitle method-title">bind:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)bind:(RACStreamBindBlock ( ^ ) ( void ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/concat:" title="concat:"></a>
+	<h3 class="subsubtitle method-title">concat:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)concat:(RACStream *)<em>stream</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/filter:" title="filter:"></a>
+	<h3 class="subsubtitle method-title">filter:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)filter:(BOOL ( ^ ) ( id value ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/flatten" title="flatten"></a>
+	<h3 class="subsubtitle method-title">flatten</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)flatten</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/flattenMap:" title="flattenMap:"></a>
+	<h3 class="subsubtitle method-title">flattenMap:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)flattenMap:(RACStream *( ^ ) ( id value ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/map:" title="map:"></a>
+	<h3 class="subsubtitle method-title">map:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)map:(id ( ^ ) ( id value ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/mapPreviousWithStart:combine:" title="mapPreviousWithStart:combine:"></a>
+	<h3 class="subsubtitle method-title">mapPreviousWithStart:combine:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)mapPreviousWithStart:(id)<em>start</em> combine:(id ( ^ ) ( id previous , id current ))<em>combineBlock</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/mapReplace:" title="mapReplace:"></a>
+	<h3 class="subsubtitle method-title">mapReplace:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)mapReplace:(id)<em>object</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reduceEach:" title="reduceEach:"></a>
+	<h3 class="subsubtitle method-title">reduceEach:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)reduceEach:(id)<em>reduceBlock</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/scanWithStart:combine:" title="scanWithStart:combine:"></a>
+	<h3 class="subsubtitle method-title">scanWithStart:combine:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)scanWithStart:(id)<em>startingValue</em> combine:(id ( ^ ) ( id running , id next ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sequenceMany:" title="sequenceMany:"></a>
+	<h3 class="subsubtitle method-title">sequenceMany:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)sequenceMany:(RACStream *( ^ ) ( void ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setNameWithFormat:" title="setNameWithFormat:"></a>
+	<h3 class="subsubtitle method-title">setNameWithFormat:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)setNameWithFormat:(NSString *)<em>format</em>, <em>...</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/skip:" title="skip:"></a>
+	<h3 class="subsubtitle method-title">skip:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)skip:(NSUInteger)<em>skipCount</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/skipUntilBlock:" title="skipUntilBlock:"></a>
+	<h3 class="subsubtitle method-title">skipUntilBlock:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)skipUntilBlock:(BOOL ( ^ ) ( id x ))<em>predicate</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/skipWhileBlock:" title="skipWhileBlock:"></a>
+	<h3 class="subsubtitle method-title">skipWhileBlock:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)skipWhileBlock:(BOOL ( ^ ) ( id x ))<em>predicate</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/startWith:" title="startWith:"></a>
+	<h3 class="subsubtitle method-title">startWith:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)startWith:(id)<em>value</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/take:" title="take:"></a>
+	<h3 class="subsubtitle method-title">take:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)take:(NSUInteger)<em>count</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/takeUntilBlock:" title="takeUntilBlock:"></a>
+	<h3 class="subsubtitle method-title">takeUntilBlock:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)takeUntilBlock:(BOOL ( ^ ) ( id x ))<em>predicate</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/takeWhileBlock:" title="takeWhileBlock:"></a>
+	<h3 class="subsubtitle method-title">takeWhileBlock:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)takeWhileBlock:(BOOL ( ^ ) ( id x ))<em>predicate</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/zipWith:" title="zipWith:"></a>
+	<h3 class="subsubtitle method-title">zipWith:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)zipWith:(RACStream *)<em>stream</em></code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Josh Abernathy. All rights reserved. (Last updated: 2013-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

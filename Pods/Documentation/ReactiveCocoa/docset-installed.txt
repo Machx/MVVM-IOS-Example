@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/colindw/Library/Developer/Shared/Documentation/DocSets/org.cocoapods.ReactiveCocoa-1.0.0.docset
+Time: 2013-03-05 02:38:16 +0000

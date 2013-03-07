@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACSequence.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACSequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>
+			
+			<NodeRef refid="26"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/setHead:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) id head</Declaration>
+			
+			
+			<Anchor>//api/name/head</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACSequence/head</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) id head</Declaration>
+			
+			
+			<Anchor>//api/name/head</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/setTail:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) RACSequence *tail</Declaration>
+			
+			
+			<Anchor>//api/name/tail</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACSequence/tail</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) RACSequence *tail</Declaration>
+			
+			
+			<Anchor>//api/name/tail</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/setArray:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSArray *array</Declaration>
+			
+			
+			<Anchor>//api/name/array</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACSequence/array</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSArray *array</Declaration>
+			
+			
+			<Anchor>//api/name/array</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/setObjectEnumerator:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSEnumerator *objectEnumerator</Declaration>
+			
+			
+			<Anchor>//api/name/objectEnumerator</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACSequence/objectEnumerator</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSEnumerator *objectEnumerator</Declaration>
+			
+			
+			<Anchor>//api/name/objectEnumerator</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/setEagerSequence:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *eagerSequence</Declaration>
+			
+			
+			<Anchor>//api/name/eagerSequence</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACSequence/eagerSequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *eagerSequence</Declaration>
+			
+			
+			<Anchor>//api/name/eagerSequence</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/setLazySequence:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *lazySequence</Declaration>
+			
+			
+			<Anchor>//api/name/lazySequence</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACSequence/lazySequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *lazySequence</Declaration>
+			
+			
+			<Anchor>//api/name/lazySequence</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/signal</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>- (RACSignal *)signal</Declaration>
+			
+			
+			<Anchor>//api/name/signal</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACSequence/signalWithScheduler:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>- (RACSignal *)signalWithScheduler:(RACScheduler *)scheduler</Declaration>
+			
+			
+			<Anchor>//api/name/signalWithScheduler:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACSequence/sequenceWithHeadBlock:tailBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSequence.h</DeclaredIn>			
+			
+			<Declaration>+ (RACSequence *)sequenceWithHeadBlock:(id ( ^ ) ( void ))headBlock tailBlock:(RACSequence *( ^ ) ( void ))tailBlock</Declaration>
+			
+			
+			<Anchor>//api/name/sequenceWithHeadBlock:tailBlock:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

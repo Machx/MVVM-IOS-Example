@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>RACScheduler Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">ReactiveCocoa 1.0.0 </a></h1>
+				<a id="developerHome" href="../index.html">Josh Abernathy</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">RACScheduler Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/currentScheduler">&nbsp;&nbsp;&nbsp;&nbsp;+ currentScheduler</option>
+	
+	<option value="//api/name/immediateScheduler">&nbsp;&nbsp;&nbsp;&nbsp;+ immediateScheduler</option>
+	
+	<option value="//api/name/mainThreadScheduler">&nbsp;&nbsp;&nbsp;&nbsp;+ mainThreadScheduler</option>
+	
+	<option value="//api/name/scheduler">&nbsp;&nbsp;&nbsp;&nbsp;+ scheduler</option>
+	
+	<option value="//api/name/schedulerWithPriority:">&nbsp;&nbsp;&nbsp;&nbsp;+ schedulerWithPriority:</option>
+	
+	<option value="//api/name/subscriptionScheduler">&nbsp;&nbsp;&nbsp;&nbsp;+ subscriptionScheduler</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/after:schedule:">&nbsp;&nbsp;&nbsp;&nbsp;- after:schedule:</option>
+	
+	<option value="//api/name/initWithName:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithName:</option>
+	
+	<option value="//api/name/schedule:">&nbsp;&nbsp;&nbsp;&nbsp;- schedule:</option>
+	
+	<option value="//api/name/scheduleRecursiveBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- scheduleRecursiveBlock:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Extension Methods">Extension Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentScheduler">currentScheduler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/immediateScheduler">immediateScheduler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/mainThreadScheduler">mainThreadScheduler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/scheduler">scheduler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/schedulerWithPriority:">schedulerWithPriority:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/subscriptionScheduler">subscriptionScheduler</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/after:schedule:">after:schedule:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithName:">initWithName:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/schedule:">schedule:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/scheduleRecursiveBlock:">scheduleRecursiveBlock:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="RACScheduler Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">RACScheduler Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">RACScheduler.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/immediateScheduler">+&nbsp;immediateScheduler</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/mainThreadScheduler">+&nbsp;mainThreadScheduler</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/schedulerWithPriority:">+&nbsp;schedulerWithPriority:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/scheduler">+&nbsp;scheduler</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentScheduler">+&nbsp;currentScheduler</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/schedule:">&ndash;&nbsp;schedule:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/after:schedule:">&ndash;&nbsp;after:schedule:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/scheduleRecursiveBlock:">&ndash;&nbsp;scheduleRecursiveBlock:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Extension Methods" name="task_Extension Methods"></a>
+						<h3 class="subsubtitle task-title">Extension Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/subscriptionScheduler">+&nbsp;subscriptionScheduler</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithName:">&ndash;&nbsp;initWithName:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/currentScheduler" title="currentScheduler"></a>
+	<h3 class="subsubtitle method-title">currentScheduler</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)currentScheduler</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/immediateScheduler" title="immediateScheduler"></a>
+	<h3 class="subsubtitle method-title">immediateScheduler</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)immediateScheduler</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/mainThreadScheduler" title="mainThreadScheduler"></a>
+	<h3 class="subsubtitle method-title">mainThreadScheduler</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)mainThreadScheduler</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/scheduler" title="scheduler"></a>
+	<h3 class="subsubtitle method-title">scheduler</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)scheduler</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/schedulerWithPriority:" title="schedulerWithPriority:"></a>
+	<h3 class="subsubtitle method-title">schedulerWithPriority:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)schedulerWithPriority:(RACSchedulerPriority)<em>priority</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/subscriptionScheduler" title="subscriptionScheduler"></a>
+	<h3 class="subsubtitle method-title">subscriptionScheduler</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)subscriptionScheduler</code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/after:schedule:" title="after:schedule:"></a>
+	<h3 class="subsubtitle method-title">after:schedule:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (RACDisposable *)after:(dispatch_time_t)<em>when</em> schedule:(void ( ^ ) ( void ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithName:" title="initWithName:"></a>
+	<h3 class="subsubtitle method-title">initWithName:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithName:(NSString *)<em>name</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/schedule:" title="schedule:"></a>
+	<h3 class="subsubtitle method-title">schedule:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (RACDisposable *)schedule:(void ( ^ ) ( void ))<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/scheduleRecursiveBlock:" title="scheduleRecursiveBlock:"></a>
+	<h3 class="subsubtitle method-title">scheduleRecursiveBlock:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (RACDisposable *)scheduleRecursiveBlock:(RACSchedulerRecursiveBlock)<em>recursiveBlock</em></code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Josh Abernathy. All rights reserved. (Last updated: 2013-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

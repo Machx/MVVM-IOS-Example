@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACArraySequence.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACArraySequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACArraySequence.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACArraySequence/sequenceWithArray:offset:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACArraySequence.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)sequenceWithArray:(NSArray *)array offset:(NSUInteger)offset</Declaration>
+			
+			
+			<Anchor>//api/name/sequenceWithArray:offset:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

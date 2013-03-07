@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACEvent.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACEvent</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>
+			
+			<NodeRef refid="13"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACEvent/completedEvent</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)completedEvent</Declaration>
+			
+			
+			<Anchor>//api/name/completedEvent</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACEvent/eventWithError:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)eventWithError:(NSError *)error</Declaration>
+			
+			
+			<Anchor>//api/name/eventWithError:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACEvent/eventWithValue:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)eventWithValue:(id)value</Declaration>
+			
+			
+			<Anchor>//api/name/eventWithValue:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEvent/setEventType:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign, readonly) RACEventType eventType</Declaration>
+			
+			
+			<Anchor>//api/name/eventType</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACEvent/eventType</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, assign, readonly) RACEventType eventType</Declaration>
+			
+			
+			<Anchor>//api/name/eventType</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEvent/setFinished:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, getter=isFinished, assign, readonly) BOOL finished</Declaration>
+			
+			
+			<Anchor>//api/name/finished</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACEvent/finished</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, getter=isFinished, assign, readonly) BOOL finished</Declaration>
+			
+			
+			<Anchor>//api/name/finished</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEvent/setError:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) NSError *error</Declaration>
+			
+			
+			<Anchor>//api/name/error</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACEvent/error</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) NSError *error</Declaration>
+			
+			
+			<Anchor>//api/name/error</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEvent/setValue:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) id value</Declaration>
+			
+			
+			<Anchor>//api/name/value</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACEvent/value</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEvent.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) id value</Declaration>
+			
+			
+			<Anchor>//api/name/value</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

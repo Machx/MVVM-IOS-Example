@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACPropertySubject.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACPropertySubject</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACPropertySubject.h</DeclaredIn>
+			
+			<NodeRef refid="21"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACPropertySubject/property</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACPropertySubject.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)property</Declaration>
+			
+			
+			<Anchor>//api/name/property</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACPropertySubject/binding</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACPropertySubject.h</DeclaredIn>			
+			
+			<Declaration>- (RACBinding *)binding</Declaration>
+			
+			
+			<Anchor>//api/name/binding</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACPropertySubject/initWithSignal:subscriber:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACPropertySubject+Private.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)initWithSignal:(RACSignal *)signal subscriber:(id&lt;RACSubscriber&gt;)subscriber</Declaration>
+			
+			
+			<Anchor>//api/name/initWithSignal:subscriber:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

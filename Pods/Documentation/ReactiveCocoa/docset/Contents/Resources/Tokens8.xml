@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACDelegateProxy.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACDelegateProxy</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>
+			
+			<NodeRef refid="8"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACDelegateProxy/proxyWithProtocol:andDelegator:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)proxyWithProtocol:(Protocol *)protocol andDelegator:(NSObject *)delegator</Declaration>
+			
+			
+			<Anchor>//api/name/proxyWithProtocol:andDelegator:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACDelegateProxy/addTrampoline:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>- (void)addTrampoline:(RACEventTrampoline *)trampoline</Declaration>
+			
+			
+			<Anchor>//api/name/addTrampoline:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACDelegateProxy/setProtocol:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) Protocol *protocol</Declaration>
+			
+			
+			<Anchor>//api/name/protocol</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACDelegateProxy/protocol</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) Protocol *protocol</Declaration>
+			
+			
+			<Anchor>//api/name/protocol</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACDelegateProxy/setDelegator:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSObject *delegator</Declaration>
+			
+			
+			<Anchor>//api/name/delegator</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACDelegateProxy/delegator</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSObject *delegator</Declaration>
+			
+			
+			<Anchor>//api/name/delegator</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACDelegateProxy/setActualDelegate:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) id actualDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/actualDelegate</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACDelegateProxy/actualDelegate</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDelegateProxy.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) id actualDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/actualDelegate</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

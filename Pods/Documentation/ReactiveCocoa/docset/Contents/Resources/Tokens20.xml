@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACObservablePropertySubject.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACObservablePropertySubject</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObservablePropertySubject.h</DeclaredIn>
+			
+			<NodeRef refid="20"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACObservablePropertySubject/propertyWithTarget:keyPath:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObservablePropertySubject.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)propertyWithTarget:(id)target keyPath:(NSString *)keyPath</Declaration>
+			
+			
+			<Anchor>//api/name/propertyWithTarget:keyPath:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACObservablePropertySubject/objectForKeyedSubscript:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObservablePropertySubject.h</DeclaredIn>			
+			
+			<Declaration>- (id)objectForKeyedSubscript:(id)key</Declaration>
+			
+			
+			<Anchor>//api/name/objectForKeyedSubscript:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACObservablePropertySubject/setObject:forKeyedSubscript:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObservablePropertySubject.h</DeclaredIn>			
+			
+			<Declaration>- (void)setObject:(id)obj forKeyedSubscript:(id)key</Declaration>
+			
+			
+			<Anchor>//api/name/setObject:forKeyedSubscript:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

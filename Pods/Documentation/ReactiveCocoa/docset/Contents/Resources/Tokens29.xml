@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACStream.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACStream</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>
+			
+			<NodeRef refid="29"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACStream/empty</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)empty</Declaration>
+			
+			
+			<Anchor>//api/name/empty</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACStream/return:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)return:(id)value</Declaration>
+			
+			
+			<Anchor>//api/name/return:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/bind:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)bind:(RACStreamBindBlock ( ^ ) ( void ))block</Declaration>
+			
+			
+			<Anchor>//api/name/bind:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/concat:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)concat:(RACStream *)stream</Declaration>
+			
+			
+			<Anchor>//api/name/concat:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/zipWith:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)zipWith:(RACStream *)stream</Declaration>
+			
+			
+			<Anchor>//api/name/zipWith:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/flattenMap:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)flattenMap:(RACStream *( ^ ) ( id value ))block</Declaration>
+			
+			
+			<Anchor>//api/name/flattenMap:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/flatten</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)flatten</Declaration>
+			
+			
+			<Anchor>//api/name/flatten</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/map:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)map:(id ( ^ ) ( id value ))block</Declaration>
+			
+			
+			<Anchor>//api/name/map:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/mapReplace:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)mapReplace:(id)object</Declaration>
+			
+			
+			<Anchor>//api/name/mapReplace:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/mapPreviousWithStart:combine:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)mapPreviousWithStart:(id)start combine:(id ( ^ ) ( id previous , id current ))combineBlock</Declaration>
+			
+			
+			<Anchor>//api/name/mapPreviousWithStart:combine:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/filter:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)filter:(BOOL ( ^ ) ( id value ))block</Declaration>
+			
+			
+			<Anchor>//api/name/filter:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/reduceEach:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)reduceEach:(id)reduceBlock</Declaration>
+			
+			
+			<Anchor>//api/name/reduceEach:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/startWith:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)startWith:(id)value</Declaration>
+			
+			
+			<Anchor>//api/name/startWith:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/skip:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)skip:(NSUInteger)skipCount</Declaration>
+			
+			
+			<Anchor>//api/name/skip:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/take:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)take:(NSUInteger)count</Declaration>
+			
+			
+			<Anchor>//api/name/take:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/sequenceMany:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)sequenceMany:(RACStream *( ^ ) ( void ))block</Declaration>
+			
+			
+			<Anchor>//api/name/sequenceMany:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACStream/zip:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)zip:(id&lt;NSFastEnumeration&gt;)streams</Declaration>
+			
+			
+			<Anchor>//api/name/zip:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACStream/zip:reduce:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)zip:(id&lt;NSFastEnumeration&gt;)streams reduce:(id)reduceBlock</Declaration>
+			
+			
+			<Anchor>//api/name/zip:reduce:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACStream/concat:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)concat:(id&lt;NSFastEnumeration&gt;)streams</Declaration>
+			
+			
+			<Anchor>//api/name/concat:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/scanWithStart:combine:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)scanWithStart:(id)startingValue combine:(id ( ^ ) ( id running , id next ))block</Declaration>
+			
+			
+			<Anchor>//api/name/scanWithStart:combine:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/takeUntilBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)takeUntilBlock:(BOOL ( ^ ) ( id x ))predicate</Declaration>
+			
+			
+			<Anchor>//api/name/takeUntilBlock:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/takeWhileBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)takeWhileBlock:(BOOL ( ^ ) ( id x ))predicate</Declaration>
+			
+			
+			<Anchor>//api/name/takeWhileBlock:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/skipUntilBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)skipUntilBlock:(BOOL ( ^ ) ( id x ))predicate</Declaration>
+			
+			
+			<Anchor>//api/name/skipUntilBlock:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/skipWhileBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)skipWhileBlock:(BOOL ( ^ ) ( id x ))predicate</Declaration>
+			
+			
+			<Anchor>//api/name/skipWhileBlock:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/setName:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) NSString *name</Declaration>
+			
+			
+			<Anchor>//api/name/name</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACStream/name</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) NSString *name</Declaration>
+			
+			
+			<Anchor>//api/name/name</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACStream/setNameWithFormat:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACStream.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)setNameWithFormat:(NSString *)format, ...</Declaration>
+			
+			
+			<Anchor>//api/name/setNameWithFormat:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocSetNodes version="1.0">
+    <TOC>
+        <Node type="folder">
+            <Name>ReactiveCocoa 1.0.0</Name>
+            <Path>index.html</Path>
+			<Subnodes>
+                
+				
+				<Node type="folder">
+					<Name>Classes</Name>
+					<Path>index.html</Path>
+					<Subnodes>
+						<NodeRef refid="1"/>
+						<NodeRef refid="2"/>
+						<NodeRef refid="3"/>
+						<NodeRef refid="4"/>
+						<NodeRef refid="5"/>
+						<NodeRef refid="6"/>
+						<NodeRef refid="7"/>
+						<NodeRef refid="8"/>
+						<NodeRef refid="9"/>
+						<NodeRef refid="10"/>
+						<NodeRef refid="11"/>
+						<NodeRef refid="12"/>
+						<NodeRef refid="13"/>
+						<NodeRef refid="14"/>
+						<NodeRef refid="15"/>
+						<NodeRef refid="16"/>
+						<NodeRef refid="17"/>
+						<NodeRef refid="18"/>
+						<NodeRef refid="19"/>
+						<NodeRef refid="20"/>
+						<NodeRef refid="21"/>
+						<NodeRef refid="22"/>
+						<NodeRef refid="23"/>
+						<NodeRef refid="24"/>
+						<NodeRef refid="25"/>
+						<NodeRef refid="26"/>
+						<NodeRef refid="27"/>
+						<NodeRef refid="28"/>
+						<NodeRef refid="29"/>
+						<NodeRef refid="30"/>
+						<NodeRef refid="31"/>
+						<NodeRef refid="32"/>
+						<NodeRef refid="33"/>
+						<NodeRef refid="34"/>
+						<NodeRef refid="35"/>
+						<NodeRef refid="36"/>
+						<NodeRef refid="37"/>
+						<NodeRef refid="38"/>
+						<NodeRef refid="39"/>
+						<NodeRef refid="40"/>
+						
+					</Subnodes>
+				</Node>
+				
+				
+				<Node type="folder">
+					<Name>Categories</Name>
+					<Path>index.html</Path>
+					<Subnodes>
+						<NodeRef refid="41"/>
+						<NodeRef refid="42"/>
+						<NodeRef refid="43"/>
+						<NodeRef refid="44"/>
+						<NodeRef refid="45"/>
+						<NodeRef refid="46"/>
+						<NodeRef refid="47"/>
+						<NodeRef refid="48"/>
+						<NodeRef refid="49"/>
+						<NodeRef refid="50"/>
+						<NodeRef refid="51"/>
+						<NodeRef refid="52"/>
+						<NodeRef refid="53"/>
+						<NodeRef refid="54"/>
+						<NodeRef refid="55"/>
+						<NodeRef refid="56"/>
+						<NodeRef refid="57"/>
+						<NodeRef refid="58"/>
+						<NodeRef refid="59"/>
+						
+					</Subnodes>
+				</Node>
+				
+				
+				<Node type="folder">
+					<Name>Protocols</Name>
+					<Path>index.html</Path>
+					<Subnodes>
+						<NodeRef refid="60"/>
+						
+					</Subnodes>
+				</Node>
+				
+			</Subnodes>
+        </Node>
+    </TOC>
+	<Library>
+		
+		<Node id="1">
+			<Name>RACArraySequence</Name>
+			<Path>Classes/RACArraySequence.html</Path>
+		</Node>
+		<Node id="2">
+			<Name>RACBacktrace</Name>
+			<Path>Classes/RACBacktrace.html</Path>
+		</Node>
+		<Node id="3">
+			<Name>RACBehaviorSubject</Name>
+			<Path>Classes/RACBehaviorSubject.html</Path>
+		</Node>
+		<Node id="4">
+			<Name>RACBinding</Name>
+			<Path>Classes/RACBinding.html</Path>
+		</Node>
+		<Node id="5">
+			<Name>RACBlockTrampoline</Name>
+			<Path>Classes/RACBlockTrampoline.html</Path>
+		</Node>
+		<Node id="6">
+			<Name>RACCommand</Name>
+			<Path>Classes/RACCommand.html</Path>
+		</Node>
+		<Node id="7">
+			<Name>RACCompoundDisposable</Name>
+			<Path>Classes/RACCompoundDisposable.html</Path>
+		</Node>
+		<Node id="8">
+			<Name>RACDelegateProxy</Name>
+			<Path>Classes/RACDelegateProxy.html</Path>
+		</Node>
+		<Node id="9">
+			<Name>RACDisposable</Name>
+			<Path>Classes/RACDisposable.html</Path>
+		</Node>
+		<Node id="10">
+			<Name>RACDynamicSequence</Name>
+			<Path>Classes/RACDynamicSequence.html</Path>
+		</Node>
+		<Node id="11">
+			<Name>RACEagerSequence</Name>
+			<Path>Classes/RACEagerSequence.html</Path>
+		</Node>
+		<Node id="12">
+			<Name>RACEmptySequence</Name>
+			<Path>Classes/RACEmptySequence.html</Path>
+		</Node>
+		<Node id="13">
+			<Name>RACEvent</Name>
+			<Path>Classes/RACEvent.html</Path>
+		</Node>
+		<Node id="14">
+			<Name>RACEventTrampoline</Name>
+			<Path>Classes/RACEventTrampoline.html</Path>
+		</Node>
+		<Node id="15">
+			<Name>RACGroupedSignal</Name>
+			<Path>Classes/RACGroupedSignal.html</Path>
+		</Node>
+		<Node id="16">
+			<Name>RACImmediateScheduler</Name>
+			<Path>Classes/RACImmediateScheduler.html</Path>
+		</Node>
+		<Node id="17">
+			<Name>RACKVOTrampoline</Name>
+			<Path>Classes/RACKVOTrampoline.html</Path>
+		</Node>
+		<Node id="18">
+			<Name>RACMulticastConnection</Name>
+			<Path>Classes/RACMulticastConnection.html</Path>
+		</Node>
+		<Node id="19">
+			<Name>RACObjCRuntime</Name>
+			<Path>Classes/RACObjCRuntime.html</Path>
+		</Node>
+		<Node id="20">
+			<Name>RACObservablePropertySubject</Name>
+			<Path>Classes/RACObservablePropertySubject.html</Path>
+		</Node>
+		<Node id="21">
+			<Name>RACPropertySubject</Name>
+			<Path>Classes/RACPropertySubject.html</Path>
+		</Node>
+		<Node id="22">
+			<Name>RACQueueScheduler</Name>
+			<Path>Classes/RACQueueScheduler.html</Path>
+		</Node>
+		<Node id="23">
+			<Name>RACReplaySubject</Name>
+			<Path>Classes/RACReplaySubject.html</Path>
+		</Node>
+		<Node id="24">
+			<Name>RACScheduler</Name>
+			<Path>Classes/RACScheduler.html</Path>
+		</Node>
+		<Node id="25">
+			<Name>RACScopedDisposable</Name>
+			<Path>Classes/RACScopedDisposable.html</Path>
+		</Node>
+		<Node id="26">
+			<Name>RACSequence</Name>
+			<Path>Classes/RACSequence.html</Path>
+		</Node>
+		<Node id="27">
+			<Name>RACSignal</Name>
+			<Path>Classes/RACSignal.html</Path>
+		</Node>
+		<Node id="28">
+			<Name>RACSignalSequence</Name>
+			<Path>Classes/RACSignalSequence.html</Path>
+		</Node>
+		<Node id="29">
+			<Name>RACStream</Name>
+			<Path>Classes/RACStream.html</Path>
+		</Node>
+		<Node id="30">
+			<Name>RACStringSequence</Name>
+			<Path>Classes/RACStringSequence.html</Path>
+		</Node>
+		<Node id="31">
+			<Name>RACSubject</Name>
+			<Path>Classes/RACSubject.html</Path>
+		</Node>
+		<Node id="32">
+			<Name>RACSubscriber</Name>
+			<Path>Classes/RACSubscriber.html</Path>
+		</Node>
+		<Node id="33">
+			<Name>RACSubscriptingAssignmentObjectKeyPathPair</Name>
+			<Path>Classes/RACSubscriptingAssignmentObjectKeyPathPair.html</Path>
+		</Node>
+		<Node id="34">
+			<Name>RACSubscriptingAssignmentTrampoline</Name>
+			<Path>Classes/RACSubscriptingAssignmentTrampoline.html</Path>
+		</Node>
+		<Node id="35">
+			<Name>RACSubscriptionScheduler</Name>
+			<Path>Classes/RACSubscriptionScheduler.html</Path>
+		</Node>
+		<Node id="36">
+			<Name>RACTuple</Name>
+			<Path>Classes/RACTuple.html</Path>
+		</Node>
+		<Node id="37">
+			<Name>RACTupleNil</Name>
+			<Path>Classes/RACTupleNil.html</Path>
+		</Node>
+		<Node id="38">
+			<Name>RACTupleUnpackingTrampoline</Name>
+			<Path>Classes/RACTupleUnpackingTrampoline.html</Path>
+		</Node>
+		<Node id="39">
+			<Name>RACUnit</Name>
+			<Path>Classes/RACUnit.html</Path>
+		</Node>
+		<Node id="40">
+			<Name>RACValueTransformer</Name>
+			<Path>Classes/RACValueTransformer.html</Path>
+		</Node>
+		
+		<Node id="41">
+			<Name>NSArray(RACSequenceAdditions)</Name>
+			<Path>Categories/NSArray+RACSequenceAdditions.html</Path>
+		</Node>
+		<Node id="42">
+			<Name>NSData(RACSupport)</Name>
+			<Path>Categories/NSData+RACSupport.html</Path>
+		</Node>
+		<Node id="43">
+			<Name>NSDictionary(RACSequenceAdditions)</Name>
+			<Path>Categories/NSDictionary+RACSequenceAdditions.html</Path>
+		</Node>
+		<Node id="44">
+			<Name>NSEnumerator(RACSequenceAdditions)</Name>
+			<Path>Categories/NSEnumerator+RACSequenceAdditions.html</Path>
+		</Node>
+		<Node id="45">
+			<Name>NSFileHandle(RACSupport)</Name>
+			<Path>Categories/NSFileHandle+RACSupport.html</Path>
+		</Node>
+		<Node id="46">
+			<Name>NSInvocation(RACTypeParsing)</Name>
+			<Path>Categories/NSInvocation+RACTypeParsing.html</Path>
+		</Node>
+		<Node id="47">
+			<Name>NSNotificationCenter(RACSupport)</Name>
+			<Path>Categories/NSNotificationCenter+RACSupport.html</Path>
+		</Node>
+		<Node id="48">
+			<Name>NSObject(RACKVOWrapper)</Name>
+			<Path>Categories/NSObject+RACKVOWrapper.html</Path>
+		</Node>
+		<Node id="49">
+			<Name>NSObject(RACKVOWrapperPrivate)</Name>
+			<Path>Categories/NSObject+RACKVOWrapperPrivate.html</Path>
+		</Node>
+		<Node id="50">
+			<Name>NSObject(RACLifting)</Name>
+			<Path>Categories/NSObject+RACLifting.html</Path>
+		</Node>
+		<Node id="51">
+			<Name>NSObject(RACObservablePropertySubject)</Name>
+			<Path>Categories/NSObject+RACObservablePropertySubject.html</Path>
+		</Node>
+		<Node id="52">
+			<Name>NSObject(RACPropertySubscribing)</Name>
+			<Path>Categories/NSObject+RACPropertySubscribing.html</Path>
+		</Node>
+		<Node id="53">
+			<Name>NSOrderedSet(RACSequenceAdditions)</Name>
+			<Path>Categories/NSOrderedSet+RACSequenceAdditions.html</Path>
+		</Node>
+		<Node id="54">
+			<Name>NSSet(RACSequenceAdditions)</Name>
+			<Path>Categories/NSSet+RACSequenceAdditions.html</Path>
+		</Node>
+		<Node id="55">
+			<Name>NSString(RACSequenceAdditions)</Name>
+			<Path>Categories/NSString+RACSequenceAdditions.html</Path>
+		</Node>
+		<Node id="56">
+			<Name>NSString(RACSupport)</Name>
+			<Path>Categories/NSString+RACSupport.html</Path>
+		</Node>
+		<Node id="57">
+			<Name>UIControl(RACSignalSupport)</Name>
+			<Path>Categories/UIControl+RACSignalSupport.html</Path>
+		</Node>
+		<Node id="58">
+			<Name>UITextField(RACSignalSupport)</Name>
+			<Path>Categories/UITextField+RACSignalSupport.html</Path>
+		</Node>
+		<Node id="59">
+			<Name>UITextView(RACSignalSupport)</Name>
+			<Path>Categories/UITextView+RACSignalSupport.html</Path>
+		</Node>
+		
+		<Node id="60">
+			<Name>RACSubscriber</Name>
+			<Path>Protocols/RACSubscriber.html</Path>
+		</Node>
+		
+	</Library>
+</DocSetNodes>

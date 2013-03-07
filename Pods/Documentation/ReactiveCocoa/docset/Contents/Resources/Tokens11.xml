@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACEagerSequence.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACEagerSequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEagerSequence.h</DeclaredIn>
+			
+			<NodeRef refid="11"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

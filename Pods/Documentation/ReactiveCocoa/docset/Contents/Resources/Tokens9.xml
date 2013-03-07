@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACDisposable.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACDisposable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDisposable.h</DeclaredIn>
+			
+			<NodeRef refid="9"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACDisposable/disposableWithBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDisposable.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)disposableWithBlock:(void ( ^ ) ( void ))block</Declaration>
+			
+			
+			<Anchor>//api/name/disposableWithBlock:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACDisposable/dispose</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDisposable.h</DeclaredIn>			
+			
+			<Declaration>- (void)dispose</Declaration>
+			
+			
+			<Anchor>//api/name/dispose</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACDisposable/asScopedDisposable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACDisposable.h</DeclaredIn>			
+			
+			<Declaration>- (RACScopedDisposable *)asScopedDisposable</Declaration>
+			
+			
+			<Anchor>//api/name/asScopedDisposable</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/RACSubscriber.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/RACSubscriber</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSubscriber.h</DeclaredIn>
+			
+			<NodeRef refid="60"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/RACSubscriber/sendNext:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSubscriber.h</DeclaredIn>			
+			
+			<Declaration>- (void)sendNext:(id)value</Declaration>
+			
+			
+			<Anchor>//api/name/sendNext:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/RACSubscriber/sendError:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSubscriber.h</DeclaredIn>			
+			
+			<Declaration>- (void)sendError:(NSError *)error</Declaration>
+			
+			
+			<Anchor>//api/name/sendError:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/RACSubscriber/sendCompleted</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSubscriber.h</DeclaredIn>			
+			
+			<Declaration>- (void)sendCompleted</Declaration>
+			
+			
+			<Anchor>//api/name/sendCompleted</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/RACSubscriber/didSubscribeWithDisposable:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSubscriber.h</DeclaredIn>			
+			
+			<Declaration>- (void)didSubscribeWithDisposable:(RACDisposable *)disposable</Declaration>
+			
+			
+			<Anchor>//api/name/didSubscribeWithDisposable:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

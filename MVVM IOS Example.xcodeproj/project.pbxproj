@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8CFCC4693D7448F7A37BAB38 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE219F80D2C4270AA17B240 /* libPods.a */; };
 		B8CCFA1616E58F9D0031996A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8CCFA1516E58F9D0031996A /* UIKit.framework */; };
 		B8CCFA1816E58F9D0031996A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8CCFA1716E58F9D0031996A /* Foundation.framework */; };
 		B8CCFA1A16E58F9D0031996A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8CCFA1916E58F9D0031996A /* CoreGraphics.framework */; };
@@ -23,6 +24,7 @@
 		B8CCFA3C16E58F9D0031996A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8CCFA1716E58F9D0031996A /* Foundation.framework */; };
 		B8CCFA4416E58F9D0031996A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8CCFA4216E58F9D0031996A /* InfoPlist.strings */; };
 		B8CCFA4716E58F9D0031996A /* MVVM_IOS_ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CCFA4616E58F9D0031996A /* MVVM_IOS_ExampleTests.m */; };
+		B8CCFA5216E593870031996A /* CDWPlayerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CCFA5116E593870031996A /* CDWPlayerViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		B8CCFA1216E58F9D0031996A /* MVVM IOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVVM IOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8CCFA1516E58F9D0031996A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8CCFA1716E58F9D0031996A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,6 +61,9 @@
 		B8CCFA4316E58F9D0031996A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8CCFA4516E58F9D0031996A /* MVVM_IOS_ExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MVVM_IOS_ExampleTests.h; sourceTree = "<group>"; };
 		B8CCFA4616E58F9D0031996A /* MVVM_IOS_ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MVVM_IOS_ExampleTests.m; sourceTree = "<group>"; };
+		B8CCFA5016E593870031996A /* CDWPlayerViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDWPlayerViewModel.h; sourceTree = "<group>"; };
+		B8CCFA5116E593870031996A /* CDWPlayerViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDWPlayerViewModel.m; sourceTree = "<group>"; };
+		CDE219F80D2C4270AA17B240 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,7 @@
 				B8CCFA1616E58F9D0031996A /* UIKit.framework in Frameworks */,
 				B8CCFA1816E58F9D0031996A /* Foundation.framework in Frameworks */,
 				B8CCFA1A16E58F9D0031996A /* CoreGraphics.framework in Frameworks */,
+				8CFCC4693D7448F7A37BAB38 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +98,7 @@
 				B8CCFA3F16E58F9D0031996A /* MVVM IOS ExampleTests */,
 				B8CCFA1416E58F9D0031996A /* Frameworks */,
 				B8CCFA1316E58F9D0031996A /* Products */,
+				7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +118,7 @@
 				B8CCFA1716E58F9D0031996A /* Foundation.framework */,
 				B8CCFA1916E58F9D0031996A /* CoreGraphics.framework */,
 				B8CCFA3916E58F9D0031996A /* SenTestingKit.framework */,
+				CDE219F80D2C4270AA17B240 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,6 +131,8 @@
 				B8CCFA2D16E58F9D0031996A /* CDWViewController.h */,
 				B8CCFA2E16E58F9D0031996A /* CDWViewController.m */,
 				B8CCFA3016E58F9D0031996A /* CDWViewController.xib */,
+				B8CCFA5016E593870031996A /* CDWPlayerViewModel.h */,
+				B8CCFA5116E593870031996A /* CDWPlayerViewModel.m */,
 				B8CCFA1C16E58F9D0031996A /* Supporting Files */,
 			);
 			path = "MVVM IOS Example";
@@ -170,6 +181,7 @@
 				B8CCFA0E16E58F9D0031996A /* Sources */,
 				B8CCFA0F16E58F9D0031996A /* Frameworks */,
 				B8CCFA1016E58F9D0031996A /* Resources */,
+				E56DD4B0540F4B9BAA1E92CE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -264,6 +276,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		E56DD4B0540F4B9BAA1E92CE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -274,6 +300,7 @@
 				B8CCFA2216E58F9D0031996A /* main.m in Sources */,
 				B8CCFA2616E58F9D0031996A /* CDWAppDelegate.m in Sources */,
 				B8CCFA2F16E58F9D0031996A /* CDWViewController.m in Sources */,
+				B8CCFA5216E593870031996A /* CDWPlayerViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +408,7 @@
 		};
 		B8CCFA4B16E58F9D0031996A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MVVM IOS Example/MVVM IOS Example-Prefix.pch";
@@ -392,6 +420,7 @@
 		};
 		B8CCFA4C16E58F9D0031996A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MVVM IOS Example/MVVM IOS Example-Prefix.pch";
@@ -454,6 +483,7 @@
 				B8CCFA4C16E58F9D0031996A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B8CCFA4D16E58F9D0031996A /* Build configuration list for PBXNativeTarget "MVVM IOS ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -462,6 +492,7 @@
 				B8CCFA4F16E58F9D0031996A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

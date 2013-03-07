@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACScopedDisposable.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACScopedDisposable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScopedDisposable.h</DeclaredIn>
+			
+			<NodeRef refid="25"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACScopedDisposable/scopedDisposableWithDisposable:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScopedDisposable.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)scopedDisposableWithDisposable:(RACDisposable *)disposable</Declaration>
+			
+			
+			<Anchor>//api/name/scopedDisposableWithDisposable:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSObject+RACKVOWrapperPrivate.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSObject(RACKVOWrapperPrivate)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACKVOWrapperPrivate.h</DeclaredIn>
+			
+			<NodeRef refid="49"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(RACKVOWrapperPrivate)/setRACKVOTrampolines:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACKVOWrapperPrivate.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSMutableArray *RACKVOTrampolines</Declaration>
+			
+			
+			<Anchor>//api/name/RACKVOTrampolines</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSObject(RACKVOWrapperPrivate)/RACKVOTrampolines</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACKVOWrapperPrivate.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) NSMutableArray *RACKVOTrampolines</Declaration>
+			
+			
+			<Anchor>//api/name/RACKVOTrampolines</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(RACKVOWrapperPrivate)/rac_addKVOTrampoline:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACKVOWrapperPrivate.h</DeclaredIn>			
+			
+			<Declaration>- (void)rac_addKVOTrampoline:(RACKVOTrampoline *)trampoline</Declaration>
+			
+			
+			<Anchor>//api/name/rac_addKVOTrampoline:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(RACKVOWrapperPrivate)/rac_removeKVOTrampoline:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACKVOWrapperPrivate.h</DeclaredIn>			
+			
+			<Declaration>- (void)rac_removeKVOTrampoline:(RACKVOTrampoline *)trampoline</Declaration>
+			
+			
+			<Anchor>//api/name/rac_removeKVOTrampoline:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

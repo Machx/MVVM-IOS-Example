@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACReplaySubject.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACReplaySubject</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACReplaySubject.h</DeclaredIn>
+			
+			<NodeRef refid="23"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACReplaySubject/replaySubjectWithCapacity:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACReplaySubject.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)replaySubjectWithCapacity:(NSUInteger)capacity</Declaration>
+			
+			
+			<Anchor>//api/name/replaySubjectWithCapacity:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

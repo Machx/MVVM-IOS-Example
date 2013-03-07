@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACEventTrampoline.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACEventTrampoline</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>
+			
+			<NodeRef refid="14"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACEventTrampoline/trampolineForControl:controlEvents:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)trampolineForControl:(UIControl *)control controlEvents:(UIControlEvents)controlEvents</Declaration>
+			
+			
+			<Anchor>//api/name/trampolineForControl:controlEvents:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACEventTrampoline/trampolineForTextView:delegateMethod:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)trampolineForTextView:(UITextView *)textView delegateMethod:(SEL)method</Declaration>
+			
+			
+			<Anchor>//api/name/trampolineForTextView:delegateMethod:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEventTrampoline/didGetControlEvent:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>- (void)didGetControlEvent:(id)sender</Declaration>
+			
+			
+			<Anchor>//api/name/didGetControlEvent:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEventTrampoline/didGetDelegateEvent:sender:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>- (void)didGetDelegateEvent:(SEL)delegateMethod sender:(id)sender</Declaration>
+			
+			
+			<Anchor>//api/name/didGetDelegateEvent:sender:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEventTrampoline/setSubject:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) RACSubject *subject</Declaration>
+			
+			
+			<Anchor>//api/name/subject</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACEventTrampoline/subject</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) RACSubject *subject</Declaration>
+			
+			
+			<Anchor>//api/name/subject</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEventTrampoline/setProxy:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) RACDelegateProxy *proxy</Declaration>
+			
+			
+			<Anchor>//api/name/proxy</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACEventTrampoline/proxy</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong) RACDelegateProxy *proxy</Declaration>
+			
+			
+			<Anchor>//api/name/proxy</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACEventTrampoline/setDelegateMethod:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic) SEL delegateMethod</Declaration>
+			
+			
+			<Anchor>//api/name/delegateMethod</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACEventTrampoline/delegateMethod</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEventTrampoline.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic) SEL delegateMethod</Declaration>
+			
+			
+			<Anchor>//api/name/delegateMethod</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

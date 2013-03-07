@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACObjCRuntime.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACObjCRuntime</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObjCRuntime.h</DeclaredIn>
+			
+			<NodeRef refid="19"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACObjCRuntime/findMethod:inProtocol:outMethod:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObjCRuntime.h</DeclaredIn>			
+			
+			<Declaration>+ (void)findMethod:(SEL)method inProtocol:(Protocol *)protocol outMethod:(struct objc_method_description *)outMethod</Declaration>
+			
+			
+			<Anchor>//api/name/findMethod:inProtocol:outMethod:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACObjCRuntime/getMethodTypesForMethod:inProtocol:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObjCRuntime.h</DeclaredIn>			
+			
+			<Declaration>+ (const char *)getMethodTypesForMethod:(SEL)method inProtocol:(Protocol *)protocol</Declaration>
+			
+			
+			<Anchor>//api/name/getMethodTypesForMethod:inProtocol:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACObjCRuntime/method:existsInProtocol:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACObjCRuntime.h</DeclaredIn>			
+			
+			<Declaration>+ (BOOL)method:(SEL)method existsInProtocol:(Protocol *)protocol</Declaration>
+			
+			
+			<Anchor>//api/name/method:existsInProtocol:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

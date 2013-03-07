@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACSubscriptionScheduler.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACSubscriptionScheduler</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACSubscriptionScheduler.h</DeclaredIn>
+			
+			<NodeRef refid="35"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

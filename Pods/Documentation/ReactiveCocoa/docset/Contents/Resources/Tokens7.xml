@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACCompoundDisposable.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACCompoundDisposable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCompoundDisposable.h</DeclaredIn>
+			
+			<NodeRef refid="7"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACCompoundDisposable/compoundDisposable</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCompoundDisposable.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)compoundDisposable</Declaration>
+			
+			
+			<Anchor>//api/name/compoundDisposable</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACCompoundDisposable/compoundDisposableWithDisposables:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCompoundDisposable.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)compoundDisposableWithDisposables:(NSArray *)disposables</Declaration>
+			
+			
+			<Anchor>//api/name/compoundDisposableWithDisposables:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCompoundDisposable/addDisposable:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCompoundDisposable.h</DeclaredIn>			
+			
+			<Declaration>- (void)addDisposable:(RACDisposable *)disposable</Declaration>
+			
+			
+			<Anchor>//api/name/addDisposable:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCompoundDisposable/removeDisposable:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCompoundDisposable.h</DeclaredIn>			
+			
+			<Declaration>- (void)removeDisposable:(RACDisposable *)disposable</Declaration>
+			
+			
+			<Anchor>//api/name/removeDisposable:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

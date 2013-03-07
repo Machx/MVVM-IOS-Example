@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/UITextField+RACSignalSupport.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/UITextField(RACSignalSupport)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UITextField+RACSignalSupport.h</DeclaredIn>
+			
+			<NodeRef refid="58"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/UITextField(RACSignalSupport)/rac_textSignal</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>UITextField+RACSignalSupport.h</DeclaredIn>			
+			
+			<Declaration>- (RACSignal *)rac_textSignal</Declaration>
+			
+			
+			<Anchor>//api/name/rac_textSignal</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

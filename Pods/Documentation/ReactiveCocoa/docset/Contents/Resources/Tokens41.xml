@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSArray+RACSequenceAdditions.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSArray(RACSequenceAdditions)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSArray+RACSequenceAdditions.h</DeclaredIn>
+			
+			<NodeRef refid="41"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSArray(RACSequenceAdditions)/setRac_sequence:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSArray+RACSequenceAdditions.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *rac_sequence</Declaration>
+			
+			
+			<Anchor>//api/name/rac_sequence</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfp/NSArray(RACSequenceAdditions)/rac_sequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSArray+RACSequenceAdditions.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *rac_sequence</Declaration>
+			
+			
+			<Anchor>//api/name/rac_sequence</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

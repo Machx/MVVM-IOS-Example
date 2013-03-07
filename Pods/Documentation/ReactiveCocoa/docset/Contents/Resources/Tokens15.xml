@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACGroupedSignal.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACGroupedSignal</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACGroupedSignal.h</DeclaredIn>
+			
+			<NodeRef refid="15"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACGroupedSignal/setKey:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACGroupedSignal.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly, copy) id&lt;NSCopying&gt; key</Declaration>
+			
+			
+			<Anchor>//api/name/key</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACGroupedSignal/key</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACGroupedSignal.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly, copy) id&lt;NSCopying&gt; key</Declaration>
+			
+			
+			<Anchor>//api/name/key</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACGroupedSignal/signalWithKey:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACGroupedSignal.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)signalWithKey:(id&lt;NSCopying&gt;)key</Declaration>
+			
+			
+			<Anchor>//api/name/signalWithKey:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

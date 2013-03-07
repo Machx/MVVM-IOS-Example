@@ -1,0 +1,539 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>ReactiveCocoa 1.0.0 Reference</title>
+		<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="index.html">ReactiveCocoa 1.0.0 </a></h1>
+				<a id="developerHome" href="index.html">Josh Abernathy</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">ReactiveCocoa 1.0.0 Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar"></ul>
+		</header>
+		<article>
+			<div id="overview_contents" role="main">
+				<div class="main-navigation navigation-top">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">ReactiveCocoa 1.0.0 Reference</h1>
+					</div>		
+				</div>
+				<div id="container">
+					
+					<div class="section section-overview index-overview">
+						
+						
+						<h1>ReactiveCocoa</h1>
+
+<p>ReactiveCocoa (RAC) is an Objective-C framework for <a href="http://en.wikipedia.org/wiki/Functional_reactive_programming">Functional Reactive
+Programming</a>. It provides APIs for <strong>composing and transforming streams of
+values</strong>.</p>
+
+<p>If you&rsquo;re already familiar with functional reactive programming or know the basic
+premise of ReactiveCocoa, check out the <a href="Documentation">Documentation</a> folder for a framework
+overview and more in-depth information about how it all works in practice.</p>
+
+<h2>Getting Started</h2>
+
+<p>To add RAC to your application:</p>
+
+<ol>
+<li>Add the ReactiveCocoa repository as a submodule of your application&rsquo;s
+repository. Make sure to update the submodules within with <code>git submodule update
+-i --recursive</code></li>
+<li>Drag and drop <code>ReactiveCocoaFramework/ReactiveCocoa.xcodeproj</code> into your
+application&rsquo;s Xcode project or workspace.</li>
+<li>On the &ldquo;Build Phases&rdquo; tab of your application target, add RAC to the &ldquo;Link
+Binary With Libraries&rdquo; phase.
+
+<ul>
+<li><strong>On iOS</strong>, add <code>libReactiveCocoa-iOS.a</code>.</li>
+<li><strong>On OS X</strong>, add <code>ReactiveCocoa.framework</code>. RAC must also be added to any
+&ldquo;Copy Frameworks&rdquo; build phase. If you don&rsquo;t already have one, simply add
+a &ldquo;Copy Files&rdquo; build phase and target the &ldquo;Frameworks&rdquo; destination.</li>
+</ul>
+</li>
+<li>Add <code>$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include
+$(inherited)</code> to the &ldquo;Header Search Paths&rdquo; build setting (this is only
+    necessary for archive builds, but it has no negative effect otherwise).</li>
+<li><strong>If you added RAC to a project (not a workspace)</strong>, you will also need to
+add the appropriate RAC target to the &ldquo;Target Dependencies&rdquo; of your
+application.</li>
+</ol>
+
+
+<p>If you would prefer to use <a href="http://cocoapods.org">CocoaPods</a>, there are some
+~!@<a href="https://github.com/CocoaPods/Specs/tree/master/ReactiveCocoa">ReactiveCocoa
+podspecs</a>@!~ that
+have been generously contributed by third parties.</p>
+
+<p>To see a project already set up with RAC, check out the <a href="[https://github.com/ReactiveCocoa/GHAPIDemo](https://github.com/ReactiveCocoa/GHAPIDemo)">Mac</a> or
+<a href="[https://github.com/ReactiveCocoa/RACiOSDemo](https://github.com/ReactiveCocoa/RACiOSDemo)">iOS</a> demos.</p>
+
+<h2>Functional Reactive Programming</h2>
+
+<p>Functional Reactive Programming (FRP) is a programming paradigm for writing
+software that reacts to change.</p>
+
+<p>FRP is built on the abstraction of values over time. Rather than capturing
+a value at a particular time, FRP provides signals that capture the past,
+present, and future value. These signals can be reasoned about, chained,
+composed, and reacted to.</p>
+
+<p>By combining signals, software can be written declaratively, without the need
+for code that continually observes and updates values. A text field can be
+directly set to always show the current timestamp, for example, instead of using
+additional code that watches the clock and updates the text field every second.</p>
+
+<p>Signals can also represent asynchronous operations, much like <a href="http://en.wikipedia.org/wiki/Futures_and_promises">futures and
+promises</a>. This greatly simplifies asynchronous software, including networking
+code.</p>
+
+<p>One of the major advantages of FRP is that it provides a single, unified
+approach to dealing with different types of reactive, asynchronous behaviors.</p>
+
+<p>Here are some resources for learning more about FRP:</p>
+
+<ul>
+<li><a href="http://elm-lang.org/learn/What-is-FRP.elm">What is FRP? &ndash; Elm Language</a></li>
+<li><a href="http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming/1030631#1030631">What is Functional Reactive Programming &ndash; Stack Overflow</a></li>
+</ul>
+
+
+<h2>FRP with ReactiveCocoa</h2>
+
+<p>Signals in ReactiveCocoa (RAC) are represented using <a href="Classes/RACSignal.html"><code>RACSignal</code></a>. Signals are
+streams of values that can be observed and transformed.</p>
+
+<p>Applications that are built with RAC use signals to propagate changes. It works
+much like KVO, but with blocks instead of overriding
+<code>-observeValueForKeyPath:ofObject:change:context:</code>.</p>
+
+<p>Here&rsquo;s a simple example:</p>
+
+<p>```objc
+// When self.username changes, log the new name to the console.
+//
+// RACAble(self.username) creates a new <a href="Classes/RACSignal.html">RACSignal</a> that sends a new value
+// whenever the username changes. -subscribeNext: will execute the block
+// whenever the signal sends a value.
+[RACAble(self.username) subscribeNext:^(NSString *newName) {</p>
+
+<pre><code>NSLog(@"%@", newName);
+</code></pre>
+
+<p>}];
+```</p>
+
+<p>But unlike KVO notifications, signals can be chained together and operated on:</p>
+
+<p>```objc
+// Only log names that start with &ldquo;j&rdquo;.
+//
+// -filter returns a new <a href="Classes/RACSignal.html">RACSignal</a> that only sends a new value when its block
+// returns YES.
+[[RACAble(self.username)
+   filter:^(NSString *newName) {</p>
+
+<pre><code>   return [newName hasPrefix:@"j"];
+</code></pre>
+
+<p>   }]
+   subscribeNext:^(NSString *newName) {</p>
+
+<pre><code>   NSLog(@"%@", newName);
+</code></pre>
+
+<p>   }];
+```</p>
+
+<p>Signals can also be used to derive state, which is a key component of FRP.
+Instead of observing properties and setting other properties in response to the
+new values, RAC makes it possible to express properties in terms of signals and
+operations:</p>
+
+<p>```objc
+// Create a one-way binding so that self.createEnabled will be
+// true whenever self.password and self.passwordConfirmation
+// are equal.
+//
+// RAC() is a macro that makes the binding look nicer.
+//
+// +combineLatest:reduce: takes an array of signals, executes the block with the
+// latest value from each signal whenever any of them changes, and returns a new
+// <a href="Classes/RACSignal.html">RACSignal</a> that sends the return value of that block as values.
+RAC(self.createEnabled) = [<a href="Classes/RACSignal.html">RACSignal</a></p>
+
+<pre><code>combineLatest:@[ RACAble(self.password), RACAble(self.passwordConfirmation) ] 
+reduce:^(NSString *password, NSString *passwordConfirm) {
+    return @([passwordConfirm isEqualToString:password]);
+}];
+</code></pre>
+
+<p>```</p>
+
+<p>Signals can be built on any stream of values over time, not just KVO. For
+example, they can also represent button presses:</p>
+
+<p>```objc
+// Log a message whenever the button is pressed.
+//
+// RACCommand is a RACSignal subclass that represents UI actions.
+//
+// -rac_command is an addition to NSButton. The button will send itself on that
+// command whenever it&rsquo;s pressed.
+self.button.rac_command = <a href="Classes/RACCommand.html#//api/name/command">[RACCommand command]</a>;
+[self.button.rac_command subscribeNext:^(id _) {</p>
+
+<pre><code>NSLog(@"button was pressed!");
+</code></pre>
+
+<p>}];
+```</p>
+
+<p>Or asynchronous network operations:</p>
+
+<p>```objc
+// Hook up a &ldquo;Log in&rdquo; button to log in over the network and log a message when
+// it was successful.
+//
+// loginCommand does the actual work of logging in. loginResult sends a value
+// whenever the async work is done.
+self.loginCommand = [RACAsyncCommand command];</p>
+
+<p>// This block will execute whenever the login command sends a value.
+//
+// -sequenceMany: will return a signal that represents the combination of all
+// the signals returned from this block. In this case, the login result will
+// send a value whenever a login attempt sends a value, completes, or errors
+// out.
+self.loginResult  = [self.loginCommand sequenceMany:^{</p>
+
+<pre><code>// The hypothetical -logIn method returns a signal that sends a value when
+// the network request finishes.
+//
+// -materialize wraps up values, completions, and errors in RACEvents so errors won't
+// close the login result signal.
+return [[client logIn] materialize];
+</code></pre>
+
+<p>}];</p>
+
+<p>[[self.loginResult</p>
+
+<pre><code>// Filter out everything but successful logins.
+filter:^(RACEvent *x) {
+    return x.eventType == RACEventTypeCompleted;
+}]
+subscribeNext:^(id _) {
+    NSLog(@"Logged in successfully!");
+}];
+</code></pre>
+
+<p>// Execute the login command when the button is pressed
+self.loginButton.rac_command = self.loginCommand;
+```</p>
+
+<p>Signals can also represent timers, other UI events, or anything else that
+changes over time.</p>
+
+<p>Using signals for asynchronous operations makes it possible to build up more
+complex behavior by chaining and transforming those signals. Work can easily be
+trigged after a group of operations completes:</p>
+
+<p>```objc
+// Perform 2 network operations and log a message to the console when they are
+// both completed.
+//
+// +merge: takes an array of signals and returns a new RACSignal that passes
+// through the values of all of the signals and completes when all of the
+// signals complete.
+//
+// -subscribeCompleted: will execute the block when the signal completes.
+[[RACSignal</p>
+
+<pre><code>merge:@[ [client fetchUserRepos], [client fetchOrgRepos] ]] 
+subscribeCompleted:^{
+    NSLog(@"They're both done!");
+}];
+</code></pre>
+
+<p>```</p>
+
+<p>Signals can be chained to sequentially execute asynchronous operations, instead
+of nesting callbacks with blocks. This is similar to how <a href="http://en.wikipedia.org/wiki/Futures_and_promises">futures and promises</a>
+are usually used:</p>
+
+<p>```objc
+// Log in the user, then load any cached messages, then fetch the remaining
+// messages from the server. After that&rsquo;s all done, log a message to the
+// console.
+//
+// The hypothetical -logInUser methods returns a signal that completes after
+// logging in.
+//
+// -flattenMap: will execute its block whenever the signal sends a value, and
+// return a new RACSignal that merges all of the signals returned from the block
+// into a single signal.
+[[[[client logInUser]</p>
+
+<pre><code>flattenMap:^(User *user) {
+    // Return a signal that loads cached messages for the user.
+    return [client loadCachedMessagesForUser:user];
+}]
+flattenMap:^(NSArray *messages) {
+    // Return a signal that fetches any remaining messages.
+    return [client fetchMessagesAfterMessage:messages.lastObject];
+}]
+subscribeCompleted:^{
+    NSLog(@"Fetched all messages.");
+}];
+</code></pre>
+
+<p>```</p>
+
+<p>RAC even makes it easy to bind to the result of an asynchronous operation:</p>
+
+<p>```objc
+// Create a one-way binding so that self.imageView.image will be set the user&rsquo;s
+// avatar as soon as it&rsquo;s downloaded.
+//
+// The hypothetical -fetchUserWithUsername: method returns a signal which sends
+// the user.
+//
+// -deliverOn: creates new signals that will do their work on other queues. In
+// this example, it&rsquo;s used to move work to a background queue and then back to the main thread.
+//
+// -map: calls its block with each user that&rsquo;s fetched and returns a new
+// RACSignal that sends values returned from the block.
+RAC(self.imageView.image) = [[[[client fetchUserWithUsername:@&ldquo;joshaber&rdquo;]</p>
+
+<pre><code>deliverOn:[RACScheduler scheduler]]
+map:^(User *user) {
+    // Download the avatar (this is done on a background queue).
+    return [[NSImage alloc] initWithContentsOfURL:user.avatarURL];
+}]
+// Now the assignment will be done on the main thread.
+deliverOn:RACScheduler.mainThreadScheduler];
+</code></pre>
+
+<p>```</p>
+
+<p>That demonstrates some of what RAC can do, but it doesn&rsquo;t demonstrate why RAC is
+so powerful. It&rsquo;s hard to appreciate RAC from README-sized examples, but it
+makes it possible to write code with less state, less boilerplate, better code
+locality, and better expression of intent.</p>
+
+<p>For more sample code, check out the <a href="[https://github.com/ReactiveCocoa/GHAPIDemo](https://github.com/ReactiveCocoa/GHAPIDemo)">Mac</a> or <a href="[https://github.com/ReactiveCocoa/RACiOSDemo](https://github.com/ReactiveCocoa/RACiOSDemo)">iOS</a> demos.
+Additional information about RAC can be found in the <a href="Documentation">Documentation</a> folder.</p>
+
+<h2>Foundation Support</h2>
+
+<p>There are a number of categories that provide RAC-based bridges to standard
+Foundation classes. They&rsquo;re not included as part of the framework proper in
+order to keep the framework size down.</p>
+
+<p>You can find them in <a href="RACExtensions">RACExtensions</a>. To use them, simply add them directly to
+your project as needed.</p>
+
+<h2>License</h2>
+
+<p>ReactiveCocoa is available under the <a href="LICENSE.md">MIT License</a>.</p>
+
+<h2>More Info</h2>
+
+<p>ReactiveCocoa is based on .NET&rsquo;s ~!@<a href="http://msdn.microsoft.com/en-us/data/gg577609">Reactive
+Extensions</a>@!~ (Rx). Most of the
+principles of Rx apply to RAC as well. There are some really good Rx resources
+out there:</p>
+
+<ul>
+<li><a href="http://msdn.microsoft.com/en-us/library/hh242985.aspx">Reactive Extensions MSDN entry</a></li>
+<li><a href="http://leecampbell.blogspot.com/2010/08/reactive-extensions-for-net.html">Reactive Extensions for .NET Introduction</a></li>
+<li><a href="http://channel9.msdn.com/tags/Rx/">Rx &ndash; Channel 9 videos</a></li>
+<li><a href="http://rxwiki.wikidot.com/">Reactive Extensions wiki</a></li>
+<li><a href="http://rxwiki.wikidot.com/101samples">101 Rx Samples</a></li>
+<li><a href="http://www.amazon.com/Programming-Reactive-Extensions-Jesse-Liberty/dp/1430237473">Programming Reactive Extensions and LINQ</a></li>
+</ul>
+
+						
+						
+					</div>
+					
+                        
+                    
+					
+					
+					<div class="index-column">
+						<h2 class="index-title">Class References</h2>
+						<ul>
+							
+							<li><a href="Classes/RACArraySequence.html">RACArraySequence</a></li>
+							
+							<li><a href="Classes/RACBacktrace.html">RACBacktrace</a></li>
+							
+							<li><a href="Classes/RACBehaviorSubject.html">RACBehaviorSubject</a></li>
+							
+							<li><a href="Classes/RACBinding.html">RACBinding</a></li>
+							
+							<li><a href="Classes/RACBlockTrampoline.html">RACBlockTrampoline</a></li>
+							
+							<li><a href="Classes/RACCommand.html">RACCommand</a></li>
+							
+							<li><a href="Classes/RACCompoundDisposable.html">RACCompoundDisposable</a></li>
+							
+							<li><a href="Classes/RACDelegateProxy.html">RACDelegateProxy</a></li>
+							
+							<li><a href="Classes/RACDisposable.html">RACDisposable</a></li>
+							
+							<li><a href="Classes/RACDynamicSequence.html">RACDynamicSequence</a></li>
+							
+							<li><a href="Classes/RACEagerSequence.html">RACEagerSequence</a></li>
+							
+							<li><a href="Classes/RACEmptySequence.html">RACEmptySequence</a></li>
+							
+							<li><a href="Classes/RACEvent.html">RACEvent</a></li>
+							
+							<li><a href="Classes/RACEventTrampoline.html">RACEventTrampoline</a></li>
+							
+							<li><a href="Classes/RACGroupedSignal.html">RACGroupedSignal</a></li>
+							
+							<li><a href="Classes/RACImmediateScheduler.html">RACImmediateScheduler</a></li>
+							
+							<li><a href="Classes/RACKVOTrampoline.html">RACKVOTrampoline</a></li>
+							
+							<li><a href="Classes/RACMulticastConnection.html">RACMulticastConnection</a></li>
+							
+							<li><a href="Classes/RACObjCRuntime.html">RACObjCRuntime</a></li>
+							
+							<li><a href="Classes/RACObservablePropertySubject.html">RACObservablePropertySubject</a></li>
+							
+							<li><a href="Classes/RACPropertySubject.html">RACPropertySubject</a></li>
+							
+							<li><a href="Classes/RACQueueScheduler.html">RACQueueScheduler</a></li>
+							
+							<li><a href="Classes/RACReplaySubject.html">RACReplaySubject</a></li>
+							
+							<li><a href="Classes/RACScheduler.html">RACScheduler</a></li>
+							
+							<li><a href="Classes/RACScopedDisposable.html">RACScopedDisposable</a></li>
+							
+							<li><a href="Classes/RACSequence.html">RACSequence</a></li>
+							
+							<li><a href="Classes/RACSignal.html">RACSignal</a></li>
+							
+							<li><a href="Classes/RACSignalSequence.html">RACSignalSequence</a></li>
+							
+							<li><a href="Classes/RACStream.html">RACStream</a></li>
+							
+							<li><a href="Classes/RACStringSequence.html">RACStringSequence</a></li>
+							
+							<li><a href="Classes/RACSubject.html">RACSubject</a></li>
+							
+							<li><a href="Classes/RACSubscriber.html">RACSubscriber</a></li>
+							
+							<li><a href="Classes/RACSubscriptingAssignmentObjectKeyPathPair.html">RACSubscriptingAssignmentObjectKeyPathPair</a></li>
+							
+							<li><a href="Classes/RACSubscriptingAssignmentTrampoline.html">RACSubscriptingAssignmentTrampoline</a></li>
+							
+							<li><a href="Classes/RACSubscriptionScheduler.html">RACSubscriptionScheduler</a></li>
+							
+							<li><a href="Classes/RACTuple.html">RACTuple</a></li>
+							
+							<li><a href="Classes/RACTupleNil.html">RACTupleNil</a></li>
+							
+							<li><a href="Classes/RACTupleUnpackingTrampoline.html">RACTupleUnpackingTrampoline</a></li>
+							
+							<li><a href="Classes/RACUnit.html">RACUnit</a></li>
+							
+							<li><a href="Classes/RACValueTransformer.html">RACValueTransformer</a></li>
+							
+						</ul>
+					</div>
+					
+					
+						
+					<div class="index-column">
+						
+						<h2 class="index-title">Protocol References</h2>
+						<ul>
+							
+							<li><a href="Protocols/RACSubscriber.html">RACSubscriber</a></li>
+							
+						</ul>
+						
+						
+						<h2 class="index-title">Category References</h2>
+						<ul>
+							
+							<li><a href="Categories/NSArray+RACSequenceAdditions.html">NSArray(RACSequenceAdditions)</a></li>
+							
+							<li><a href="Categories/NSData+RACSupport.html">NSData(RACSupport)</a></li>
+							
+							<li><a href="Categories/NSDictionary+RACSequenceAdditions.html">NSDictionary(RACSequenceAdditions)</a></li>
+							
+							<li><a href="Categories/NSEnumerator+RACSequenceAdditions.html">NSEnumerator(RACSequenceAdditions)</a></li>
+							
+							<li><a href="Categories/NSFileHandle+RACSupport.html">NSFileHandle(RACSupport)</a></li>
+							
+							<li><a href="Categories/NSInvocation+RACTypeParsing.html">NSInvocation(RACTypeParsing)</a></li>
+							
+							<li><a href="Categories/NSNotificationCenter+RACSupport.html">NSNotificationCenter(RACSupport)</a></li>
+							
+							<li><a href="Categories/NSObject+RACKVOWrapper.html">NSObject(RACKVOWrapper)</a></li>
+							
+							<li><a href="Categories/NSObject+RACKVOWrapperPrivate.html">NSObject(RACKVOWrapperPrivate)</a></li>
+							
+							<li><a href="Categories/NSObject+RACLifting.html">NSObject(RACLifting)</a></li>
+							
+							<li><a href="Categories/NSObject+RACObservablePropertySubject.html">NSObject(RACObservablePropertySubject)</a></li>
+							
+							<li><a href="Categories/NSObject+RACPropertySubscribing.html">NSObject(RACPropertySubscribing)</a></li>
+							
+							<li><a href="Categories/NSOrderedSet+RACSequenceAdditions.html">NSOrderedSet(RACSequenceAdditions)</a></li>
+							
+							<li><a href="Categories/NSSet+RACSequenceAdditions.html">NSSet(RACSequenceAdditions)</a></li>
+							
+							<li><a href="Categories/NSString+RACSequenceAdditions.html">NSString(RACSequenceAdditions)</a></li>
+							
+							<li><a href="Categories/NSString+RACSupport.html">NSString(RACSupport)</a></li>
+							
+							<li><a href="Categories/UIControl+RACSignalSupport.html">UIControl(RACSignalSupport)</a></li>
+							
+							<li><a href="Categories/UITextField+RACSignalSupport.html">UITextField(RACSignalSupport)</a></li>
+							
+							<li><a href="Categories/UITextView+RACSignalSupport.html">UITextView(RACSignalSupport)</a></li>
+							
+						</ul>
+						
+					</div>
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Josh Abernathy. All rights reserved. (Last updated: 2013-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+	
+					</div>
+				</div>
+			</div>
+		</article>		
+	</body>
+</html>

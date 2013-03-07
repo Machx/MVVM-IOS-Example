@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACKVOTrampoline.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACKVOTrampoline</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACKVOTrampoline.h</DeclaredIn>
+			
+			<NodeRef refid="17"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACKVOTrampoline/initWithTarget:observer:keyPath:options:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACKVOTrampoline.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithTarget:(NSObject *)target observer:(NSObject *)observer keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(RACKVOBlock)block</Declaration>
+			
+			
+			<Anchor>//api/name/initWithTarget:observer:keyPath:options:block:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACKVOTrampoline/stopObserving</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACKVOTrampoline.h</DeclaredIn>			
+			
+			<Declaration>- (void)stopObserving</Declaration>
+			
+			
+			<Anchor>//api/name/stopObserving</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACBinding.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACBinding</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBinding.h</DeclaredIn>
+			
+			<NodeRef refid="4"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACBinding/bindTo:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBinding.h</DeclaredIn>			
+			
+			<Declaration>- (RACDisposable *)bindTo:(RACBinding *)binding</Declaration>
+			
+			
+			<Anchor>//api/name/bindTo:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACBinding/initWithSignal:subscriber:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBinding+Private.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)initWithSignal:(RACSignal *)signal subscriber:(id&lt;RACSubscriber&gt;)subscriber</Declaration>
+			
+			
+			<Anchor>//api/name/initWithSignal:subscriber:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACScheduler.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACScheduler</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>
+			
+			<NodeRef refid="24"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACScheduler/immediateScheduler</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)immediateScheduler</Declaration>
+			
+			
+			<Anchor>//api/name/immediateScheduler</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACScheduler/mainThreadScheduler</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)mainThreadScheduler</Declaration>
+			
+			
+			<Anchor>//api/name/mainThreadScheduler</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACScheduler/schedulerWithPriority:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)schedulerWithPriority:(RACSchedulerPriority)priority</Declaration>
+			
+			
+			<Anchor>//api/name/schedulerWithPriority:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACScheduler/scheduler</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)scheduler</Declaration>
+			
+			
+			<Anchor>//api/name/scheduler</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACScheduler/currentScheduler</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)currentScheduler</Declaration>
+			
+			
+			<Anchor>//api/name/currentScheduler</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACScheduler/schedule:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>- (RACDisposable *)schedule:(void ( ^ ) ( void ))block</Declaration>
+			
+			
+			<Anchor>//api/name/schedule:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACScheduler/after:schedule:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>- (RACDisposable *)after:(dispatch_time_t)when schedule:(void ( ^ ) ( void ))block</Declaration>
+			
+			
+			<Anchor>//api/name/after:schedule:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACScheduler/scheduleRecursiveBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler.h</DeclaredIn>			
+			
+			<Declaration>- (RACDisposable *)scheduleRecursiveBlock:(RACSchedulerRecursiveBlock)recursiveBlock</Declaration>
+			
+			
+			<Anchor>//api/name/scheduleRecursiveBlock:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACScheduler/subscriptionScheduler</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler+Private.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)subscriptionScheduler</Declaration>
+			
+			
+			<Anchor>//api/name/subscriptionScheduler</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACScheduler/initWithName:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACScheduler+Private.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithName:(NSString *)name</Declaration>
+			
+			
+			<Anchor>//api/name/initWithName:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

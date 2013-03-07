@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACTuple.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACTuple</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>
+			
+			<NodeRef refid="36"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setCount:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) NSUInteger count</Declaration>
+			
+			
+			<Anchor>//api/name/count</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/count</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) NSUInteger count</Declaration>
+			
+			
+			<Anchor>//api/name/count</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setFirst:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id first</Declaration>
+			
+			
+			<Anchor>//api/name/first</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/first</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id first</Declaration>
+			
+			
+			<Anchor>//api/name/first</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setSecond:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id second</Declaration>
+			
+			
+			<Anchor>//api/name/second</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/second</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id second</Declaration>
+			
+			
+			<Anchor>//api/name/second</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setThird:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id third</Declaration>
+			
+			
+			<Anchor>//api/name/third</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/third</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id third</Declaration>
+			
+			
+			<Anchor>//api/name/third</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setFourth:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id fourth</Declaration>
+			
+			
+			<Anchor>//api/name/fourth</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/fourth</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id fourth</Declaration>
+			
+			
+			<Anchor>//api/name/fourth</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setFifth:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id fifth</Declaration>
+			
+			
+			<Anchor>//api/name/fifth</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/fifth</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id fifth</Declaration>
+			
+			
+			<Anchor>//api/name/fifth</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setLast:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id last</Declaration>
+			
+			
+			<Anchor>//api/name/last</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/last</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, readonly) id last</Declaration>
+			
+			
+			<Anchor>//api/name/last</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACTuple/tupleWithObjectsFromArray:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)tupleWithObjectsFromArray:(NSArray *)array</Declaration>
+			
+			
+			<Anchor>//api/name/tupleWithObjectsFromArray:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACTuple/tupleWithObjectsFromArray:convertNullsToNils:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)tupleWithObjectsFromArray:(NSArray *)array convertNullsToNils:(BOOL)convert</Declaration>
+			
+			
+			<Anchor>//api/name/tupleWithObjectsFromArray:convertNullsToNils:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACTuple/tupleWithObjects:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)tupleWithObjects:(id)object, ...</Declaration>
+			
+			
+			<Anchor>//api/name/tupleWithObjects:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/objectAtIndex:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>- (id)objectAtIndex:(NSUInteger)index</Declaration>
+			
+			
+			<Anchor>//api/name/objectAtIndex:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/allObjects</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>- (NSArray *)allObjects</Declaration>
+			
+			
+			<Anchor>//api/name/allObjects</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/tupleByAddingObject:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)tupleByAddingObject:(id)obj</Declaration>
+			
+			
+			<Anchor>//api/name/tupleByAddingObject:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/objectAtIndexedSubscript:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>- (id)objectAtIndexedSubscript:(NSUInteger)idx</Declaration>
+			
+			
+			<Anchor>//api/name/objectAtIndexedSubscript:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACTuple/setRac_sequence:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *rac_sequence</Declaration>
+			
+			
+			<Anchor>//api/name/rac_sequence</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACTuple/rac_sequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACTuple.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) RACSequence *rac_sequence</Declaration>
+			
+			
+			<Anchor>//api/name/rac_sequence</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

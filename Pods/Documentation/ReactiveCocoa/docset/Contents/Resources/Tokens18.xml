@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACMulticastConnection.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACMulticastConnection</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACMulticastConnection.h</DeclaredIn>
+			
+			<NodeRef refid="18"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACMulticastConnection/setSignal:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACMulticastConnection.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) RACSignal *signal</Declaration>
+			
+			
+			<Anchor>//api/name/signal</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACMulticastConnection/signal</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACMulticastConnection.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) RACSignal *signal</Declaration>
+			
+			
+			<Anchor>//api/name/signal</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACMulticastConnection/connect</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACMulticastConnection.h</DeclaredIn>			
+			
+			<Declaration>- (RACDisposable *)connect</Declaration>
+			
+			
+			<Anchor>//api/name/connect</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACMulticastConnection/autoconnect</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACMulticastConnection.h</DeclaredIn>			
+			
+			<Declaration>- (RACSignal *)autoconnect</Declaration>
+			
+			
+			<Anchor>//api/name/autoconnect</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACMulticastConnection/initWithSourceSignal:subject:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACMulticastConnection+Private.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithSourceSignal:(RACSignal *)source subject:(RACSubject *)subject</Declaration>
+			
+			
+			<Anchor>//api/name/initWithSourceSignal:subject:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACBacktrace.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACBacktrace</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACBacktrace/setPreviousThreadBacktrace:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) RACBacktrace *previousThreadBacktrace</Declaration>
+			
+			
+			<Anchor>//api/name/previousThreadBacktrace</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACBacktrace/previousThreadBacktrace</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, strong, readonly) RACBacktrace *previousThreadBacktrace</Declaration>
+			
+			
+			<Anchor>//api/name/previousThreadBacktrace</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACBacktrace/setCallStackSymbols:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSArray *callStackSymbols</Declaration>
+			
+			
+			<Anchor>//api/name/callStackSymbols</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACBacktrace/callStackSymbols</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>			
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSArray *callStackSymbols</Declaration>
+			
+			
+			<Anchor>//api/name/callStackSymbols</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACBacktrace/captureBacktrace</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)captureBacktrace</Declaration>
+			
+			
+			<Anchor>//api/name/captureBacktrace</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACBacktrace/captureBacktraceIgnoringFrames:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)captureBacktraceIgnoringFrames:(NSUInteger)ignoreCount</Declaration>
+			
+			
+			<Anchor>//api/name/captureBacktraceIgnoringFrames:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACBacktrace/printBacktrace</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACBacktrace.h</DeclaredIn>			
+			
+			<Declaration>+ (void)printBacktrace</Declaration>
+			
+			
+			<Anchor>//api/name/printBacktrace</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

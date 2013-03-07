@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACCommand.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACCommand</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>
+			
+			<NodeRef refid="6"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCommand/setCanExecute:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>@property (atomic, readonly) BOOL canExecute</Declaration>
+			
+			
+			<Anchor>//api/name/canExecute</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACCommand/canExecute</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>@property (atomic, readonly) BOOL canExecute</Declaration>
+			
+			
+			<Anchor>//api/name/canExecute</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCommand/setAllowsConcurrentExecution:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>@property (atomic) BOOL allowsConcurrentExecution</Declaration>
+			
+			
+			<Anchor>//api/name/allowsConcurrentExecution</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACCommand/allowsConcurrentExecution</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>@property (atomic) BOOL allowsConcurrentExecution</Declaration>
+			
+			
+			<Anchor>//api/name/allowsConcurrentExecution</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCommand/setExecuting:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>@property (atomic, getter=isExecuting, readonly) BOOL executing</Declaration>
+			
+			
+			<Anchor>//api/name/executing</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/RACCommand/executing</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>@property (atomic, getter=isExecuting, readonly) BOOL executing</Declaration>
+			
+			
+			<Anchor>//api/name/executing</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACCommand/command</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)command</Declaration>
+			
+			
+			<Anchor>//api/name/command</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACCommand/commandWithCanExecuteSignal:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)commandWithCanExecuteSignal:(RACSignal *)canExecuteSignal</Declaration>
+			
+			
+			<Anchor>//api/name/commandWithCanExecuteSignal:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCommand/initWithCanExecuteSignal:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>- (id)initWithCanExecuteSignal:(RACSignal *)canExecuteSignal</Declaration>
+			
+			
+			<Anchor>//api/name/initWithCanExecuteSignal:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCommand/addSignalBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>- (RACSignal *)addSignalBlock:(RACSignal *( ^ ) ( id sender ))signalBlock</Declaration>
+			
+			
+			<Anchor>//api/name/addSignalBlock:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/RACCommand/execute:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACCommand.h</DeclaredIn>			
+			
+			<Declaration>- (BOOL)execute:(id)sender</Declaration>
+			
+			
+			<Anchor>//api/name/execute:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

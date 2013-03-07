@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACUnit.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACUnit</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACUnit.h</DeclaredIn>
+			
+			<NodeRef refid="39"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/RACUnit/defaultUnit</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACUnit.h</DeclaredIn>			
+			
+			<Declaration>+ (RACUnit *)defaultUnit</Declaration>
+			
+			
+			<Anchor>//api/name/defaultUnit</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

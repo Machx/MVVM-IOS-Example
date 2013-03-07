@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/RACEmptySequence.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/RACEmptySequence</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>RACEmptySequence.h</DeclaredIn>
+			
+			<NodeRef refid="12"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSObject+RACPropertySubscribing.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSObject(RACPropertySubscribing)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACPropertySubscribing.h</DeclaredIn>
+			
+			<NodeRef refid="52"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(RACPropertySubscribing)/rac_signalFor:keyPath:observer:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACPropertySubscribing.h</DeclaredIn>			
+			
+			<Declaration>+ (RACSignal *)rac_signalFor:(NSObject *)object keyPath:(NSString *)keyPath observer:(NSObject *)observer</Declaration>
+			
+			
+			<Anchor>//api/name/rac_signalFor:keyPath:observer:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(RACPropertySubscribing)/rac_signalForKeyPath:observer:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACPropertySubscribing.h</DeclaredIn>			
+			
+			<Declaration>- (RACSignal *)rac_signalForKeyPath:(NSString *)keyPath observer:(NSObject *)observer</Declaration>
+			
+			
+			<Anchor>//api/name/rac_signalForKeyPath:observer:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(RACPropertySubscribing)/rac_deriveProperty:from:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACPropertySubscribing.h</DeclaredIn>			
+			
+			<Declaration>- (RACDisposable *)rac_deriveProperty:(NSString *)keyPath from:(RACSignal *)signal</Declaration>
+			
+			
+			<Anchor>//api/name/rac_deriveProperty:from:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSObject(RACPropertySubscribing)/rac_addDeallocDisposable:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>NSObject+RACPropertySubscribing.h</DeclaredIn>			
+			
+			<Declaration>- (void)rac_addDeallocDisposable:(RACDisposable *)disposable</Declaration>
+			
+			
+			<Anchor>//api/name/rac_addDeallocDisposable:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

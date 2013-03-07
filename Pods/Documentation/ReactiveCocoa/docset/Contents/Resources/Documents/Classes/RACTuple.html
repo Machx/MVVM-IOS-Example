@@ -1,0 +1,625 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>RACTuple Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">ReactiveCocoa 1.0.0 </a></h1>
+				<a id="developerHome" href="../index.html">Josh Abernathy</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">RACTuple Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/count">&nbsp;&nbsp;&nbsp;&nbsp;count</option>
+	
+	<option value="//api/name/fifth">&nbsp;&nbsp;&nbsp;&nbsp;fifth</option>
+	
+	<option value="//api/name/first">&nbsp;&nbsp;&nbsp;&nbsp;first</option>
+	
+	<option value="//api/name/fourth">&nbsp;&nbsp;&nbsp;&nbsp;fourth</option>
+	
+	<option value="//api/name/last">&nbsp;&nbsp;&nbsp;&nbsp;last</option>
+	
+	<option value="//api/name/rac_sequence">&nbsp;&nbsp;&nbsp;&nbsp;rac_sequence</option>
+	
+	<option value="//api/name/second">&nbsp;&nbsp;&nbsp;&nbsp;second</option>
+	
+	<option value="//api/name/third">&nbsp;&nbsp;&nbsp;&nbsp;third</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/tupleWithObjects:">&nbsp;&nbsp;&nbsp;&nbsp;+ tupleWithObjects:</option>
+	
+	<option value="//api/name/tupleWithObjectsFromArray:">&nbsp;&nbsp;&nbsp;&nbsp;+ tupleWithObjectsFromArray:</option>
+	
+	<option value="//api/name/tupleWithObjectsFromArray:convertNullsToNils:">&nbsp;&nbsp;&nbsp;&nbsp;+ tupleWithObjectsFromArray:convertNullsToNils:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/allObjects">&nbsp;&nbsp;&nbsp;&nbsp;- allObjects</option>
+	
+	<option value="//api/name/objectAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- objectAtIndex:</option>
+	
+	<option value="//api/name/objectAtIndexedSubscript:">&nbsp;&nbsp;&nbsp;&nbsp;- objectAtIndexedSubscript:</option>
+	
+	<option value="//api/name/tupleByAddingObject:">&nbsp;&nbsp;&nbsp;&nbsp;- tupleByAddingObject:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_ObjectSubscripting Methods">ObjectSubscripting Methods</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_RACSequenceAdditions Methods">RACSequenceAdditions Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/count">count</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fifth">fifth</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/first">first</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fourth">fourth</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/last">last</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/rac_sequence">rac_sequence</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/second">second</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/third">third</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tupleWithObjects:">tupleWithObjects:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tupleWithObjectsFromArray:">tupleWithObjectsFromArray:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tupleWithObjectsFromArray:convertNullsToNils:">tupleWithObjectsFromArray:convertNullsToNils:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allObjects">allObjects</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectAtIndex:">objectAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectAtIndexedSubscript:">objectAtIndexedSubscript:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tupleByAddingObject:">tupleByAddingObject:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="RACTuple Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">RACTuple Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSCoding<br />NSCopying<br />NSFastEnumeration</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">RACTuple.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/count">&nbsp;&nbsp;count</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/first">&nbsp;&nbsp;first</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/second">&nbsp;&nbsp;second</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/third">&nbsp;&nbsp;third</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fourth">&nbsp;&nbsp;fourth</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fifth">&nbsp;&nbsp;fifth</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/last">&nbsp;&nbsp;last</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/tupleWithObjectsFromArray:">+&nbsp;tupleWithObjectsFromArray:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/tupleWithObjectsFromArray:convertNullsToNils:">+&nbsp;tupleWithObjectsFromArray:convertNullsToNils:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/tupleWithObjects:">+&nbsp;tupleWithObjects:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectAtIndex:">&ndash;&nbsp;objectAtIndex:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/allObjects">&ndash;&nbsp;allObjects</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/tupleByAddingObject:">&ndash;&nbsp;tupleByAddingObject:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="ObjectSubscripting Methods" name="task_ObjectSubscripting Methods"></a>
+						<h3 class="subsubtitle task-title">ObjectSubscripting Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectAtIndexedSubscript:">&ndash;&nbsp;objectAtIndexedSubscript:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="RACSequenceAdditions Methods" name="task_RACSequenceAdditions Methods"></a>
+						<h3 class="subsubtitle task-title">RACSequenceAdditions Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/rac_sequence">&nbsp;&nbsp;rac_sequence</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/count" title="count"></a>
+	<h3 class="subsubtitle method-title">count</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSUInteger count</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/fifth" title="fifth"></a>
+	<h3 class="subsubtitle method-title">fifth</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) id fifth</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/first" title="first"></a>
+	<h3 class="subsubtitle method-title">first</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) id first</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/fourth" title="fourth"></a>
+	<h3 class="subsubtitle method-title">fourth</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) id fourth</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/last" title="last"></a>
+	<h3 class="subsubtitle method-title">last</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) id last</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/rac_sequence" title="rac_sequence"></a>
+	<h3 class="subsubtitle method-title">rac_sequence</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) RACSequence *rac_sequence</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/second" title="second"></a>
+	<h3 class="subsubtitle method-title">second</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) id second</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/third" title="third"></a>
+	<h3 class="subsubtitle method-title">third</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) id third</code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/tupleWithObjects:" title="tupleWithObjects:"></a>
+	<h3 class="subsubtitle method-title">tupleWithObjects:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)tupleWithObjects:(id)<em>object</em>, <em>...</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/tupleWithObjectsFromArray:" title="tupleWithObjectsFromArray:"></a>
+	<h3 class="subsubtitle method-title">tupleWithObjectsFromArray:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)tupleWithObjectsFromArray:(NSArray *)<em>array</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/tupleWithObjectsFromArray:convertNullsToNils:" title="tupleWithObjectsFromArray:convertNullsToNils:"></a>
+	<h3 class="subsubtitle method-title">tupleWithObjectsFromArray:convertNullsToNils:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)tupleWithObjectsFromArray:(NSArray *)<em>array</em> convertNullsToNils:(BOOL)<em>convert</em></code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/allObjects" title="allObjects"></a>
+	<h3 class="subsubtitle method-title">allObjects</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (NSArray *)allObjects</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectAtIndex:" title="objectAtIndex:"></a>
+	<h3 class="subsubtitle method-title">objectAtIndex:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)objectAtIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectAtIndexedSubscript:" title="objectAtIndexedSubscript:"></a>
+	<h3 class="subsubtitle method-title">objectAtIndexedSubscript:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)objectAtIndexedSubscript:(NSUInteger)<em>idx</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/tupleByAddingObject:" title="tupleByAddingObject:"></a>
+	<h3 class="subsubtitle method-title">tupleByAddingObject:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)tupleByAddingObject:(id)<em>obj</em></code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Josh Abernathy. All rights reserved. (Last updated: 2013-03-04)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

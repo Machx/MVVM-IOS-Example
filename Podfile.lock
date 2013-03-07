@@ -1,0 +1,41 @@
+
+COCOAPODS: 0.16.1
+
+DEPENDENCIES: 
+- Expecta
+- ReactiveCocoa
+- Specta
+
+PODS: 
+- Expecta (0.2.1)
+- JRSwizzle (1.0)
+- ReactiveCocoa (1.0.0): 
+  - ReactiveCocoa/Core (= 1.0.0)
+  - ReactiveCocoa/RACExtensions (= 1.0.0)
+- ReactiveCocoa/Core (1.0.0): 
+  - JRSwizzle (~> 1.0)
+  - libextobjc/EXTConcreteProtocol (~> 0.2.5)
+  - libextobjc/EXTKeyPathCoding (~> 0.2.5)
+  - libextobjc/EXTScope (~> 0.2.5)
+- ReactiveCocoa/RACExtensions (1.0.0): 
+  - ReactiveCocoa/Core
+- Specta (0.1.8)
+- libextobjc/EXTConcreteProtocol (0.2.5): 
+  - libextobjc/RuntimeExtensions
+- libextobjc/EXTKeyPathCoding (0.2.5): 
+  - libextobjc/RuntimeExtensions
+- libextobjc/EXTScope (0.2.5): 
+  - libextobjc/RuntimeExtensions
+- libextobjc/RuntimeExtensions (0.2.5)
+
+SPEC CHECKSUMS: 
+  libextobjc/EXTScope: 2cbc74caf8bdc74a86fdf24673f773c83424ea98
+  ReactiveCocoa: bde72a9123e7bd565d06d677d8ad79b18971aec7
+  JRSwizzle: 6242ff38485d870fc2636899048ee1ab883ae587
+  libextobjc/EXTConcreteProtocol: 2cbc74caf8bdc74a86fdf24673f773c83424ea98
+  ReactiveCocoa/RACExtensions: bde72a9123e7bd565d06d677d8ad79b18971aec7
+  Expecta: d46fb1bd78c90a83da0158b9b1e108de106e369f
+  libextobjc/RuntimeExtensions: 2cbc74caf8bdc74a86fdf24673f773c83424ea98
+  ReactiveCocoa/Core: bde72a9123e7bd565d06d677d8ad79b18971aec7
+  libextobjc/EXTKeyPathCoding: 2cbc74caf8bdc74a86fdf24673f773c83424ea98
+  Specta: cf47ef9f8c3ae15a9d59ee5e74d2b560900d2249
