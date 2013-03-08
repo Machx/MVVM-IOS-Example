@@ -52,10 +52,8 @@ static NSUInteger const kMaxUploads = 5;
 	RAC(self.scoreStepper.minimumValue) = RACAbleWithStart(self.viewModel.minPoints);
 	//bind the hidden field to a signal keeping track if
 	//we've updated less than a certain number times as the view model specifies
-	RAC(self.scoreStepper.hidden) = [RACSignal
-									  combineLatest:@[RACAble(self.scoreUpdates)]
-									  reduce:^id(NSNumber *x){
-										  return @(x.intValue >= self.viewModel.maxPointUpdates);
+	RAC(self.scoreStepper.hidden) = [RACAble(self.scoreUpdates) map:^id(NSNumber *x) {
+		return @(x.intValue >= bself.viewModel.maxPointUpdates);
 	}];
 	
 	//only take the maxPointUpdates number of score updates
