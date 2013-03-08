@@ -1,5 +1,5 @@
 #MVVM iOS Example
-This is the accompanying source code to an article I wrote to demonstrate a basic MVVM implementation.
+This is the accompanying source code to an [article I wrote to demonstrate a basic MVVM implementation](http://cocoasamurai.blogspot.com/2013/03/basic-mvvm-with-reactivecocoa.html). ReactiveCocoa and its dependencies are all self contained within this project.
 
 ##License
 This source code is made available under the MIT License.
