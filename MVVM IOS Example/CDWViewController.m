@@ -30,11 +30,13 @@ static NSUInteger const kMaxUploads = 5;
 	//Create the View Model
 	self.viewModel = [CDWPlayerViewModel new];
 	
+	__weak CDWViewController *bself = self;
+	
 	//Start Binding our properties
 	RAC(self.nameField.text) = [RACAbleWithStart(self.viewModel.playerName) distinctUntilChanged];
 	
 	[[self.nameField.rac_textSignal distinctUntilChanged] subscribeNext:^(NSString *x) {
-		self.viewModel.playerName = x;
+		bself.viewModel.playerName = x;
 	}];
 	
 	//the score property is a double, RC gives us updates as NSNumber which we just call
@@ -58,8 +60,8 @@ static NSUInteger const kMaxUploads = 5;
 	
 	//only take the maxPointUpdates number of score updates
 	[[RACAble(self.scoreStepper.value) take:self.viewModel.maxPointUpdates] subscribeNext:^(id newPoints) {
-		self.viewModel.points = [newPoints doubleValue];
-		self.scoreUpdates++;
+		bself.viewModel.points = [newPoints doubleValue];
+		bself.scoreUpdates++;
 	}];
 	
 	//this signal should only trigger if we have "bad words" in our name
@@ -70,7 +72,7 @@ static NSUInteger const kMaxUploads = 5;
 											  cancelButtonTitle:@"Ok"
 											  otherButtonTitles:nil];
 		[alert show];
-		self.viewModel.playerName = @"";
+		bself.viewModel.playerName = @"";
 	}];
 	
 	//let the upload(save) button only be enabled when the view model says its valid
@@ -87,9 +89,9 @@ static NSUInteger const kMaxUploads = 5;
 	//only allows 5 updates
 	[[[[self.uploadButton rac_signalForControlEvents:UIControlEventTouchUpInside]
 	   skip:(kMaxUploads - 1)] take:1] subscribeNext:^(id x) {
-		self.nameField.enabled = NO;
-		self.scoreStepper.hidden = YES;
-		self.uploadButton.hidden = YES;
+		bself.nameField.enabled = NO;
+		bself.scoreStepper.hidden = YES;
+		bself.uploadButton.hidden = YES;
 	}];
 }
 
