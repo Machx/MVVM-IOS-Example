@@ -51,6 +51,7 @@
 }
 
 -(IBAction)uploadData:(id)sender {
+	__block CDWPlayerViewModel *bself = self;
 	[[RACScheduler scheduler] schedule:^{
 		sleep(1);
 		//pretend we are uploading to a server on a backround thread...
@@ -58,9 +59,9 @@
 		//upload player & points...
 		
 		[[RACScheduler mainThreadScheduler] schedule:^{
-			NSString *msg = [NSString stringWithFormat:@"Updated %@ with %.0f points",self.playerName,self.points];
+			NSString *msg = [NSString stringWithFormat:@"Updated %@ with %.0f points",bself.playerName,bself.points];
 			
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Successfull" message:msg delegate:self
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Successfull" message:msg delegate:nil
 												  cancelButtonTitle:@"ok" otherButtonTitles:nil];
 			[alert show];
 		}];
@@ -68,8 +69,9 @@
 }
 
 -(RACSignal *)forbiddenNameSignal {
+	__block CDWPlayerViewModel *bself = self;
 	return [RACAble(self.playerName) filter:^BOOL(NSString *newName) {
-		return [self.forbiddenNames containsObject:newName];
+		return [bself.forbiddenNames containsObject:newName];
 	}];
 }
 
