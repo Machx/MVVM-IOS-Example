@@ -66,7 +66,7 @@ static NSUInteger const kMaxUploads = 5;
 	[self.viewModel.forbiddenNameSignal subscribeNext:^(NSString *name) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Forbidden Name!"
 														message:[NSString stringWithFormat:@"The name %@ has been forbidden!",name]
-													   delegate:self
+													   delegate:nil
 											  cancelButtonTitle:@"Ok"
 											  otherButtonTitles:nil];
 		[alert show];
