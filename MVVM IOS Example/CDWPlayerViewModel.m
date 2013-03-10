@@ -80,7 +80,9 @@
 	return [RACSignal
 			combineLatest:@[ RACAbleWithStart(self.playerName), RACAbleWithStart(self.points) ]
 			reduce:^id(NSString *name, NSNumber *playerPoints){
-				return @((name.length > 0) && (![bself.forbiddenNames containsObject:name]) && (playerPoints.doubleValue >= bself.minPoints));
+				return @((name.length > 0) &&
+				(![bself.forbiddenNames containsObject:name]) &&
+				(playerPoints.doubleValue >= bself.minPoints));
 			}];
 }
 
