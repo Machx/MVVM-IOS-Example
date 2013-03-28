@@ -31,12 +31,16 @@ static NSUInteger const kMaxUploads = 5;
 	//Create the View Model
 	self.viewModel = [CDWPlayerViewModel new];
 	
+	//using with @strongify(self) this makes sure that self isn't retained in the blocks
+	//this is declared int libextobjc's EXTScope.h file
 	@weakify(self);
 	
 	//Start Binding our properties
 	RAC(self.nameField.text) = [RACAbleWithStart(self.viewModel.playerName) distinctUntilChanged];
 	
 	[[self.nameField.rac_textSignal distinctUntilChanged] subscribeNext:^(NSString *x) {
+		//this creates a reference to self that when used with @weakify(self);
+		//makes sure self isn't retained
 		@strongify(self);
 		self.viewModel.playerName = x;
 	}];

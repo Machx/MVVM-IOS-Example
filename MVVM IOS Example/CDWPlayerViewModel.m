@@ -52,6 +52,8 @@
 }
 
 -(IBAction)uploadData:(id)sender {
+	//using with @strongify(self) this makes sure that self isn't retained in the blocks
+	//this is declared int libextobjc's EXTScope.h file
 	@weakify(self);
 	[[RACScheduler scheduler] schedule:^{
 		sleep(1);
@@ -60,6 +62,8 @@
 		//upload player & points...
 		
 		[[RACScheduler mainThreadScheduler] schedule:^{
+			//this creates a reference to weak self ( @weakify(self); )
+			//makes sure self isn't retained
 			@strongify(self);
 			NSString *msg = [NSString stringWithFormat:@"Updated %@ with %.0f points",self.playerName,self.points];
 			
