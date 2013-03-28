@@ -8,6 +8,7 @@
 
 #import "CDWViewController.h"
 #import "CDWPlayerViewModel.h"
+#import <libextobjc/EXTScope.h>
 
 @interface CDWViewController ()
 @property(nonatomic,retain) CDWPlayerViewModel *viewModel;
@@ -30,13 +31,14 @@ static NSUInteger const kMaxUploads = 5;
 	//Create the View Model
 	self.viewModel = [CDWPlayerViewModel new];
 	
-	__weak CDWViewController *bself = self;
+	@weakify(self);
 	
 	//Start Binding our properties
 	RAC(self.nameField.text) = [RACAbleWithStart(self.viewModel.playerName) distinctUntilChanged];
 	
 	[[self.nameField.rac_textSignal distinctUntilChanged] subscribeNext:^(NSString *x) {
-		bself.viewModel.playerName = x;
+		@strongify(self);
+		self.viewModel.playerName = x;
 	}];
 	
 	//the score property is a double, RC gives us updates as NSNumber which we just call
@@ -53,24 +55,27 @@ static NSUInteger const kMaxUploads = 5;
 	//bind the hidden field to a signal keeping track if
 	//we've updated less than a certain number times as the view model specifies
 	RAC(self.scoreStepper.hidden) = [RACAble(self.scoreUpdates) map:^id(NSNumber *x) {
+		@strongify(self);
 		return @(x.intValue >= bself.viewModel.maxPointUpdates);
 	}];
 	
 	//only take the maxPointUpdates number of score updates
 	[[RACAble(self.scoreStepper.value) take:self.viewModel.maxPointUpdates] subscribeNext:^(id newPoints) {
-		bself.viewModel.points = [newPoints doubleValue];
-		bself.scoreUpdates++;
+		@strongify(self);
+		self.viewModel.points = [newPoints doubleValue];
+		self.scoreUpdates++;
 	}];
 	
 	//this signal should only trigger if we have "bad words" in our name
 	[self.viewModel.forbiddenNameSignal subscribeNext:^(NSString *name) {
+		@strongify(self);
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Forbidden Name!"
 														message:[NSString stringWithFormat:@"The name %@ has been forbidden!",name]
 													   delegate:nil
 											  cancelButtonTitle:@"Ok"
 											  otherButtonTitles:nil];
 		[alert show];
-		bself.viewModel.playerName = @"";
+		self.viewModel.playerName = @"";
 	}];
 	
 	//let the upload(save) button only be enabled when the view model says its valid
@@ -87,9 +92,10 @@ static NSUInteger const kMaxUploads = 5;
 	//only allows 5 updates
 	[[[[self.uploadButton rac_signalForControlEvents:UIControlEventTouchUpInside]
 	   skip:(kMaxUploads - 1)] take:1] subscribeNext:^(id x) {
-		bself.nameField.enabled = NO;
-		bself.scoreStepper.hidden = YES;
-		bself.uploadButton.hidden = YES;
+		@strongify(self);
+		self.nameField.enabled = NO;
+		self.scoreStepper.hidden = YES;
+		self.uploadButton.hidden = YES;
 	}];
 }
 
