@@ -56,7 +56,7 @@ static NSUInteger const kMaxUploads = 5;
 	//we've updated less than a certain number times as the view model specifies
 	RAC(self.scoreStepper.hidden) = [RACAble(self.scoreUpdates) map:^id(NSNumber *x) {
 		@strongify(self);
-		return @(x.intValue >= bself.viewModel.maxPointUpdates);
+		return @(x.intValue >= self.viewModel.maxPointUpdates);
 	}];
 	
 	//only take the maxPointUpdates number of score updates
