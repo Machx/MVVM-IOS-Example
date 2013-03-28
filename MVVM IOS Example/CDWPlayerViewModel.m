@@ -7,6 +7,7 @@
 //
 
 #import "CDWPlayerViewModel.h"
+#import <libextobjc/EXTScope.h>
 
 @interface CDWPlayerViewModel ()
 @property(nonatomic, retain) NSArray *forbiddenNames;
@@ -51,7 +52,7 @@
 }
 
 -(IBAction)uploadData:(id)sender {
-	__block CDWPlayerViewModel *bself = self;
+	@weakify(self);
 	[[RACScheduler scheduler] schedule:^{
 		sleep(1);
 		//pretend we are uploading to a server on a backround thread...
@@ -59,7 +60,8 @@
 		//upload player & points...
 		
 		[[RACScheduler mainThreadScheduler] schedule:^{
-			NSString *msg = [NSString stringWithFormat:@"Updated %@ with %.0f points",bself.playerName,bself.points];
+			@strongify(self);
+			NSString *msg = [NSString stringWithFormat:@"Updated %@ with %.0f points",self.playerName,self.points];
 			
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Successfull" message:msg delegate:nil
 												  cancelButtonTitle:@"ok" otherButtonTitles:nil];
@@ -69,20 +71,22 @@
 }
 
 -(RACSignal *)forbiddenNameSignal {
-	__block CDWPlayerViewModel *bself = self;
+	@weakify(self);
 	return [RACAble(self.playerName) filter:^BOOL(NSString *newName) {
-		return [bself.forbiddenNames containsObject:newName];
+		@strongify(self);
+		return [self.forbiddenNames containsObject:newName];
 	}];
 }
 
 -(RACSignal *)modelIsValidSignal {
-	__block CDWPlayerViewModel *bself = self;
+	@weakify(self);
 	return [RACSignal
 			combineLatest:@[ RACAbleWithStart(self.playerName), RACAbleWithStart(self.points) ]
 			reduce:^id(NSString *name, NSNumber *playerPoints){
+				@strongify(self);
 				return @((name.length > 0) &&
-				(![bself.forbiddenNames containsObject:name]) &&
-				(playerPoints.doubleValue >= bself.minPoints));
+				(![self.forbiddenNames containsObject:name]) &&
+				(playerPoints.doubleValue >= self.minPoints));
 			}];
 }
 
