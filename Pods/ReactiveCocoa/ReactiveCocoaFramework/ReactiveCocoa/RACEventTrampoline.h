@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/RACSubject.h>
 
-extern const char *RACEventTrampolinesKey;
-
+@class RACEventTrampoline;
 @class RACDelegateProxy;
+
+// Associates a RACEventTrampoline with the given object in order to retain the
+// trampoline for the lifetime of the object.
+void RACAddEventTrampoline(id object, RACEventTrampoline *trampoline);
 
 @interface RACEventTrampoline : NSObject {
     SEL delegateMethod;
@@ -20,6 +23,9 @@ extern const char *RACEventTrampolinesKey;
 
 + (instancetype)trampolineForControl:(UIControl *)control controlEvents:(UIControlEvents)controlEvents;
 + (instancetype)trampolineForTextView:(UITextView *)textView delegateMethod:(SEL)method;
+
+// Returns an event trampoline for the given gesture.
++ (instancetype)trampolineForGestureRecognizer:(UIGestureRecognizer *)gesture;
 
 - (void)didGetControlEvent:(id)sender;
 - (void)didGetDelegateEvent:(SEL)delegateMethod sender:(id)sender;

@@ -4,6 +4,7 @@
 #import "EXPUnsupportedObject.h"
 #import "EXPMatcher.h"
 #import "EXPBlockDefinedMatcher.h"
+#import <libkern/OSAtomic.h>
 
 @implementation EXPExpect
 
@@ -34,6 +35,12 @@
     self.fileName = fileName;
   }
   return self;
+}
+
+- (void)dealloc
+{
+  self.actualBlock = nil;
+  [super dealloc];
 }
 
 + (EXPExpect *)expectWithActualBlock:(id)actualBlock testCase:(id)testCase lineNumber:(int)lineNumber fileName:(char *)fileName {
@@ -100,6 +107,7 @@
             break;
           }
           [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+          OSMemoryBarrier();
           *actual = self.actual;
         }
       } else {
@@ -184,9 +192,9 @@
 {
   __block id blockExpectation = _expectation;
 
-  return [^{
+  return [[^{
     [blockExpectation applyMatcher:self];
-  } copy];
+  } copy] autorelease];
 }
 
 @end

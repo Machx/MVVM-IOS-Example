@@ -7,6 +7,7 @@
 //
 
 #import "RACStream.h"
+#import "NSObject+RACDescription.h"
 #import "RACBlockTrampoline.h"
 #import "RACTuple.h"
 
@@ -48,7 +49,7 @@
 
 - (instancetype)setNameWithFormat:(NSString *)format, ... {
 #ifdef DEBUG
-	NSParameterAssert(format != nil);
+	NSCParameterAssert(format != nil);
 
 	va_list args;
 	va_start(args, format);
@@ -77,13 +78,13 @@
 - (instancetype)flatten {
 	__weak RACStream *stream __attribute__((unused)) = self;
 	return [[self flattenMap:^(id value) {
-		NSAssert([value isKindOfClass:RACStream.class], @"Stream %@ being flattened contains an object that is not a stream: %@", stream, value);
+		NSCAssert([value isKindOfClass:RACStream.class], @"Stream %@ being flattened contains an object that is not a stream: %@", stream, value);
 		return value;
 	}] setNameWithFormat:@"[%@] -flatten", self.name];
 }
 
 - (instancetype)map:(id (^)(id value))block {
-	NSParameterAssert(block != nil);
+	NSCParameterAssert(block != nil);
 
 	Class class = self.class;
 	
@@ -95,11 +96,11 @@
 - (instancetype)mapReplace:(id)object {
 	return [[self map:^(id _) {
 		return object;
-	}] setNameWithFormat:@"[%@] -mapReplace: %@", self.name, object];
+	}] setNameWithFormat:@"[%@] -mapReplace: %@", self.name, [object rac_description]];
 }
 
 - (instancetype)mapPreviousWithStart:(id)start combine:(id (^)(id previous, id next))combineBlock {
-	NSParameterAssert(combineBlock != NULL);
+	NSCParameterAssert(combineBlock != NULL);
 	return [[[self
 		scanWithStart:[RACTuple tupleWithObjects:start, nil]
 		combine:^(RACTuple *previousTuple, id next) {
@@ -109,11 +110,11 @@
 		map:^(RACTuple *tuple) {
 			return tuple[1];
 		}]
-		setNameWithFormat:@"[%@] -mapPreviousWithStart: %@ combine:", self.name, start];
+		setNameWithFormat:@"[%@] -mapPreviousWithStart: %@ combine:", self.name, [start rac_description]];
 }
 
 - (instancetype)filter:(BOOL (^)(id value))block {
-	NSParameterAssert(block != nil);
+	NSCParameterAssert(block != nil);
 
 	Class class = self.class;
 	
@@ -126,12 +127,18 @@
 	}] setNameWithFormat:@"[%@] -filter:", self.name];
 }
 
+- (instancetype)ignore:(id)value {
+	return [[self filter:^ BOOL (id innerValue) {
+		return innerValue != value && ![innerValue isEqual:value];
+	}] setNameWithFormat:@"[%@] -ignore: %@", self.name, [value rac_description]];
+}
+
 - (instancetype)reduceEach:(id)reduceBlock {
-	NSParameterAssert(reduceBlock != nil);
+	NSCParameterAssert(reduceBlock != nil);
 
 	__weak RACStream *stream __attribute__((unused)) = self;
 	return [[self map:^(RACTuple *t) {
-		NSAssert([t isKindOfClass:RACTuple.class], @"Value from stream %@ is not a tuple: %@", stream, t);
+		NSCAssert([t isKindOfClass:RACTuple.class], @"Value from stream %@ is not a tuple: %@", stream, t);
 		return [RACBlockTrampoline invokeBlock:reduceBlock withArguments:t];
 	}] setNameWithFormat:@"[%@] -reduceEach:", self.name];
 }
@@ -139,7 +146,7 @@
 - (instancetype)startWith:(id)value {
 	return [[[self.class return:value]
 		concat:self]
-		setNameWithFormat:@"[%@] -startWith: %@", self.name, value];
+		setNameWithFormat:@"[%@] -startWith: %@", self.name, [value rac_description]];
 }
 
 - (instancetype)skip:(NSUInteger)skipCount {
@@ -175,7 +182,7 @@
 }
 
 - (instancetype)sequenceMany:(RACStream * (^)(void))block {
-	NSParameterAssert(block != NULL);
+	NSCParameterAssert(block != NULL);
 
 	return [[self flattenMap:^(id _) {
 		return block();
@@ -226,7 +233,7 @@
 }
 
 + (instancetype)zip:(id<NSFastEnumeration>)streams reduce:(id)reduceBlock {
-	NSParameterAssert(reduceBlock != nil);
+	NSCParameterAssert(reduceBlock != nil);
 
 	RACStream *result = [self zip:streams];
 
@@ -248,7 +255,7 @@
 }
 
 - (instancetype)scanWithStart:(id)startingValue combine:(id (^)(id running, id next))block {
-	NSParameterAssert(block != nil);
+	NSCParameterAssert(block != nil);
 
 	Class class = self.class;
 	
@@ -259,11 +266,11 @@
 			running = block(running, value);
 			return [class return:running];
 		};
-	}] setNameWithFormat:@"[%@] -scanWithStart: %@ combine:", self.name, startingValue];
+	}] setNameWithFormat:@"[%@] -scanWithStart: %@ combine:", self.name, [startingValue rac_description]];
 }
 
 - (instancetype)takeUntilBlock:(BOOL (^)(id x))predicate {
-	NSParameterAssert(predicate != nil);
+	NSCParameterAssert(predicate != nil);
 
 	Class class = self.class;
 	
@@ -277,7 +284,7 @@
 }
 
 - (instancetype)takeWhileBlock:(BOOL (^)(id x))predicate {
-	NSParameterAssert(predicate != nil);
+	NSCParameterAssert(predicate != nil);
 
 	return [[self takeUntilBlock:^ BOOL (id x) {
 		return !predicate(x);
@@ -285,7 +292,7 @@
 }
 
 - (instancetype)skipUntilBlock:(BOOL (^)(id x))predicate {
-	NSParameterAssert(predicate != nil);
+	NSCParameterAssert(predicate != nil);
 
 	Class class = self.class;
 	
@@ -307,7 +314,7 @@
 }
 
 - (instancetype)skipWhileBlock:(BOOL (^)(id x))predicate {
-	NSParameterAssert(predicate != nil);
+	NSCParameterAssert(predicate != nil);
 
 	return [[self skipUntilBlock:^ BOOL (id x) {
 		return !predicate(x);

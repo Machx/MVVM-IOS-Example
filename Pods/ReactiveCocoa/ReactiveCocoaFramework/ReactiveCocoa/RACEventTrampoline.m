@@ -12,7 +12,17 @@
 #import "RACDelegateProxy.h"
 #import <objc/runtime.h>
 
-const char *RACEventTrampolinesKey = "RACEventTrampolinesKey";
+static void *RACEventTrampolinesKey = &RACEventTrampolinesKey;
+
+void RACAddEventTrampoline(id object, RACEventTrampoline *trampoline) {
+	NSMutableSet *eventTrampolines = objc_getAssociatedObject(object, RACEventTrampolinesKey);
+	if (eventTrampolines == nil) {
+		eventTrampolines = [NSMutableSet set];
+		objc_setAssociatedObject(object, RACEventTrampolinesKey, eventTrampolines, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	}
+
+	[eventTrampolines addObject:trampoline];
+}
 
 static NSMutableDictionary *swizzledClasses() {
 	static dispatch_once_t onceToken;
@@ -46,13 +56,19 @@ static NSMutableDictionary *swizzledClasses() {
 
 @implementation RACEventTrampoline
 
-@synthesize subject;
 @synthesize proxy;
 @synthesize delegateMethod;
 
 + (instancetype)trampolineForControl:(UIControl *)control controlEvents:(UIControlEvents)controlEvents {
 	RACEventTrampoline *trampoline = [[self alloc] init];
 	[control addTarget:trampoline action:@selector(didGetControlEvent:) forControlEvents:controlEvents];
+	return trampoline;
+}
+
++ (instancetype)trampolineForGestureRecognizer:(UIGestureRecognizer *)gesture {
+	RACEventTrampoline *trampoline = [[self alloc] init];
+	[gesture addTarget:trampoline action:@selector(didGetControlEvent:)];
+
 	return trampoline;
 }
 
@@ -81,6 +97,10 @@ static NSMutableDictionary *swizzledClasses() {
     }
     
     return trampoline;
+}
+
+- (void)dealloc {
+	[_subject sendCompleted];
 }
 
 - (id)init {

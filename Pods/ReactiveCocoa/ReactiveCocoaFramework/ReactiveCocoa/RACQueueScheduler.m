@@ -24,7 +24,7 @@
 }
 
 - (id)initWithName:(NSString *)name targetQueue:(dispatch_queue_t)targetQueue {
-	NSParameterAssert(targetQueue != NULL);
+	NSCParameterAssert(targetQueue != NULL);
 
 	_queue = dispatch_queue_create(name.UTF8String, DISPATCH_QUEUE_SERIAL);
 	if (_queue == nil) return nil;
@@ -41,7 +41,7 @@ static void currentSchedulerRelease(void *context) {
 }
 
 - (void)performAsCurrentScheduler:(void (^)(void))block {
-	NSParameterAssert(block != NULL);
+	NSCParameterAssert(block != NULL);
 
 	dispatch_queue_set_specific(self.queue, RACSchedulerCurrentSchedulerKey, (void *)CFBridgingRetain(self), currentSchedulerRelease);
 	block();
@@ -51,33 +51,29 @@ static void currentSchedulerRelease(void *context) {
 #pragma mark RACScheduler
 
 - (RACDisposable *)schedule:(void (^)(void))block {
-	NSParameterAssert(block != NULL);
+	NSCParameterAssert(block != NULL);
 
-	__block volatile uint32_t disposed = 0;
+	RACDisposable *disposable = [[RACDisposable alloc] init];
 
 	dispatch_async(self.queue, ^{
-		if (disposed != 0) return;
+		if (disposable.disposed) return;
 		[self performAsCurrentScheduler:block];
 	});
 
-	return [RACDisposable disposableWithBlock:^{
-		OSAtomicOr32Barrier(1, &disposed);
-	}];
+	return disposable;
 }
 
 - (RACDisposable *)after:(dispatch_time_t)when schedule:(void (^)(void))block {
-	NSParameterAssert(block != NULL);
+	NSCParameterAssert(block != NULL);
 
-	__block volatile uint32_t disposed = 0;
+	RACDisposable *disposable = [[RACDisposable alloc] init];
 
 	dispatch_after(when, self.queue, ^{
-		if (disposed != 0) return;
+		if (disposable.disposed) return;
 		[self performAsCurrentScheduler:block];
 	});
 
-	return [RACDisposable disposableWithBlock:^{
-		OSAtomicOr32Barrier(1, &disposed);
-	}];
+	return disposable;
 }
 
 @end

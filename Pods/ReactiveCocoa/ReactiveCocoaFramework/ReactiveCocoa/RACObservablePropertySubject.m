@@ -7,16 +7,19 @@
 //
 
 #import "RACObservablePropertySubject.h"
+#import "EXTScope.h"
+#import "NSObject+RACDeallocating.h"
+#import "NSObject+RACDescription.h"
+#import "NSObject+RACKVOWrapper.h"
+#import "NSObject+RACPropertySubscribing.h"
+#import "NSString+RACKeyPathUtilities.h"
 #import "RACBinding.h"
 #import "RACDisposable.h"
+#import "RACKVOTrampoline.h"
 #import "RACSignal+Private.h"
 #import "RACSubject.h"
 #import "RACSwizzling.h"
 #import "RACTuple.h"
-#import "NSObject+RACKVOWrapper.h"
-#import "NSObject+RACPropertySubscribing.h"
-#import "EXTScope.h"
-#import "RACKVOTrampoline.h"
 
 // Name of exceptions thrown by RACKVOBinding when an object calls
 // -didChangeValueForKey: without a corresponding -willChangeValueForKey:.
@@ -29,7 +32,7 @@ static NSString * const RACKVOBindingExceptionBindingKey = @"RACKVOBindingExcept
 @interface RACObservablePropertySubject ()
 
 // The object whose key path the RACObservablePropertySubject is wrapping.
-@property (nonatomic, readonly, weak) id target;
+@property (atomic, unsafe_unretained) id target;
 
 // The key path the RACObservablePropertySubject is wrapping.
 @property (nonatomic, readonly, copy) NSString *keyPath;
@@ -51,7 +54,7 @@ static NSString * const RACKVOBindingExceptionBindingKey = @"RACKVOBindingExcept
 + (instancetype)bindingWithTarget:(id)target keyPath:(NSString *)keyPath;
 
 // The object whose key path the binding is wrapping.
-@property (nonatomic, readonly, weak) id target;
+@property (atomic, unsafe_unretained) id target;
 
 // The key path the binding is wrapping.
 @property (nonatomic, readonly, copy) NSString *keyPath;
@@ -136,12 +139,15 @@ static NSString * const RACKVOBindingExceptionBindingKey = @"RACKVOBindingExcept
 		@strongify(binding);
 		[subscriber sendNext:[binding.target valueForKeyPath:binding.keyPath]];
 		return [binding.exposedSignalSubject subscribe:subscriber];
-	}] setNameWithFormat:@"[+propertyWithTarget: %@ keyPath: %@] -binding", target, keyPath];
+	}] setNameWithFormat:@"[+propertyWithTarget: %@ keyPath: %@] -binding", [target rac_description], keyPath];
 	binding->_exposedSignalSubject = [RACSubject subject];
 	
 	binding->_exposedSubscriberSubject = [RACSubject subject];
 	[binding->_exposedSubscriberSubject subscribeNext:^(id x) {
 		@strongify(binding);
+		if (binding.keyPath.rac_keyPathComponents.count > 1 && [binding.target valueForKeyPath:binding.keyPath.rac_keyPathByDeletingLastKeyPathComponent] == nil) {
+			return;
+		}
 		binding.ignoreNextUpdate = YES;
 		[binding.target setValue:x forKeyPath:binding.keyPath];
 	}];
@@ -154,7 +160,9 @@ static NSString * const RACKVOBindingExceptionBindingKey = @"RACKVOBindingExcept
 			[binding targetDidChangeValue];
 		}
 	}];
+
 	[target rac_addDeallocDisposable:[RACDisposable disposableWithBlock:^{
+		@strongify(binding);
 		[binding dispose];
 	}]];
 	
@@ -178,12 +186,14 @@ static NSString * const RACKVOBindingExceptionBindingKey = @"RACKVOBindingExcept
 }
 
 - (void)dispose {
+	self.target = nil;
+
 	@synchronized(self) {
 		if (self.disposed) return;
 		self.disposed = YES;
 		[self.exposedSignalSubject sendCompleted];
 		[self.exposedSubscriberSubject sendCompleted];
-		[self.observer stopObserving];
+		[self.observer dispose];
 	}
 }
 
@@ -225,21 +235,28 @@ static NSString * const RACKVOBindingExceptionBindingKey = @"RACKVOBindingExcept
 	property->_keyPath = [keyPath copy];
 	
 	@weakify(property);
+
 	property->_exposedSignal = [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		@strongify(property);
 		[subscriber sendNext:[property.target valueForKeyPath:keyPath]];
 		return [[property.target rac_signalForKeyPath:property.keyPath observer:property] subscribe:subscriber];
-	}] setNameWithFormat:@"+propertyWithTarget: %@ keyPath: %@", target, keyPath];
+	}] setNameWithFormat:@"+propertyWithTarget: %@ keyPath: %@", [target rac_description], keyPath];
+
 	property->_exposedSubscriber = [RACSubscriber subscriberWithNext:^(id x) {
 		@strongify(property);
 		[property.target setValue:x forKeyPath:property.keyPath];
 	} error:^(NSError *error) {
 		@strongify(property);
-		NSAssert(NO, @"Received error in RACObservablePropertySubject for key path \"%@\" on %@: %@", property.keyPath, property.target, error);
+		NSCAssert(NO, @"Received error in RACObservablePropertySubject for key path \"%@\" on %@: %@", property.keyPath, property.target, error);
 		
 		// Log the error if we're running with assertions disabled.
 		NSLog(@"Received error in binding for key path \"%@\" on %@: %@", property.keyPath, property.target, error);
 	} completed:nil];
+
+	[target rac_addDeallocDisposable:[RACDisposable disposableWithBlock:^{
+		@strongify(property);
+		property.target = nil;
+	}]];
 	
 	return property;
 }

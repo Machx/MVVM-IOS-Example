@@ -1,4 +1,6 @@
 #import "SpectaUtility.h"
+#import "SPTSenTestCase.h"
+#import <objc/runtime.h>
 
 // http://clang.llvm.org/docs/Block-ABI-Apple.html
 struct SPT_Block_literal_1 {
@@ -38,11 +40,24 @@ const char *SPT_getBlockSignature(id blockObject) {
 
     if(flags & SPT_BLOCK_HAS_COPY_DISPOSE) {
       signaturePtr += sizeof(void(*)(void *dst, void *src)); // skip copy_helper
-      signaturePtr += sizeof(void(*)(void *dst, void *src)); // skip dispose_helper
+      signaturePtr += sizeof(void(*)(void *src)); // skip dispose_helper
     }
 
     return *(const char **)signaturePtr;
   }
 
   return NULL;
+}
+
+BOOL SPT_IsSpecClass(Class aClass)
+{
+  Class superclass = class_getSuperclass(aClass);
+  while (superclass != Nil) {
+    if (superclass == [SPTSenTestCase class]) {
+      return YES;
+    } else {
+      superclass = class_getSuperclass(superclass);
+    }
+  }
+  return NO;
 }

@@ -7,11 +7,13 @@
 //
 
 #import "RACSignal.h"
+#import "NSObject+RACDescription.h"
 #import "EXTScope.h"
 #import "RACBehaviorSubject.h"
 #import "RACBlockTrampoline.h"
 #import "RACCompoundDisposable.h"
 #import "RACDisposable.h"
+#import "RACPassthroughSubscriber.h"
 #import "RACReplaySubject.h"
 #import "RACScheduler+Private.h"
 #import "RACScheduler.h"
@@ -20,25 +22,43 @@
 #import "RACSubject.h"
 #import "RACSubscriber.h"
 #import "RACTuple.h"
+#import "RACMulticastConnection.h"
 #import <libkern/OSAtomic.h>
 
-static NSMutableSet *activeSignals() {
-	static dispatch_once_t onceToken;
-	static NSMutableSet *activeSignal = nil;
-	dispatch_once(&onceToken, ^{
-		activeSignal = [[NSMutableSet alloc] init];
-	});
-	
-	return activeSignal;
+// Retains signals while they wait for subscriptions.
+//
+// This set must only be used while synchronized on `RACActiveSignalsLock`.
+static NSMutableSet *RACActiveSignals = nil;
+
+// Protects access to `RACActiveSignals`.
+static NSLock *RACActiveSignalsLock = nil;
+
+@interface RACSignal () {
+	// Contains all subscribers to the receiver.
+	//
+	// All access to this array must be synchronized using `_subscribersLock`.
+	NSMutableArray *_subscribers;
+
+	// Synchronizes access to `_subscribers`.
+	OSSpinLock _subscribersLock;
 }
 
-@interface RACSignal ()
-@property (assign, getter = isTearingDown) BOOL tearingDown;
+@property (nonatomic, copy) RACDisposable * (^didSubscribe)(id<RACSubscriber> subscriber);
+
 @end
 
 @implementation RACSignal
 
 #pragma mark Lifecycle
+
++ (void)initialize {
+	if (self != RACSignal.class) return;
+
+	RACActiveSignalsLock = [[NSLock alloc] init];
+	RACActiveSignalsLock.name = @"RACActiveSignalsLock";
+
+	RACActiveSignals = [[NSMutableSet alloc] init];
+}
 
 + (RACSignal *)createSignal:(RACDisposable * (^)(id<RACSubscriber> subscriber))didSubscribe {
 	RACSignal *signal = [[RACSignal alloc] init];
@@ -79,7 +99,7 @@ static NSMutableSet *activeSignals() {
 }
 
 + (RACSignal *)startWithScheduler:(RACScheduler *)scheduler subjectBlock:(void (^)(RACSubject *subject))block {
-	NSParameterAssert(block != NULL);
+	NSCParameterAssert(block != NULL);
 
 	RACReplaySubject *subject = [[RACReplaySubject subject] setNameWithFormat:@"+startWithScheduler:subjectBlock:"];
 
@@ -90,17 +110,37 @@ static NSMutableSet *activeSignals() {
 	return subject;
 }
 
++ (RACSignal *)startLazilyWithScheduler:(RACScheduler *)scheduler block:(void (^)(id<RACSubscriber> subscriber))block {
+	NSCParameterAssert(scheduler != nil);
+	NSCParameterAssert(block != NULL);
+
+	RACMulticastConnection *connection = [[RACSignal
+		createSignal:^ id (id<RACSubscriber> subscriber) {
+			block(subscriber);
+			return nil;
+		}]
+		multicast:[RACReplaySubject subject]];
+	
+	return [[[RACSignal
+		createSignal:^ id (id<RACSubscriber> subscriber) {
+			[connection.signal subscribe:subscriber];
+			[connection connect];
+			return nil;
+		}]
+		subscribeOn:scheduler]
+		setNameWithFormat:@"+startLazilyWithScheduler:%@ block:", scheduler];
+}
+
 - (instancetype)init {
 	self = [super init];
 	if (self == nil) return nil;
 	
 	// We want to keep the signal around until all its subscribers are done
-	@synchronized (activeSignals()) {
-		[activeSignals() addObject:self];
-	}
+	[RACActiveSignalsLock lock];
+	[RACActiveSignals addObject:self];
+	[RACActiveSignalsLock unlock];
 	
-	self.tearingDown = NO;
-	self.subscribers = [NSMutableArray array];
+	_subscribers = [[NSMutableArray alloc] init];
 	
 	// As soon as we're created we're already trying to be released. Such is life.
 	[self invalidateGlobalRefIfNoNewSubscribersShowUp];
@@ -109,45 +149,38 @@ static NSMutableSet *activeSignals() {
 }
 
 - (void)invalidateGlobalRef {
-	@synchronized (activeSignals()) {
-		[activeSignals() removeObject:self];
-	}
+	[RACActiveSignalsLock lock];
+	[RACActiveSignals removeObject:self];
+	[RACActiveSignalsLock unlock];
 }
 
 - (void)invalidateGlobalRefIfNoNewSubscribersShowUp {
 	// If no one subscribed in one pass of the main run loop, then we're free to
 	// go. It's up to the caller to keep us alive if they still want us.
-	[RACScheduler.mainThreadScheduler schedule:^{
-		BOOL hasSubscribers = YES;
-		@synchronized(self.subscribers) {
-			hasSubscribers = self.subscribers.count > 0;
-		}
-
-		if (!hasSubscribers) {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		if (self.subscriberCount == 0) {
 			[self invalidateGlobalRef];
 		}
-	}];
-}
-
-- (void)tearDown {
-	self.tearingDown = YES;
-	
-	@synchronized (self.subscribers) {
-		[self.subscribers removeAllObjects];
-	}
-	
-	[self invalidateGlobalRef];
+	});
 }
 
 #pragma mark Managing Subscribers
 
+- (NSUInteger)subscriberCount {
+	OSSpinLockLock(&_subscribersLock);
+	NSUInteger count = _subscribers.count;
+	OSSpinLockUnlock(&_subscribersLock);
+
+	return count;
+}
+
 - (void)performBlockOnEachSubscriber:(void (^)(id<RACSubscriber> subscriber))block {
-	NSParameterAssert(block != NULL);
+	NSCParameterAssert(block != NULL);
 
 	NSArray *currentSubscribers = nil;
-	@synchronized (self.subscribers) {
-		currentSubscribers = [self.subscribers copy];
-	}
+	OSSpinLockLock(&_subscribersLock);
+	currentSubscribers = [_subscribers copy];
+	OSSpinLockUnlock(&_subscribersLock);
 	
 	for (id<RACSubscriber> subscriber in currentSubscribers) {
 		block(subscriber);
@@ -176,11 +209,11 @@ static NSMutableSet *activeSignals() {
 		[subscriber sendNext:value];
 		[subscriber sendCompleted];
 		return nil;
-	}] setNameWithFormat:@"+return: %@", value];
+	}] setNameWithFormat:@"+return: %@", [value rac_description]];
 }
 
 - (RACSignal *)bind:(RACStreamBindBlock (^)(void))block {
-	NSParameterAssert(block != NULL);
+	NSCParameterAssert(block != NULL);
 
 	/*
 	 * -bind: should:
@@ -274,30 +307,24 @@ static NSMutableSet *activeSignals() {
 
 - (RACSignal *)concat:(RACSignal *)signal {
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
-		__block RACDisposable *concattedDisposable = nil;
+		RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
+
 		RACDisposable *sourceDisposable = [self subscribeNext:^(id x) {
 			[subscriber sendNext:x];
 		} error:^(NSError *error) {
 			[subscriber sendError:error];
 		} completed:^{
-			concattedDisposable = [signal subscribe:[RACSubscriber subscriberWithNext:^(id x) {
-				[subscriber sendNext:x];
-			} error:^(NSError *error) {
-				[subscriber sendError:error];
-			} completed:^{
-				[subscriber sendCompleted];
-			}]];
+			RACDisposable *concattedDisposable = [signal subscribe:subscriber];
+			if (concattedDisposable != nil) [disposable addDisposable:concattedDisposable];
 		}];
-		
-		return [RACDisposable disposableWithBlock:^{
-			[sourceDisposable dispose];
-			[concattedDisposable dispose];
-		}];
+
+		if (sourceDisposable != nil) [disposable addDisposable:sourceDisposable];
+		return disposable;
 	}] setNameWithFormat:@"[%@] -concat: %@", self.name, signal];
 }
 
 - (RACSignal *)zipWith:(RACSignal *)signal {
-	NSParameterAssert(signal != nil);
+	NSCParameterAssert(signal != nil);
 
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
 		RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
@@ -371,32 +398,34 @@ static NSMutableSet *activeSignals() {
 @implementation RACSignal (Subscription)
 
 - (RACDisposable *)subscribe:(id<RACSubscriber>)subscriber {
-	NSParameterAssert(subscriber != nil);
+	NSCParameterAssert(subscriber != nil);
+
+	RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
+	subscriber = [[RACPassthroughSubscriber alloc] initWithSubscriber:subscriber disposable:disposable];
 	
-	@synchronized (self.subscribers) {
-		[self.subscribers addObject:subscriber];
-	}
+	OSSpinLockLock(&_subscribersLock);
+	[_subscribers addObject:subscriber];
+	OSSpinLockUnlock(&_subscribersLock);
 	
 	@weakify(self, subscriber);
 	RACDisposable *defaultDisposable = [RACDisposable disposableWithBlock:^{
 		@strongify(self, subscriber);
-
-		// If the disposal is happening because the signal's being torn down, we
-		// don't need to duplicate the invalidation.
-		if (self.tearingDown) return;
+		if (self == nil) return;
 
 		BOOL stillHasSubscribers = YES;
-		@synchronized (self.subscribers) {
-			[self.subscribers removeObject:subscriber];
-			stillHasSubscribers = self.subscribers.count > 0;
-		}
+
+		OSSpinLockLock(&_subscribersLock);
+		[_subscribers removeObjectIdenticalTo:subscriber];
+		stillHasSubscribers = _subscribers.count > 0;
+		OSSpinLockUnlock(&_subscribersLock);
 		
 		if (!stillHasSubscribers) {
 			[self invalidateGlobalRefIfNoNewSubscribersShowUp];
 		}
 	}];
 
-	RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposableWithDisposables:@[ defaultDisposable ]];
+	[disposable addDisposable:defaultDisposable];
+
 	if (self.didSubscribe != NULL) {
 		RACDisposable *schedulingDisposable = [RACScheduler.subscriptionScheduler schedule:^{
 			RACDisposable *innerDisposable = self.didSubscribe(subscriber);
@@ -412,54 +441,54 @@ static NSMutableSet *activeSignals() {
 }
 
 - (RACDisposable *)subscribeNext:(void (^)(id x))nextBlock {
-	NSParameterAssert(nextBlock != NULL);
+	NSCParameterAssert(nextBlock != NULL);
 	
 	RACSubscriber *o = [RACSubscriber subscriberWithNext:nextBlock error:NULL completed:NULL];
 	return [self subscribe:o];
 }
 
 - (RACDisposable *)subscribeNext:(void (^)(id x))nextBlock completed:(void (^)(void))completedBlock {
-	NSParameterAssert(nextBlock != NULL);
-	NSParameterAssert(completedBlock != NULL);
+	NSCParameterAssert(nextBlock != NULL);
+	NSCParameterAssert(completedBlock != NULL);
 	
 	RACSubscriber *o = [RACSubscriber subscriberWithNext:nextBlock error:NULL completed:completedBlock];
 	return [self subscribe:o];
 }
 
 - (RACDisposable *)subscribeNext:(void (^)(id x))nextBlock error:(void (^)(NSError *error))errorBlock completed:(void (^)(void))completedBlock {
-	NSParameterAssert(nextBlock != NULL);
-	NSParameterAssert(errorBlock != NULL);
-	NSParameterAssert(completedBlock != NULL);
+	NSCParameterAssert(nextBlock != NULL);
+	NSCParameterAssert(errorBlock != NULL);
+	NSCParameterAssert(completedBlock != NULL);
 	
 	RACSubscriber *o = [RACSubscriber subscriberWithNext:nextBlock error:errorBlock completed:completedBlock];
 	return [self subscribe:o];
 }
 
 - (RACDisposable *)subscribeError:(void (^)(NSError *error))errorBlock {
-	NSParameterAssert(errorBlock != NULL);
+	NSCParameterAssert(errorBlock != NULL);
 	
 	RACSubscriber *o = [RACSubscriber subscriberWithNext:NULL error:errorBlock completed:NULL];
 	return [self subscribe:o];
 }
 
 - (RACDisposable *)subscribeCompleted:(void (^)(void))completedBlock {
-	NSParameterAssert(completedBlock != NULL);
+	NSCParameterAssert(completedBlock != NULL);
 	
 	RACSubscriber *o = [RACSubscriber subscriberWithNext:NULL error:NULL completed:completedBlock];
 	return [self subscribe:o];
 }
 
 - (RACDisposable *)subscribeNext:(void (^)(id x))nextBlock error:(void (^)(NSError *error))errorBlock {
-	NSParameterAssert(nextBlock != NULL);
-	NSParameterAssert(errorBlock != NULL);
+	NSCParameterAssert(nextBlock != NULL);
+	NSCParameterAssert(errorBlock != NULL);
 	
 	RACSubscriber *o = [RACSubscriber subscriberWithNext:nextBlock error:errorBlock completed:NULL];
 	return [self subscribe:o];
 }
 
 - (RACDisposable *)subscribeError:(void (^)(NSError *))errorBlock completed:(void (^)(void))completedBlock {
-	NSParameterAssert(completedBlock != NULL);
-	NSParameterAssert(errorBlock != NULL);
+	NSCParameterAssert(completedBlock != NULL);
+	NSCParameterAssert(errorBlock != NULL);
 	
 	RACSubscriber *o = [RACSubscriber subscriberWithNext:NULL error:errorBlock completed:completedBlock];
 	return [self subscribe:o];
@@ -489,6 +518,55 @@ static NSMutableSet *activeSignals() {
 	return [[self doCompleted:^{
 		NSLog(@"%@ completed", self);
 	}] setNameWithFormat:@"%@", self.name];
+}
+
+@end
+
+@implementation RACSignal (Testing)
+
+static const NSTimeInterval RACSignalAsynchronousWaitTimeout = 10;
+
+- (id)asynchronousFirstOrDefault:(id)defaultValue success:(BOOL *)success error:(NSError **)error {
+	NSCAssert([NSThread isMainThread], @"%s should only be used from the main thread", __func__);
+
+	__block id result = defaultValue;
+	__block BOOL done = NO;
+
+	// Ensures that we don't pass values across thread boundaries by reference.
+	__block NSError *localError;
+	__block BOOL localSuccess = YES;
+
+	[[[[self
+		take:1]
+		timeout:RACSignalAsynchronousWaitTimeout]
+		deliverOn:RACScheduler.mainThreadScheduler]
+		subscribeNext:^(id x) {
+			result = x;
+			done = YES;
+		} error:^(NSError *e) {
+			if (!done) {
+				localSuccess = NO;
+				localError = e;
+				done = YES;
+			}
+		} completed:^{
+			done = YES;
+		}];
+	
+	do {
+		[NSRunLoop.mainRunLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+	} while (!done);
+
+	if (success != NULL) *success = localSuccess;
+	if (error != NULL) *error = localError;
+
+	return result;
+}
+
+- (BOOL)asynchronouslyWaitUntilCompleted:(NSError **)error {
+	BOOL success = NO;
+	[[self ignoreElements] asynchronousFirstOrDefault:nil success:&success error:error];
+	return success;
 }
 
 @end

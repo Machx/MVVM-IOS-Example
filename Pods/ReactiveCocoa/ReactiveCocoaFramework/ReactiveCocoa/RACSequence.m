@@ -8,15 +8,16 @@
 
 #import "RACSequence.h"
 #import "RACArraySequence.h"
+#import "RACBlockTrampoline.h"
 #import "RACDisposable.h"
 #import "RACDynamicSequence.h"
 #import "RACEagerSequence.h"
 #import "RACEmptySequence.h"
 #import "RACScheduler.h"
-#import "RACSubject.h"
 #import "RACSignal.h"
+#import "RACSubject.h"
 #import "RACTuple.h"
-#import "RACBlockTrampoline.h"
+#import "RACUnarySequence.h"
 #import <libkern/OSAtomic.h>
 
 // An enumerator over sequences.
@@ -68,12 +69,12 @@
 #pragma mark Class cluster primitives
 
 - (id)head {
-	NSAssert(NO, @"%s must be overridden by subclasses", __func__);
+	NSCAssert(NO, @"%s must be overridden by subclasses", __func__);
 	return nil;
 }
 
 - (RACSequence *)tail {
-	NSAssert(NO, @"%s must be overridden by subclasses", __func__);
+	NSCAssert(NO, @"%s must be overridden by subclasses", __func__);
 	return nil;
 }
 
@@ -84,11 +85,7 @@
 }
 
 + (instancetype)return:(id)value {
-	RACSequence *sequence = [RACDynamicSequence sequenceWithHeadBlock:^{
-		return value;
-	} tailBlock:nil];
-
-	return [sequence setNameWithFormat:@"+return: %@", value];
+	return [RACUnarySequence return:value];
 }
 
 - (instancetype)bind:(RACStreamBindBlock (^)(void))block {
@@ -97,11 +94,17 @@
 }
 
 - (instancetype)bind:(RACStreamBindBlock)bindBlock passingThroughValuesFromSequence:(RACSequence *)passthroughSequence {
-	RACSequence *sequence = [RACDynamicSequence sequenceWithLazyDependency:^ id {
-		RACSequence *valuesSeq = self;
-		RACSequence *current = passthroughSequence;
+	// Store values calculated in the dependency here instead, avoiding any kind
+	// of temporary collection and boxing.
+	//
+	// This relies on the implementation of RACDynamicSequence synchronizing
+	// access to its head, tail, and dependency, and we're only doing it because
+	// we really need the performance.
+	__block RACSequence *valuesSeq = self;
+	__block RACSequence *current = passthroughSequence;
+	__block BOOL stop = NO;
 
-		BOOL stop = NO;
+	RACSequence *sequence = [RACDynamicSequence sequenceWithLazyDependency:^ id {
 		while (current.head == nil) {
 			if (stop) return nil;
 
@@ -111,27 +114,26 @@
 
 			if (value == nil) {
 				// We've exhausted all the sequences.
+				stop = YES;
 				return nil;
 			}
 
 			current = (id)bindBlock(value, &stop);
-			if (current == nil) return nil;
+			if (current == nil) {
+				stop = YES;
+				return nil;
+			}
 
 			valuesSeq = valuesSeq.tail;
 		}
 
-		NSAssert([current isKindOfClass:RACSequence.class], @"-bind: block returned an object that is not a sequence: %@", current);
-
-		return [RACTuple tupleWithObjects:(valuesSeq ?: RACTupleNil.tupleNil), (current ?: RACTupleNil.tupleNil), @(stop), nil];
-	} headBlock:^ id (RACTuple *sequences) {
-		RACSequence *current = sequences[1];
+		NSCAssert([current isKindOfClass:RACSequence.class], @"-bind: block returned an object that is not a sequence: %@", current);
+		return nil;
+	} headBlock:^(id _) {
 		return current.head;
-	} tailBlock:^ id (RACTuple *sequences) {
-		NSNumber *stop = sequences[2];
-		if (sequences == nil || stop.boolValue) return nil;
+	} tailBlock:^ id (id _) {
+		if (stop) return nil;
 
-		RACSequence *valuesSeq = sequences[0];
-		RACSequence *current = sequences[1];
 		return [valuesSeq bind:bindBlock passingThroughValuesFromSequence:current.tail];
 	}];
 
@@ -140,7 +142,7 @@
 }
 
 - (instancetype)concat:(RACStream *)stream {
-	NSParameterAssert(stream != nil);
+	NSCParameterAssert(stream != nil);
 
 	return [[[RACArraySequence sequenceWithArray:@[ self, stream ] offset:0]
 		flatten]
@@ -148,7 +150,7 @@
 }
 
 - (instancetype)zipWith:(RACSequence *)sequence {
-	NSParameterAssert(sequence != nil);
+	NSCParameterAssert(sequence != nil);
 
 	return [[RACSequence
 		sequenceWithHeadBlock:^ id {
@@ -200,6 +202,64 @@
 			reschedule();
 		}];
 	}] setNameWithFormat:@"[%@] -signalWithScheduler:", self.name];
+}
+
+- (id)foldLeftWithStart:(id)start combine:(id (^)(id, id))combine {
+	NSCParameterAssert(combine != NULL);
+
+	if (self.head == nil) return start;
+	
+	for (id value in self) {
+		start = combine(start, value);
+	}
+	
+	return start;
+}
+
+- (id)foldRightWithStart:(id)start combine:(id (^)(id, RACSequence *))combine {
+	NSCParameterAssert(combine != NULL);
+
+	if (self.head == nil) return start;
+	
+	RACSequence *rest = [RACSequence sequenceWithHeadBlock:^{
+		return [self.tail foldRightWithStart:start combine:combine];
+	} tailBlock:nil];
+	
+	return combine(self.head, rest);
+}
+
+- (BOOL)any:(BOOL (^)(id))block {
+	NSCParameterAssert(block != NULL);
+	
+	NSNumber *result = [self foldLeftWithStart:@NO combine:^(NSNumber *accumulator, id value) {
+		return @(accumulator.boolValue || block(value));
+	}];
+	
+	return result.boolValue;
+}
+
+- (BOOL)all:(BOOL (^)(id))block {
+	NSCParameterAssert(block != NULL);
+	
+	NSNumber *result = [self foldLeftWithStart:@YES combine:^(NSNumber *accumulator, id value) {
+		return @(accumulator.boolValue && block(value));
+	}];
+	
+	return result.boolValue;
+}
+
+- (id)objectPassingTest:(BOOL (^)(id))block {
+	NSCParameterAssert(block != NULL);
+	
+	return [self foldLeftWithStart:nil combine:^ id (id accumulator, id value) {
+		if (accumulator != nil) {
+			return accumulator;
+		} else if (block(value)) {
+			return value;
+		} else {
+			return nil;
+		}
+	}];
 }
 
 - (RACSequence *)eagerSequence {

@@ -24,7 +24,7 @@
 #pragma mark Lifecycle
 
 + (RACSequence *)sequenceWithString:(NSString *)string offset:(NSUInteger)offset {
-	NSParameterAssert(offset <= string.length);
+	NSCParameterAssert(offset <= string.length);
 
 	if (offset == string.length) return self.empty;
 
@@ -50,20 +50,10 @@
 	NSUInteger substringLength = self.string.length - self.offset;
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:substringLength];
 
-	@autoreleasepool {
-		unichar *characters = malloc(sizeof(*characters) * substringLength);
-		@onExit {
-			free(characters);
-		};
-		
-		[self.string getCharacters:characters range:NSMakeRange(self.offset, substringLength)];
+	[self.string enumerateSubstringsInRange:NSMakeRange(self.offset, substringLength) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+		[array addObject:substring];
+	}];
 
-		for (NSUInteger i = 0; i < substringLength; i++) {
-			NSString *charStr = [NSString stringWithCharacters:characters + i length:1];
-			[array addObject:charStr];
-		}
-	}
-	
 	return [array copy];
 }
 

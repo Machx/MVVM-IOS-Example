@@ -40,15 +40,34 @@ typedef void (^RACSchedulerRecursiveBlock)(void (^reschedule)(void));
 // A singleton scheduler that executes blocks in the main thread.
 + (instancetype)mainThreadScheduler;
 
-// Creates and returns a new background scheduler with the given priority.
+// Creates and returns a new background scheduler with the given priority and
+// name. The name is for debug and instrumentation purposes only.
 //
 // Scheduler creation is cheap. It's unnecessary to save the result of this
 // method call unless you want to serialize some actions on the same background
 // scheduler.
++ (instancetype)schedulerWithPriority:(RACSchedulerPriority)priority name:(NSString *)name;
+
+// Invokes +schedulerWithPriority:name: with a default name.
 + (instancetype)schedulerWithPriority:(RACSchedulerPriority)priority;
 
 // Invokes +schedulerWithPriority: with RACSchedulerPriorityDefault.
 + (instancetype)scheduler;
+
+// Creates a new scheduler with the given queue and name.
+//
+// Note that the scheduler can only ensure the serial execution of blocks
+// scheduled through this scheduler and not blocks enqueued directly on the
+// given queue, or even blocks scheduled on the same queue through a different
+// scheduler. If the queue allows for concurrent execution, scheduled blocks may
+// run concurrently with blocks directly enqueued.
+//
+// queue - The queue which the scheduler should target. Cannot be NULL.
+// name  - The name for the scheduler, to be used for debug or instrumentation
+//         purposes only. May be nil.
+//
+// Returns the created scheduler.
++ (instancetype)schedulerWithQueue:(dispatch_queue_t)queue name:(NSString *)name;
 
 // The current scheduler. This will only be valid when used from within a
 // -[RACScheduler schedule:] block or when on the main thread.
@@ -81,6 +100,11 @@ typedef void (^RACSchedulerRecursiveBlock)(void (^reschedule)(void));
 // Returns a disposable which can be used to cancel the scheduled block before
 // it begins executing, or nil if cancellation is not supported.
 - (RACDisposable *)after:(dispatch_time_t)when schedule:(void (^)(void))block;
+
+// Schedule the given block for execution on the scheduler after the delay.
+//
+// Converts seconds to nanoseconds and calls `-after:schedule:`.
+- (RACDisposable *)afterDelay:(NSTimeInterval)delay schedule:(void (^)(void))block;
 
 // Schedule the given recursive block for execution on the scheduler. The
 // scheduler will automatically flatten any recursive scheduling into iteration

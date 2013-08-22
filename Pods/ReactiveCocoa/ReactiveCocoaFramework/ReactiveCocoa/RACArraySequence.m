@@ -27,7 +27,7 @@
 #pragma mark Lifecycle
 
 + (instancetype)sequenceWithArray:(NSArray *)array offset:(NSUInteger)offset {
-	NSParameterAssert(offset <= array.count);
+	NSCParameterAssert(offset <= array.count);
 
 	if (offset == array.count) return self.empty;
 
@@ -47,6 +47,49 @@
 	RACSequence *sequence = [self.class sequenceWithArray:self.backingArray offset:self.offset + 1];
 	sequence.name = self.name;
 	return sequence;
+}
+
+#pragma mark NSFastEnumeration
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id[])stackbuf count:(NSUInteger)len {
+	NSCParameterAssert(len > 0);
+
+	if (state->state >= self.backingArray.count) {
+		// Enumeration has completed.
+		return 0;
+	}
+
+	if (state->state == 0) {
+		state->state = self.offset;
+
+		// Since a sequence doesn't mutate, this just needs to be set to
+		// something non-NULL.
+		state->mutationsPtr = state->extra;
+	}
+
+	state->itemsPtr = stackbuf;
+
+	NSUInteger startIndex = state->state;
+	NSUInteger index = 0;
+
+	for (id value in self.backingArray) {
+		// Constructing an index set for -enumerateObjectsAtIndexes: can actually be
+		// slower than just skipping the items we don't care about.
+		if (index < startIndex) {
+			++index;
+			continue;
+		}
+
+		stackbuf[index - startIndex] = value;
+
+		++index;
+		if (index - startIndex >= len) break;
+	}
+
+	NSCAssert(index > startIndex, @"Final index (%lu) should be greater than start index (%lu)", (unsigned long)index, (unsigned long)startIndex);
+
+	state->state = index;
+	return index - startIndex;
 }
 
 #pragma clang diagnostic push

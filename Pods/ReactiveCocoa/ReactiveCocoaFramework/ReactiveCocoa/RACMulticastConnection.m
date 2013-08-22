@@ -28,8 +28,8 @@
 #pragma mark Lifecycle
 
 - (id)initWithSourceSignal:(RACSignal *)source subject:(RACSubject *)subject {
-	NSParameterAssert(source != nil);
-	NSParameterAssert(subject != nil);
+	NSCParameterAssert(source != nil);
+	NSCParameterAssert(subject != nil);
 
 	self = [super init];
 	if (self == nil) return nil;
@@ -65,11 +65,9 @@
 
 		return [RACDisposable disposableWithBlock:^{
 			[subscriptionDisposable dispose];
-			
-			@synchronized(self.signal.subscribers) {
-				if (self.signal.subscribers.count < 1) {
-					[self.disposable dispose];
-				}
+
+			if (self.signal.subscriberCount < 1) {
+				[self.disposable dispose];
 			}
 		}];
 	}] setNameWithFormat:@"[%@] -autoconnect", self.signal.name];

@@ -7,6 +7,7 @@
 //
 
 #import "RACEagerSequence.h"
+#import "NSObject+RACDescription.h"
 #import "RACArraySequence.h"
 
 @implementation RACEagerSequence
@@ -14,11 +15,11 @@
 #pragma mark RACStream
 
 + (instancetype)return:(id)value {
-	return [[self sequenceWithArray:@[ value ] offset:0] setNameWithFormat:@"+return: %@", value];
+	return [[self sequenceWithArray:@[ value ] offset:0] setNameWithFormat:@"+return: %@", [value rac_description]];
 }
 
 - (instancetype)bind:(RACStreamBindBlock (^)(void))block {
-	NSParameterAssert(block != nil);
+	NSCParameterAssert(block != nil);
 	RACStreamBindBlock bindBlock = block();
 	NSArray *currentArray = self.array;
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:currentArray.count];
@@ -27,7 +28,11 @@
 		BOOL stop = NO;
 		RACSequence *boundValue = (id)bindBlock(value, &stop);
 		if (boundValue == nil) break;
-		[resultArray addObjectsFromArray:boundValue.array];
+
+		for (id x in boundValue) {
+			[resultArray addObject:x];
+		}
+
 		if (stop) break;
 	}
 	
@@ -35,8 +40,8 @@
 }
 
 - (instancetype)concat:(RACSequence *)sequence {
-	NSParameterAssert(sequence != nil);
-	NSParameterAssert([sequence isKindOfClass:RACSequence.class]);
+	NSCParameterAssert(sequence != nil);
+	NSCParameterAssert([sequence isKindOfClass:RACSequence.class]);
 
 	NSArray *array = [self.array arrayByAddingObjectsFromArray:sequence.array];
 	return [[self.class sequenceWithArray:array offset:0] setNameWithFormat:@"[%@] -concat: %@", self.name, sequence];
@@ -52,10 +57,10 @@
 	return [RACArraySequence sequenceWithArray:self.array offset:0];
 }
 
-#pragma mark NSFastEnumeration
-
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len {
-	return [self.array countByEnumeratingWithState:state objects:buffer count:len];
+- (id)foldRightWithStart:(id)start combine:(id (^)(id, RACSequence *rest))combine {
+	return [super foldRightWithStart:start combine:^(id first, RACSequence *rest) {
+		return combine(first, rest.eagerSequence);
+	}];
 }
 
 @end
