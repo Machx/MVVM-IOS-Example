@@ -23,6 +23,7 @@
 #import "RACScheduler+Private.h"
 #import "RACScheduler.h"
 #import "RACSignalSequence.h"
+#import "RACStream+Private.h"
 #import "RACSubject.h"
 #import "RACSubscriber.h"
 #import "RACTuple.h"
@@ -493,27 +494,9 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 }
 
 + (RACSignal *)combineLatest:(id<NSFastEnumeration>)signals {
-	RACSignal *current = nil;
-
-	// The logic here matches that of +[RACStream zip:]. See that implementation
-	// for more information about what's going on here.
-	for (RACSignal *signal in signals) {
-		if (current == nil) {
-			current = [signal map:^(id x) {
-				return RACTuplePack(x);
-			}];
-
-			continue;
-		}
-
-		current = [[current combineLatestWith:signal] map:^(RACTuple *twoTuple) {
-			RACTuple *previousTuple = twoTuple[0];
-			return [previousTuple tupleByAddingObject:twoTuple[1]];
-		}];
-	}
-
-	if (current == nil) return [self empty];
-	return [current setNameWithFormat:@"+combineLatest: %@", signals];
+	return [[self join:signals block:^(RACSignal *left, RACSignal *right) {
+		return [left combineLatestWith:right];
+	}] setNameWithFormat:@"+combineLatest: %@", signals];
 }
 
 + (RACSignal *)combineLatest:(id<NSFastEnumeration>)signals reduce:(id)reduceBlock {
@@ -530,84 +513,97 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 }
 
 + (RACSignal *)merge:(id<NSFastEnumeration>)signals {
-	RACSignal *signal = [RACSignal createSignal:^ RACDisposable * (id<RACSubscriber> subscriber) {
-		for (RACSignal *signal in signals) {
-			[subscriber sendNext:signal];
-		}
-		[subscriber sendCompleted];
-		return nil;
-	}].flatten;
+	NSMutableArray *copiedSignals = [[NSMutableArray alloc] init];
+	for (RACSignal *signal in signals) {
+		[copiedSignals addObject:signal];
+	}
 
-	return [signal setNameWithFormat:@"+merge: %@", signals];
+	return [[[RACSignal
+		createSignal:^ RACDisposable * (id<RACSubscriber> subscriber) {
+			for (RACSignal *signal in copiedSignals) {
+				[subscriber sendNext:signal];
+			}
+
+			[subscriber sendCompleted];
+			return nil;
+		}]
+		flatten]
+		setNameWithFormat:@"+merge: %@", copiedSignals];
 }
 
 - (RACSignal *)flatten:(NSUInteger)maxConcurrent {
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+		RACCompoundDisposable *compoundDisposable = [RACCompoundDisposable compoundDisposable];
 		NSMutableSet *activeSignals = [NSMutableSet setWithObject:self];
-		NSMutableSet *disposables = [NSMutableSet set];
 		NSMutableArray *queuedSignals = [NSMutableArray array];
 
+		// Marks the given signal as completed.
+		//
+		// This block should only be accessed while synchronized on
+		// `compoundDisposable`.
+		__block void (^completeSignal)(RACSignal *) = nil;
+
 		// Returns whether the signal should complete.
-		__block BOOL (^dequeueAndSubscribeIfAllowed)(void);
-		void (^completeSignal)(RACSignal *) = ^(RACSignal *signal) {
-			@synchronized(activeSignals) {
-				[activeSignals removeObject:signal];
+		BOOL (^dequeueAndSubscribeIfAllowed)(void) = ^{
+			RACSignal *signal;
+			@synchronized (compoundDisposable) {
+				BOOL completed = activeSignals.count < 1 && queuedSignals.count < 1;
+				if (completed) return YES;
+
+				// We add one to maxConcurrent since self is an active
+				// signal at the start and we don't want that to count
+				// against the max.
+				NSUInteger maxIncludingSelf = maxConcurrent + ([activeSignals containsObject:self] ? 1 : 0);
+				if (activeSignals.count >= maxIncludingSelf && maxConcurrent != 0) return NO;
+
+				if (queuedSignals.count < 1) return NO;
+
+				signal = queuedSignals[0];
+				[queuedSignals removeObjectAtIndex:0];
+
+				[activeSignals addObject:signal];
 			}
-			
+
+			__block RACDisposable *disposable = [signal subscribeNext:^(id x) {
+				[subscriber sendNext:x];
+			} error:^(NSError *error) {
+				[subscriber sendError:error];
+				[compoundDisposable removeDisposable:disposable];
+			} completed:^{
+				@synchronized (compoundDisposable) {
+					completeSignal(signal);
+				}
+
+				[compoundDisposable removeDisposable:disposable];
+			}];
+
+			if (disposable != nil) [compoundDisposable addDisposable:disposable];
+			return NO;
+		};
+
+		completeSignal = ^(RACSignal *signal) {
+			[activeSignals removeObject:signal];
+
 			BOOL completed = dequeueAndSubscribeIfAllowed();
 			if (completed) {
 				[subscriber sendCompleted];
 			}
 		};
 
-		void (^addDisposable)(RACDisposable *) = ^(RACDisposable *disposable) {
-			if (disposable == nil) return;
-			
-			@synchronized(disposables) {
-				[disposables addObject:disposable];
+		[compoundDisposable addDisposable:[RACDisposable disposableWithBlock:^{
+			@synchronized (compoundDisposable) {
+				completeSignal = ^(RACSignal *signal) {
+					// Do nothing. We're just replacing this block to break the
+					// retain cycle.
+				};
 			}
-		};
-
-		dequeueAndSubscribeIfAllowed = ^{
-			RACSignal *signal;
-			@synchronized(activeSignals) {
-				@synchronized(queuedSignals) {
-					BOOL completed = activeSignals.count < 1 && queuedSignals.count < 1;
-					if (completed) return YES;
-
-					// We add one to maxConcurrent since self is an active
-					// signal at the start and we don't want that to count
-					// against the max.
-					NSUInteger maxIncludingSelf = maxConcurrent + ([activeSignals containsObject:self] ? 1 : 0);
-					if (activeSignals.count >= maxIncludingSelf && maxConcurrent != 0) return NO;
-
-					if (queuedSignals.count < 1) return NO;
-
-					signal = queuedSignals[0];
-					[queuedSignals removeObjectAtIndex:0];
-
-					[activeSignals addObject:signal];
-				}
-			}
-
-			RACDisposable *disposable = [signal subscribe:[RACSubscriber subscriberWithNext:^(id x) {
-				[subscriber sendNext:x];
-			} error:^(NSError *error) {
-				[subscriber sendError:error];
-			} completed:^{
-				completeSignal(signal);
-			}]];
-
-			addDisposable(disposable);
-
-			return NO;
-		};
+		}]];
 
 		RACDisposable *disposable = [self subscribeNext:^(id x) {
 			NSCAssert([x isKindOfClass:RACSignal.class], @"The source must be a signal of signals. Instead, got %@", x);
 
 			RACSignal *innerSignal = x;
-			@synchronized(queuedSignals) {
+			@synchronized (compoundDisposable) {
 				[queuedSignals addObject:innerSignal];
 			}
 
@@ -615,18 +611,13 @@ static RACDisposable *subscribeForever (RACSignal *signal, void (^next)(id), voi
 		} error:^(NSError *error) {
 			[subscriber sendError:error];
 		} completed:^{
-			completeSignal(self);
-		}];
-
-		addDisposable(disposable);
-
-		return [RACDisposable disposableWithBlock:^{
-			@synchronized(disposables) {
-				[disposables makeObjectsPerformSelector:@selector(dispose)];
+			@synchronized (compoundDisposable) {
+				completeSignal(self);
 			}
-			
-			dequeueAndSubscribeIfAllowed = nil;
 		}];
+
+		if (disposable != nil) [compoundDisposable addDisposable:disposable];
+		return compoundDisposable;
 	}] setNameWithFormat:@"[%@] -flatten: %lu", self.name, (unsigned long)maxConcurrent];
 }
 

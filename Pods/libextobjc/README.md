@@ -1,4 +1,4 @@
-The Extended Objective-C library extends the dynamism of the Objective-C programming language to support additional patterns present in other dynamic programming languages (including those that are not necessarily object-oriented).
+The Extended Objective-C library extends the dynamism of the Objective-C programming language to support additional patterns present in other programming languages (including those that are not necessarily object-oriented).
 
 libextobjc is meant to be very modular – most of its classes and modules can be used with no more than one or two dependencies.
 
@@ -13,11 +13,11 @@ libextobjc currently includes the following features:
  * **Simpler and safer key paths**, using EXTKeyPathCoding, which automatically checks key paths at compile-time.
  * **Compile-time checking of selectors** to ensure that an object declares a given selector, using EXTSelectorChecking.
  * **Easier use of weak variables in blocks**, using `@weakify`, `@unsafeify`, and `@strongify` from the EXTScope module.
- * **Safer private methods**, using EXTPrivateMethod, for declaring methods on a class, and getting notified if they conflict with other existing methods.
  * **Scope-based resource cleanup**, using `@onExit` in the EXTScope module, for automatically cleaning up manually-allocated memory, file handles, locks, etc., at the end of a scope.
  * **EXTNil, which is like `NSNull`, but behaves much more closely to actual `nil`** (i.e., doesn't crash when sent unrecognized messages).
- * **Synthesized properties for categories**, using EXTSynthesize.
- * **Algebraic data types** generated completely at compile-time, defined using EXTADT.
+ * Synthesized properties for categories, using EXTSynthesize.
+ * Algebraic data types generated completely at compile-time, defined using EXTADT.
+ * Safer private methods, using EXTPrivateMethod, for declaring methods on a class, and getting notified if they conflict with other existing methods.
  * EXTBlockTarget, which extends the target-action mechanism with support for blocks.
  * EXTTuple, for multiple return values and assignment.
  * EXTPassthrough, to automatically implement methods that simply invoke the same method on another object.
@@ -46,3 +46,5 @@ file for more information.
 # Requirements
 
 [libffi](https://github.com/jspahrsummers/libffi) is used for EXTAspect, but is not required for the other modules of the project. In order for the unit tests to build and pass, libffi must be retrieved using `git submodule update --init` after cloning the repository.
+
+libextobjc must be built with ARC enabled, and many of its macros require ARC in the calling files as well. MRC usage is not supported.
