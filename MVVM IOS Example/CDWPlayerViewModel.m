@@ -7,7 +7,7 @@
 //
 
 #import "CDWPlayerViewModel.h"
-#import <libextobjc/EXTScope.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @interface CDWPlayerViewModel ()
 @property(nonatomic, retain) NSArray *forbiddenNames;
@@ -76,7 +76,7 @@
 
 -(RACSignal *)forbiddenNameSignal {
 	@weakify(self);
-	return [RACAble(self.playerName) filter:^BOOL(NSString *newName) {
+	return [RACObserve(self,playerName) filter:^BOOL(NSString *newName) {
 		@strongify(self);
 		return [self.forbiddenNames containsObject:newName];
 	}];
@@ -85,7 +85,7 @@
 -(RACSignal *)modelIsValidSignal {
 	@weakify(self);
 	return [RACSignal
-			combineLatest:@[ RACAbleWithStart(self.playerName), RACAbleWithStart(self.points) ]
+			combineLatest:@[ RACObserve(self,playerName), RACObserve(self,points) ]
 			reduce:^id(NSString *name, NSNumber *playerPoints){
 				@strongify(self);
 				return @((name.length > 0) &&
