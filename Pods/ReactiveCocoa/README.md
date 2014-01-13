@@ -54,11 +54,11 @@ Here's a simple example:
 ```objc
 // When self.username changes, log the new name to the console.
 //
-// RACAble(self.username) creates a new RACSignal that sends a new value
-// whenever the username changes. -subscribeNext: will execute the block
-// whenever the signal sends a value.
-[RACAble(self.username) subscribeNext:^(NSString *newName) {
-    NSLog(@"%@", newName);
+// RACObserve(self, username) creates a new RACSignal that sends the current
+// value of self.username, then the new value whenever it changes.
+// -subscribeNext: will execute the block whenever the signal sends a value.
+[RACObserve(self, username) subscribeNext:^(NSString *newName) {
+	NSLog(@"%@", newName);
 }];
 ```
 
@@ -69,13 +69,13 @@ But unlike KVO notifications, signals can be chained together and operated on:
 //
 // -filter returns a new RACSignal that only sends a new value when its block
 // returns YES.
-[[RACAble(self.username)
-   filter:^(NSString *newName) {
-       return [newName hasPrefix:@"j"];
-   }]
-   subscribeNext:^(NSString *newName) {
-       NSLog(@"%@", newName);
-   }];
+[[RACObserve(self, username)
+	filter:^(NSString *newName) {
+		return [newName hasPrefix:@"j"];
+	}]
+	subscribeNext:^(NSString *newName) {
+		NSLog(@"%@", newName);
+	}];
 ```
 
 Signals can also be used to derive state. Instead of observing properties and
@@ -92,11 +92,11 @@ express properties in terms of signals and operations:
 // +combineLatest:reduce: takes an array of signals, executes the block with the
 // latest value from each signal whenever any of them changes, and returns a new
 // RACSignal that sends the return value of that block as values.
-RAC(self.createEnabled) = [RACSignal 
-    combineLatest:@[ RACAble(self.password), RACAble(self.passwordConfirmation) ] 
-    reduce:^(NSString *password, NSString *passwordConfirm) {
-        return @([passwordConfirm isEqualToString:password]);
-    }];
+RAC(self, createEnabled) = [RACSignal 
+	combineLatest:@[ RACObserve(self, password), RACObserve(self, passwordConfirmation) ] 
+	reduce:^(NSString *password, NSString *passwordConfirm) {
+		return @([passwordConfirm isEqualToString:password]);
+	}];
 ```
 
 Signals can be built on any stream of values over time, not just KVO. For
@@ -105,14 +105,16 @@ example, they can also represent button presses:
 ```objc
 // Log a message whenever the button is pressed.
 //
-// RACCommand is a RACSignal subclass that represents UI actions.
+// RACCommand creates signals to represent UI actions. Each signal can
+// represent a button press, for example, and have additional work associated
+// with it.
 //
 // -rac_command is an addition to NSButton. The button will send itself on that
 // command whenever it's pressed.
-self.button.rac_command = [RACCommand command];
-[self.button.rac_command subscribeNext:^(id _) {
-    NSLog(@"button was pressed!");
-}];
+self.button.rac_command = [[RACCommand alloc] initWithSignalBlock:^(id _) {
+	NSLog(@"button was pressed!");
+	return [RACSignal empty];
+}]
 ```
 
 Or asynchronous network operations:
@@ -120,25 +122,21 @@ Or asynchronous network operations:
 ```objc
 // Hook up a "Log in" button to log in over the network.
 //
-// loginCommand sends a value whenever it is executed.
-self.loginCommand = [RACCommand command];
-
-// This block will execute whenever the login command sends a value, starting
+// This block will be run whenever the login command is executed, starting
 // the login process.
-//
-// -addSignalBlock: will return a signal that includes the signals returned from
-// this block, one for each time the command is executed.
-self.loginSignals = [self.loginCommand addSignalBlock:^(id sender) {
-    // The hypothetical -logIn method returns a signal that sends a value when
-    // the network request finishes.
-    return [client logIn];
+self.loginCommand = [[RACCommand alloc] initWithSignalBlock:^(id sender) {
+	// The hypothetical -logIn method returns a signal that sends a value when
+	// the network request finishes.
+	return [client logIn];
 }];
 
-// Log a message whenever we log in successfully.
-[self.loginSignals subscribeNext:^(RACSignal *loginSignal) {
-    [loginSignal subscribeCompleted:^(id _) {
-        NSLog(@"Logged in successfully!");
-    }];
+// -executionSignals returns a signal that includes the signals returned from
+// the above block, one for each time the command is executed.
+[self.loginCommand.executionSignals subscribeNext:^(RACSignal *loginSignal) {
+	// Log a message whenever we log in successfully.
+	[loginSignal subscribeCompleted:^ {
+		NSLog(@"Logged in successfully!");
+	}];
 }];
 
 // Execute the login command when the button is pressed.
@@ -162,10 +160,10 @@ trigged after a group of operations completes:
 //
 // -subscribeCompleted: will execute the block when the signal completes.
 [[RACSignal 
-    merge:@[ [client fetchUserRepos], [client fetchOrgRepos] ]] 
-    subscribeCompleted:^{
-        NSLog(@"They're both done!");
-    }];
+	merge:@[ [client fetchUserRepos], [client fetchOrgRepos] ]] 
+	subscribeCompleted:^{
+		NSLog(@"They're both done!");
+	}];
 ```
 
 Signals can be chained to sequentially execute asynchronous operations, instead
@@ -184,21 +182,20 @@ are usually used:
 // return a new RACSignal that merges all of the signals returned from the block
 // into a single signal.
 [[[[client 
-    logInUser] 
-    flattenMap:^(User *user) {
-        // Return a signal that loads cached messages for the user.
-        return [client loadCachedMessagesForUser:user];
-    }]
-    flattenMap:^(NSArray *messages) {
-        // Return a signal that fetches any remaining messages.
-        return [client fetchMessagesAfterMessage:messages.lastObject];
-    }]
-    subscribeNext:(NSArray *newMessages) {
-        NSLog(@"New messages: %@", newMessages);
-    } 
-    completed:^{
-        NSLog(@"Fetched all messages.");
-    }];
+	logInUser] 
+	flattenMap:^(User *user) {
+		// Return a signal that loads cached messages for the user.
+		return [client loadCachedMessagesForUser:user];
+	}]
+	flattenMap:^(NSArray *messages) {
+		// Return a signal that fetches any remaining messages.
+		return [client fetchMessagesAfterMessage:messages.lastObject];
+	}]
+	subscribeNext:^(NSArray *newMessages) {
+		NSLog(@"New messages: %@", newMessages);
+	} completed:^{
+		NSLog(@"Fetched all messages.");
+	}];
 ```
 
 RAC even makes it easy to bind to the result of an asynchronous operation:
@@ -216,14 +213,14 @@ RAC even makes it easy to bind to the result of an asynchronous operation:
 // -map: calls its block with each user that's fetched and returns a new
 // RACSignal that sends values returned from the block.
 RAC(self.imageView, image) = [[[[client 
-    fetchUserWithUsername:@"joshaber"]
-    deliverOn:[RACScheduler scheduler]]
-    map:^(User *user) {
-        // Download the avatar (this is done on a background queue).
-        return [[NSImage alloc] initWithContentsOfURL:user.avatarURL];
-    }]
-    // Now the assignment will be done on the main thread.
-    deliverOn:RACScheduler.mainThreadScheduler];
+	fetchUserWithUsername:@"joshaber"]
+	deliverOn:[RACScheduler scheduler]]
+	map:^(User *user) {
+		// Download the avatar (this is done on a background queue).
+		return [[NSImage alloc] initWithContentsOfURL:user.avatarURL];
+	}]
+	// Now the assignment will be done on the main thread.
+	deliverOn:RACScheduler.mainThreadScheduler];
 ```
 
 That demonstrates some of what RAC can do, but it doesn't demonstrate why RAC is
@@ -256,39 +253,52 @@ manipulated in the same way.
 For example, the following code:
 
 ```objc
-- (void)viewDidLoad {
-    [super viewDidLoad];
 
-    [self.usernameTextField addTarget:self action:@selector(updateLogInButton) forControlEvents:UIControlEventEditingChanged];
-    [self.passwordTextField addTarget:self action:@selector(updateLogInButton) forControlEvents:UIControlEventEditingChanged];
-    [self.logInButton addTarget:self action:@selector(logInPressed:) forControlEvents:UIControlEventTouchUpInside];
+static void *ObservationContext = &ObservationContext;
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	[LoginManager.sharedManager addObserver:self forKeyPath:@"loggingIn" options:NSKeyValueObservingOptionInitial context:&ObservationContext];
+	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(loggedOut:) name:UserDidLogOutNotification object:LoginManager.sharedManager];
+
+	[self.usernameTextField addTarget:self action:@selector(updateLogInButton) forControlEvents:UIControlEventEditingChanged];
+	[self.passwordTextField addTarget:self action:@selector(updateLogInButton) forControlEvents:UIControlEventEditingChanged];
+	[self.logInButton addTarget:self action:@selector(logInPressed:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)dealloc {
+	[LoginManager.sharedManager removeObserver:self forKeyPath:@"loggingIn" context:ObservationContext];
+	[NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 - (void)updateLogInButton {
-    BOOL textFieldsNonEmpty = self.usernameTextField.text.length > 0 && self.passwordTextField.text.length > 0;
-    BOOL readyToLogIn = ![[LoginManager sharedManager] isLoggingIn] && !self.loggedIn;
-    self.logInButton.enabled = textFieldsNonEmpty && readyToLogIn;
+	BOOL textFieldsNonEmpty = self.usernameTextField.text.length > 0 && self.passwordTextField.text.length > 0;
+	BOOL readyToLogIn = !LoginManager.sharedManager.isLoggingIn && !self.loggedIn;
+	self.logInButton.enabled = textFieldsNonEmpty && readyToLogIn;
 }
 
 - (IBAction)logInPressed:(UIButton *)sender {
-    [[LoginManager sharedManager]
-        logInWithUsername:self.usernameTextField.text
-        password:self.passwordTextField.text
-        success:^{
-            self.loggedIn = YES;
-        } failure:^(NSError *error) {
-            [self presentError:error];
-        }];
+	[[LoginManager sharedManager]
+		logInWithUsername:self.usernameTextField.text
+		password:self.passwordTextField.text
+		success:^{
+			self.loggedIn = YES;
+		} failure:^(NSError *error) {
+			[self presentError:error];
+		}];
 }
 
 - (void)loggedOut:(NSNotification *)notification {
-    self.loggedIn = NO;
+	self.loggedIn = NO;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([object isEqual:[LoginManager sharedManager]] && [keyPath isEqualToString:@"loggingIn"]) {
-        [self updateLogInButton];
-    }
+	if (context == ObservationContext) {
+		[self updateLogInButton];
+	} else {
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
 }
 ```
 
@@ -296,35 +306,39 @@ For example, the following code:
 
 ```objc
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 
-    @weakify(self);
+	@weakify(self);
 
-    RAC(self.logInButton, enabled) = [RACSignal
-        combineLatest:@[
-            self.usernameTextField.rac_textSignal,
-            self.passwordTextField.rac_textSignal,
-            RACAbleWithStart(LoginManager.sharedManager, loggingIn),
-            RACAbleWithStart(self.loggedIn)
-        ] reduce:^(NSString *username, NSString *password, NSNumber *loggingIn, NSNumber *loggedIn) {
-            return @(username.length > 0 && password.length > 0 && !loggingIn.boolValue && !loggedIn.boolValue);
-        }];
+	RAC(self.logInButton, enabled) = [RACSignal
+		combineLatest:@[
+			self.usernameTextField.rac_textSignal,
+			self.passwordTextField.rac_textSignal,
+			RACObserve(LoginManager.sharedManager, loggingIn),
+			RACObserve(self, loggedIn)
+		] reduce:^(NSString *username, NSString *password, NSNumber *loggingIn, NSNumber *loggedIn) {
+			return @(username.length > 0 && password.length > 0 && !loggingIn.boolValue && !loggedIn.boolValue);
+		}];
 
-    [[self.logInButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIButton *sender) {
-        @strongify(self);
-        
-        RACSignal *loginSignal = [[LoginManager sharedManager]
-            logInWithUsername:self.usernameTextField.text
-            password:self.passwordTextField.text];
+	[[self.logInButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(UIButton *sender) {
+		@strongify(self);
 
-        [loginSignal subscribeError:^(NSError *error) {
-            @strongify(self);
-            [self presentError:error];
-        } completed:^{
-            @strongify(self);
-            self.loggedIn = YES;
-        }];
-    }];
+		RACSignal *loginSignal = [LoginManager.sharedManager
+			logInWithUsername:self.usernameTextField.text
+			password:self.passwordTextField.text];
+
+			[loginSignal subscribeError:^(NSError *error) {
+				@strongify(self);
+				[self presentError:error];
+			} completed:^{
+				@strongify(self);
+				self.loggedIn = YES;
+			}];
+	}];
+
+	RAC(self, loggedIn) = [[NSNotificationCenter.defaultCenter
+		rac_addObserverForName:UserDidLogOutNotification object:nil]
+		mapReplace:@NO];
 }
 ```
 
@@ -336,17 +350,17 @@ on:
 
 ```objc
 [client logInWithSuccess:^{
-    [client loadCachedMessagesWithSuccess:^(NSArray *messages) {
-        [client fetchMessagesAfterMessage:messages.lastObject success:^(NSArray *nextMessages) {
-            NSLog(@"Fetched all messages.");
-        } failure:^(NSError *error) {
-            [self presentError:error];
-        }];
-    } failure:^(NSError *error) {
-        [self presentError:error];
-    }];
+	[client loadCachedMessagesWithSuccess:^(NSArray *messages) {
+		[client fetchMessagesAfterMessage:messages.lastObject success:^(NSArray *nextMessages) {
+			NSLog(@"Fetched all messages.");
+		} failure:^(NSError *error) {
+			[self presentError:error];
+		}];
+	} failure:^(NSError *error) {
+		[self presentError:error];
+	}];
 } failure:^(NSError *error) {
-    [self presentError:error];
+	[self presentError:error];
 }];
 ```
 
@@ -354,17 +368,17 @@ ReactiveCocoa makes this pattern particularly easy:
 
 ```objc
 [[[[client logIn]
-    sequenceNext:^{
-        return [client loadCachedMessages];
-    }]
-    flattenMap:^(NSArray *messages) {
-        return [client fetchMessagesAfterMessage:messages.lastObject];
-    }]
-    subscribeError:^(NSError *error) {
-        [self presentError:error];
-    } completed:^{
-        NSLog(@"Fetched all messages.");
-    }];
+	then:^{
+		return [client loadCachedMessages];
+	}]
+	flattenMap:^(NSArray *messages) {
+		return [client fetchMessagesAfterMessage:messages.lastObject];
+	}]
+	subscribeError:^(NSError *error) {
+		[self presentError:error];
+	} completed:^{
+		NSLog(@"Fetched all messages.");
+	}];
 ```
 
 ### Parallelizing independent work
@@ -379,21 +393,21 @@ __block NSArray *fileContents;
  
 NSOperationQueue *backgroundQueue = [[NSOperationQueue alloc] init];
 NSBlockOperation *databaseOperation = [NSBlockOperation blockOperationWithBlock:^{
-    databaseObjects = [databaseClient fetchObjectsMatchingPredicate:predicate];
+	databaseObjects = [databaseClient fetchObjectsMatchingPredicate:predicate];
 }];
- 
+
 NSBlockOperation *filesOperation = [NSBlockOperation blockOperationWithBlock:^{
-    NSMutableArray *filesInProgress = [NSMutableArray array];
-    for (NSString *path in files) {
-        [filesInProgress addObject:[NSData dataWithContentsOfFile:path]];
-    }
- 
-    fileContents = [filesInProgress copy];
+	NSMutableArray *filesInProgress = [NSMutableArray array];
+	for (NSString *path in files) {
+		[filesInProgress addObject:[NSData dataWithContentsOfFile:path]];
+	}
+
+	fileContents = [filesInProgress copy];
 }];
  
 NSBlockOperation *finishOperation = [NSBlockOperation blockOperationWithBlock:^{
-    [self finishProcessingDatabaseObjects:databaseObjects fileContents:fileContents];
-    NSLog(@"Done processing");
+	[self finishProcessingDatabaseObjects:databaseObjects fileContents:fileContents];
+	NSLog(@"Done processing");
 }];
  
 [finishOperation addDependency:databaseOperation];
@@ -407,27 +421,28 @@ The above code can be cleaned up and optimized by simply composing signals:
 
 ```objc
 RACSignal *databaseSignal = [[databaseClient
-    fetchObjectsMatchingPredicate:predicate]
-    subscribeOn:[RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault]];
+	fetchObjectsMatchingPredicate:predicate]
+	subscribeOn:[RACScheduler scheduler]];
 
-RACSignal *fileSignal = [RACSignal start:^(BOOL *success, NSError **error) {
-    NSMutableArray *filesInProgress = [NSMutableArray array];
-    for (NSString *path in files) {
-        [filesInProgress addObject:[NSData dataWithContentsOfFile:path]];
-    }
+RACSignal *fileSignal = [RACSignal startEagerlyWithScheduler:[RACScheduler scheduler] block:^(id<RACSubscriber> subscriber) {
+	NSMutableArray *filesInProgress = [NSMutableArray array];
+	for (NSString *path in files) {
+		[filesInProgress addObject:[NSData dataWithContentsOfFile:path]];
+	}
 
-    return [filesInProgress copy];
+	[subscriber sendNext:[filesInProgress copy]];
+	[subscriber sendCompleted];
 }];
 
 [[RACSignal
-    combineLatest:@[ databaseSignal, fileSignal ]
-    reduce:^(NSArray *databaseObjects, NSArray *fileContents) {
-        [self finishProcessingDatabaseObjects:databaseObjects fileContents:fileContents];
-        return nil;
-    }]
-    subscribeCompleted:^{
-        NSLog(@"Done processing");
-    }];
+	combineLatest:@[ databaseSignal, fileSignal ]
+	reduce:^ id (NSArray *databaseObjects, NSArray *fileContents) {
+		[self finishProcessingDatabaseObjects:databaseObjects fileContents:fileContents];
+		return nil;
+	}]
+	subscribeCompleted:^{
+		NSLog(@"Done processing");
+	}];
 ```
 
 ### Simplifying collection transformations
@@ -438,12 +453,12 @@ from Foundation, leading to loop-focused code like this:
 ```objc
 NSMutableArray *results = [NSMutableArray array];
 for (NSString *str in strings) {
-    if (str.length < 2) {
-        continue;
-    }
+	if (str.length < 2) {
+		continue;
+	}
 
-    NSString *newString = [str stringByAppendingString:@"foobar"];
-    [results addObject:newString];
+	NSString *newString = [str stringByAppendingString:@"foobar"];
+	[results addObject:newString];
 }
 ```
 
@@ -452,12 +467,12 @@ declarative way:
 
 ```objc
 RACSequence *results = [[strings.rac_sequence
-    filter:^ BOOL (NSString *str) {
-        return str.length >= 2;
-    }]
-    map:^(NSString *str) {
-        return [str stringByAppendingString:@"foobar"];
-    }];
+	filter:^ BOOL (NSString *str) {
+		return str.length >= 2;
+	}]
+	map:^(NSString *str) {
+		return [str stringByAppendingString:@"foobar"];
+	}];
 ```
 
 ## System Requirements
@@ -514,6 +529,8 @@ some more resources for learning about FRP:
 
 * [What is FRP? - Elm Language](http://elm-lang.org/learn/What-is-FRP.elm)
 * [What is Functional Reactive Programming - Stack Overflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming/1030631#1030631)
+* [Escape from Callback Hell](http://elm-lang.org/learn/Escape-from-Callback-Hell.elm)
+* [Principles of Reactive Programming on Coursera](https://www.coursera.org/course/reactive)
 
 [Basic Operators]: Documentation/BasicOperators.md
 [Documentation]: Documentation
@@ -522,7 +539,6 @@ some more resources for learning about FRP:
 [GHAPIDemo]:  https://github.com/ReactiveCocoa/GHAPIDemo
 [Memory Management]: Documentation/MemoryManagement.md
 [NSObject+RACLifting]: ReactiveCocoaFramework/ReactiveCocoa/NSObject+RACLifting.h
-[RACAble]: ReactiveCocoaFramework/ReactiveCocoa/NSObject+RACPropertySubscribing.h
 [RACDisposable]: ReactiveCocoaFramework/ReactiveCocoa/RACDisposable.h
 [RACEvent]: ReactiveCocoaFramework/ReactiveCocoa/RACEvent.h
 [RACMulticastConnection]: ReactiveCocoaFramework/ReactiveCocoa/RACMulticastConnection.h

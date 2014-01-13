@@ -7,8 +7,7 @@
 //
 
 #import "RACTuple.h"
-#import "EXTKeyPathCoding.h"
-#import "NSArray+RACSequenceAdditions.h"
+#import "RACEXTKeyPathCoding.h"
 #import "RACTupleSequence.h"
 
 @implementation RACTupleNil

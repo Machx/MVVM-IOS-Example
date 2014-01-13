@@ -68,9 +68,14 @@
 @implementation RACStream (Operations)
 
 - (instancetype)flattenMap:(RACStream * (^)(id value))block {
+	Class class = self.class;
+
 	return [[self bind:^{
 		return ^(id value, BOOL *stop) {
-			return block(value);
+			id stream = block(value) ?: [class empty];
+			NSCAssert([stream isKindOfClass:RACStream.class], @"Value returned from -flattenMap: is not a stream: %@", stream);
+
+			return stream;
 		};
 	}] setNameWithFormat:@"[%@] -flattenMap:", self.name];
 }
@@ -78,7 +83,6 @@
 - (instancetype)flatten {
 	__weak RACStream *stream __attribute__((unused)) = self;
 	return [[self flattenMap:^(id value) {
-		NSCAssert([value isKindOfClass:RACStream.class], @"Stream %@ being flattened contains an object that is not a stream: %@", stream, value);
 		return value;
 	}] setNameWithFormat:@"[%@] -flatten", self.name];
 }
@@ -99,18 +103,18 @@
 	}] setNameWithFormat:@"[%@] -mapReplace: %@", self.name, [object rac_description]];
 }
 
-- (instancetype)mapPreviousWithStart:(id)start combine:(id (^)(id previous, id next))combineBlock {
-	NSCParameterAssert(combineBlock != NULL);
+- (instancetype)combinePreviousWithStart:(id)start reduce:(id (^)(id previous, id next))reduceBlock {
+	NSCParameterAssert(reduceBlock != NULL);
 	return [[[self
 		scanWithStart:[RACTuple tupleWithObjects:start, nil]
-		combine:^(RACTuple *previousTuple, id next) {
-			id value = combineBlock(previousTuple[0], next);
+		reduce:^(RACTuple *previousTuple, id next) {
+			id value = reduceBlock(previousTuple[0], next);
 			return [RACTuple tupleWithObjects:next ?: RACTupleNil.tupleNil, value ?: RACTupleNil.tupleNil, nil];
 		}]
 		map:^(RACTuple *tuple) {
 			return tuple[1];
 		}]
-		setNameWithFormat:@"[%@] -mapPreviousWithStart: %@ combine:", self.name, [start rac_description]];
+		setNameWithFormat:@"[%@] -combinePreviousWithStart: %@ reduce:", self.name, [start rac_description]];
 }
 
 - (instancetype)filter:(BOOL (^)(id value))block {
@@ -133,7 +137,7 @@
 	}] setNameWithFormat:@"[%@] -ignore: %@", self.name, [value rac_description]];
 }
 
-- (instancetype)reduceEach:(id)reduceBlock {
+- (instancetype)reduceEach:(id (^)())reduceBlock {
 	NSCParameterAssert(reduceBlock != nil);
 
 	__weak RACStream *stream __attribute__((unused)) = self;
@@ -181,14 +185,6 @@
 	}] setNameWithFormat:@"[%@] -take: %lu", self.name, (unsigned long)count];
 }
 
-- (instancetype)sequenceMany:(RACStream * (^)(void))block {
-	NSCParameterAssert(block != NULL);
-
-	return [[self flattenMap:^(id _) {
-		return block();
-	}] setNameWithFormat:@"[%@] -sequenceMany:", self.name];
-}
-
 + (instancetype)join:(id<NSFastEnumeration>)streams block:(RACStream * (^)(id, id))block {
 	RACStream *current = nil;
 
@@ -233,7 +229,7 @@
 	}] setNameWithFormat:@"+zip: %@", streams];
 }
 
-+ (instancetype)zip:(id<NSFastEnumeration>)streams reduce:(id)reduceBlock {
++ (instancetype)zip:(id<NSFastEnumeration>)streams reduce:(id (^)())reduceBlock {
 	NSCParameterAssert(reduceBlock != nil);
 
 	RACStream *result = [self zip:streams];
@@ -255,7 +251,7 @@
 	return [result setNameWithFormat:@"+concat: %@", streams];
 }
 
-- (instancetype)scanWithStart:(id)startingValue combine:(id (^)(id running, id next))block {
+- (instancetype)scanWithStart:(id)startingValue reduce:(id (^)(id running, id next))block {
 	NSCParameterAssert(block != nil);
 
 	Class class = self.class;
@@ -267,7 +263,7 @@
 			running = block(running, value);
 			return [class return:running];
 		};
-	}] setNameWithFormat:@"[%@] -scanWithStart: %@ combine:", self.name, [startingValue rac_description]];
+	}] setNameWithFormat:@"[%@] -scanWithStart: %@ reduce:", self.name, [startingValue rac_description]];
 }
 
 - (instancetype)takeUntilBlock:(BOOL (^)(id x))predicate {
@@ -321,5 +317,47 @@
 		return !predicate(x);
 	}] setNameWithFormat:@"[%@] -skipUntilBlock:", self.name];
 }
+
+- (instancetype)distinctUntilChanged {
+	Class class = self.class;
+
+	return [[self bind:^{
+		__block id lastValue = nil;
+		__block BOOL initial = YES;
+
+		return ^(id x, BOOL *stop) {
+			if (!initial && (lastValue == x || [x isEqual:lastValue])) return [class empty];
+
+			initial = NO;
+			lastValue = x;
+			return [class return:x];
+		};
+	}] setNameWithFormat:@"[%@] -distinctUntilChanged", self.name];
+}
+
+@end
+
+@implementation RACStream (Deprecated)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
+- (instancetype)sequenceMany:(RACStream * (^)(void))block {
+	NSCParameterAssert(block != NULL);
+
+	return [[self flattenMap:^(id _) {
+		return block();
+	}] setNameWithFormat:@"[%@] -sequenceMany:", self.name];
+}
+
+- (instancetype)scanWithStart:(id)startingValue combine:(id (^)(id running, id next))block {
+	return [self scanWithStart:startingValue reduce:block];
+}
+
+- (instancetype)mapPreviousWithStart:(id)start reduce:(id (^)(id previous, id current))combineBlock {
+	return [self combinePreviousWithStart:start reduce:combineBlock];
+}
+
+#pragma clang diagnostic pop
 
 @end

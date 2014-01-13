@@ -6,7 +6,7 @@ A light-weight TDD / BDD framework for Objective-C & Cocoa.
 
 * RSpec-like BDD DSL
 * Super quick and easy to set up
-* Runs on top of OCUnit
+* Runs on top of XCTest
 * Excellent Xcode integration
 
 ### SCREENSHOT
@@ -23,10 +23,11 @@ target :MyApp do
 end
 
 target :MyAppTests do
-  pod 'Specta',      '~> 0.1.11'
-  # pod 'Expecta',     '~> 0.2.1'   # expecta matchers
-  # pod 'OCHamcrest',  '~> 1.7'     # hamcrest matchers
-  # pod 'OCMock',      '~> 2.0.1'   # OCMock
+  pod 'Specta',      '~> 0.2.1'
+  # pod 'Expecta',     '~> 0.2.3'   # expecta matchers
+  # pod 'OCMock',      '~> 2.2.1'   # OCMock
+  # pod 'OCHamcrest',  '~> 3.0.0'   # hamcrest matchers
+  # pod 'OCMockito',   '~> 1.0.0'   # OCMock
   # pod 'LRMocky',     '~> 0.9.1'   # LRMocky
 end
 ```
@@ -39,13 +40,14 @@ or
 4. Copy and add all header files in `products` folder to the Test target in your Xcode project.
 5. For **OS X projects**, copy and add `libSpecta-macosx.a` in `products` folder to the Test target in your Xcode project.  
    For **iOS projects**, copy and add `libSpecta-ios-universal.a` in `products` folder to the Test target in your Xcode project.
-6. Add the following to your test code.
+6. Add `-ObjC` and `-all_load` to the "Other Linker Flags" build setting for the Spec/Test target in your Xcode project.
+7. Add the following to your test code.
 
 ```objective-c
 #import "Specta.h"
 ```
 
-Standard OCUnit matchers such as `STAssertEqualObjects` and `STAssertNil` work, but you probably want to add a nicer matcher framework - [Expecta](http://github.com/petejkim/expecta/) to your setup. Or if you really prefer, [OCHamcrest](https://github.com/jonreid/OCHamcrest) works fine too. Also, add a mocking framework: [OCMock](http://ocmock.org/).
+Standard XCTest matchers such as `XCTAssertEqualObjects` and `XCTAssertNil` work, but you probably want to add a nicer matcher framework - [Expecta](http://github.com/petejkim/expecta/) to your setup. Or if you really prefer, [OCHamcrest](https://github.com/jonreid/OCHamcrest) works fine too. Also, add a mocking framework: [OCMock](http://ocmock.org/).
 
 ## WRITING SPECS
 
@@ -57,7 +59,7 @@ SharedExamplesBegin(MySharedExamples)
 
 sharedExamplesFor(@"a shared behavior", ^(NSDictionary *data) {
   it(@"should do some stuff", ^{
-    id obj = [data objectForKey:@"key"];
+    id obj = data[@"key"];
     // ...
   });
 });
@@ -89,12 +91,12 @@ describe(@"Thing", ^{
     done();
   });
 
-  itShouldBehaveLike(@"a shared behavior", [NSDictionary dictionaryWithObjectsAndKeys:@"obj", @"key", nil]);
+  itShouldBehaveLike(@"a shared behavior", @{@"key" : @"obj"});
 
   itShouldBehaveLike(@"another shared behavior", ^{
     // Use a block that returns a dictionary if you need the context to be evaluated lazily,
     // e.g. to use an object prepared in a beforeEach block.
-    return [NSDictionary dictionaryWithObjectsAndKeys:@"obj", @"key", nil];
+    return @{@"key" : @"obj"};
   });
 
   describe(@"Nested examples", ^{
@@ -131,15 +133,7 @@ SpecEnd
 * `(before|after)(Each/All)` also accept `^AsyncBlock`s.
 * Do `#define SPT_CEDAR_SYNTAX` before importing Specta if you prefer to write `SPEC_BEGIN` and `SPEC_END` instead of `SpecBegin` and `SpecEnd`.
 * Prepend `f` to your `describe`, `context`, `example`, `it`, and `specify` to set focus on examples or groups. When specs are focused, all unfocused specs are skipped.
-
-### RUNNING SPECS FROM COMMAND LINE / CI
-
-~~Refer to
-[this blog post](http://www.raingrove.com/2012/03/28/running-ocunit-and-specta-tests-from-command-line.html)
-on how to run specs from command line or in continuous integration
-servers.~~
-
-Check out Facebook's [xctool](https://github.com/facebook/xctool).
+* To use original XCTest reporter, set an environment variable named `SPECTA_REPORTER_CLASS` to `SPTXCTestReporter` in your test scheme.
 
 ### CONTRIBUTION GUIDELINES
 
@@ -147,19 +141,6 @@ Check out Facebook's [xctool](https://github.com/facebook/xctool).
 * Please prefix instance variable names with a single underscore (`_`).
 * Please prefix custom classes and functions defined in the global scope with `SPT`.
 
-### CONTRIBUTORS
-
-* Christian Niles [(nerdyc)](https://github.com/nerdyc)
-* Dan Palmer [(danpalmer)](https://github.com/danpalmer)
-* Justin Spahr-Summers [(jspahrsummers)](https://github.com/jspahrsummers)
-* Josh Abernathy [(joshaber)](https://github.com/joshaber)
-* Meiwin Fu [(meiwin)](https://github.com/meiwin)
-* Robert Gilliam [(rhgills)](https://github.com/rhgills)
-* Shawn Morel [(strangemonad)](https://github.com/strangemonad)
-* Tom Brow [(brow)](https://github.com/brow)
-* Tony Arnold [(tonyarnold)](https://github.com/tonyarnold)
-
 ## LICENSE
 
-Copyright (c) 2012 Peter Jihoon Kim. This software is licensed under the [MIT License](http://github.com/petejkim/specta/raw/master/LICENSE).
-
+Copyright (c) 2012-2013 [Specta Team](https://github.com/specta?tab=members). This software is licensed under the [MIT License](http://github.com/petejkim/specta/raw/master/LICENSE).

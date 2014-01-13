@@ -9,7 +9,8 @@
 #import "NSObject+RACDeallocating.h"
 #import "RACCompoundDisposable.h"
 #import "RACDisposable.h"
-#import "RACSubject.h"
+#import "RACReplaySubject.h"
+#import <objc/message.h>
 #import <objc/runtime.h>
 
 static const void *RACObjectCompoundDisposable = &RACObjectCompoundDisposable;
@@ -31,17 +32,39 @@ static void swizzleDeallocIfNeeded(Class classToSwizzle) {
 
 		SEL deallocSelector = sel_registerName("dealloc");
 
-		Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
-		void (*originalDealloc)(__unsafe_unretained id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
+		__block void (*originalDealloc)(__unsafe_unretained id, SEL) = NULL;
 
 		id newDealloc = ^(__unsafe_unretained id self) {
 			RACCompoundDisposable *compoundDisposable = objc_getAssociatedObject(self, RACObjectCompoundDisposable);
 			[compoundDisposable dispose];
 
-			originalDealloc(self, deallocSelector);
-		};
+			if (originalDealloc == NULL) {
+				struct objc_super superInfo = {
+					.receiver = self,
+					.super_class = class_getSuperclass(classToSwizzle)
+				};
 
-		class_replaceMethod(classToSwizzle, deallocSelector, imp_implementationWithBlock(newDealloc), method_getTypeEncoding(deallocMethod));
+				void (*msgSend)(struct objc_super *, SEL) = (__typeof__(msgSend))objc_msgSendSuper;
+				msgSend(&superInfo, deallocSelector);
+			} else {
+				originalDealloc(self, deallocSelector);
+			}
+		};
+		
+		IMP newDeallocIMP = imp_implementationWithBlock(newDealloc);
+		
+		if (!class_addMethod(classToSwizzle, deallocSelector, newDeallocIMP, "v@:")) {
+			// The class already contains a method implementation.
+			Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
+			
+			// We need to store original implementation before setting new implementation
+			// in case method is called at the time of setting.
+			originalDealloc = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
+			
+			// We need to store original implementation again, in case it just changed.
+			originalDealloc = (__typeof__(originalDealloc))method_setImplementation(deallocMethod, newDeallocIMP);
+		}
+
 		[swizzledClasses() addObject:className];
 	}
 }
@@ -49,25 +72,12 @@ static void swizzleDeallocIfNeeded(Class classToSwizzle) {
 @implementation NSObject (RACDeallocating)
 
 - (RACSignal *)rac_willDeallocSignal {
-	RACSubject *subject = [RACSubject subject];
+	RACReplaySubject *subject = [RACReplaySubject subject];
 
-	[self rac_addDeallocDisposable:[RACDisposable disposableWithBlock:^{
+	[self.rac_deallocDisposable addDisposable:[RACDisposable disposableWithBlock:^{
 		[subject sendCompleted];
 	}]];
 
-	return subject;
-}
-
-- (RACSignal *)rac_didDeallocSignal {
-	RACSubject *subject = [RACSubject subject];
-
-	RACScopedDisposable *disposable = [[RACDisposable
-		disposableWithBlock:^{
-			[subject sendCompleted];
-		}]
-		asScopedDisposable];
-	
-	objc_setAssociatedObject(self, (__bridge void *)disposable, disposable, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	return subject;
 }
 
@@ -85,8 +95,30 @@ static void swizzleDeallocIfNeeded(Class classToSwizzle) {
 	}
 }
 
+@end
+
+@implementation NSObject (RACDeallocatingDeprecated)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
+- (RACSignal *)rac_didDeallocSignal {
+	RACSubject *subject = [RACSubject subject];
+
+	RACScopedDisposable *disposable = [[RACDisposable
+		disposableWithBlock:^{
+			[subject sendCompleted];
+		}]
+		asScopedDisposable];
+	
+	objc_setAssociatedObject(self, (__bridge void *)disposable, disposable, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return subject;
+}
+
 - (void)rac_addDeallocDisposable:(RACDisposable *)disposable {
 	[self.rac_deallocDisposable addDisposable:disposable];
 }
+
+#pragma clang diagnostic pop
 
 @end

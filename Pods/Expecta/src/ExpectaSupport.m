@@ -13,7 +13,14 @@
 
 @end
 
-id _EXPObjectify(char *type, ...) {
+@interface NSObject (ExpectaXCTestRecordFailure)
+
+// suppress warning
+- (void)recordFailureWithDescription:(NSString *)description inFile:(NSString *)filename atLine:(NSUInteger)lineNumber expected:(BOOL)expected;
+
+@end
+
+id _EXPObjectify(const char *type, ...) {
   va_list v;
   va_start(v, type);
   id obj = nil;
@@ -97,11 +104,11 @@ id _EXPObjectify(char *type, ...) {
   return obj;
 }
 
-EXPExpect *_EXP_expect(id testCase, int lineNumber, char *fileName, EXPIdBlock actualBlock) {
+EXPExpect *_EXP_expect(id testCase, int lineNumber, const char *fileName, EXPIdBlock actualBlock) {
   return [EXPExpect expectWithActualBlock:actualBlock testCase:testCase lineNumber:lineNumber fileName:fileName];
 }
 
-void EXPFail(id testCase, int lineNumber, char *fileName, NSString *message) {
+void EXPFail(id testCase, int lineNumber, const char *fileName, NSString *message) {
   NSLog(@"%s:%d %@", fileName, lineNumber, message);
   NSString *reason = [NSString stringWithFormat:@"%s:%d %@", fileName, lineNumber, message];
   NSException *exception = [NSException exceptionWithName:@"Expecta Error" reason:reason userInfo:nil];
@@ -111,6 +118,11 @@ void EXPFail(id testCase, int lineNumber, char *fileName, NSString *message) {
       exception = [NSException failureInFile:[NSString stringWithUTF8String:fileName] atLine:lineNumber withDescription:message];
     }
     [testCase failWithException:exception];
+  } else if(testCase && [testCase respondsToSelector:@selector(recordFailureWithDescription:inFile:atLine:expected:)]){
+      [testCase recordFailureWithDescription:message
+                                      inFile:[NSString stringWithUTF8String:fileName]
+                                      atLine:lineNumber
+                                    expected:NO];
   } else {
     [exception raise];
   }

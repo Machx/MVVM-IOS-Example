@@ -7,18 +7,18 @@
 //
 
 #import "RACSubscriber.h"
-#import "EXTScope.h"
+#import "RACSubscriber+Private.h"
+#import "RACEXTScope.h"
 #import "RACCompoundDisposable.h"
 
 @interface RACSubscriber ()
 
-@property (nonatomic, copy, readonly) void (^next)(id value);
-@property (nonatomic, copy, readonly) void (^error)(NSError *error);
-@property (nonatomic, copy, readonly) void (^completed)(void);
-@property (nonatomic, strong, readonly) RACCompoundDisposable *disposable;
+// These callbacks should only be accessed while synchronized on self.
+@property (nonatomic, copy) void (^next)(id value);
+@property (nonatomic, copy) void (^error)(NSError *error);
+@property (nonatomic, copy) void (^completed)(void);
 
-// This property should only be used while synchronized on self.
-@property (nonatomic, assign) BOOL disposed;
+@property (nonatomic, strong, readonly) RACCompoundDisposable *disposable;
 
 @end
 
@@ -44,9 +44,12 @@
 
 	RACDisposable *selfDisposable = [RACDisposable disposableWithBlock:^{
 		@strongify(self);
+		if (self == nil) return;
 
 		@synchronized (self) {
-			self.disposed = YES;
+			self.next = nil;
+			self.error = nil;
+			self.completed = nil;
 		}
 	}];
 
@@ -63,34 +66,36 @@
 #pragma mark RACSubscriber
 
 - (void)sendNext:(id)value {
-	if (self.next == NULL) return;
-
 	@synchronized (self) {
-		if (self.disposed) return;
-		self.next(value);
+		void (^nextBlock)(id) = [self.next copy];
+		if (nextBlock == nil) return;
+
+		nextBlock(value);
 	}
 }
 
 - (void)sendError:(NSError *)e {
 	@synchronized (self) {
-		if (self.disposed) return;
-
+		void (^errorBlock)(NSError *) = [self.error copy];
 		[self.disposable dispose];
-		if (self.error != NULL) self.error(e);
+
+		if (errorBlock == nil) return;
+		errorBlock(e);
 	}
 }
 
 - (void)sendCompleted {
 	@synchronized (self) {
-		if (self.disposed) return;
-
+		void (^completedBlock)(void) = [self.completed copy];
 		[self.disposable dispose];
-		if (self.completed != NULL) self.completed();
+
+		if (completedBlock == nil) return;
+		completedBlock();
 	}
 }
 
 - (void)didSubscribeWithDisposable:(RACDisposable *)d {
-	if (d != nil) [self.disposable addDisposable:d];
+	[self.disposable addDisposable:d];
 }
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 GitHub, Inc. All rights reserved.
 //
 
-#import <ReactiveCocoa/RACSequence.h>
+#import "RACSequence.h"
 
-// Private class representing a sequence of exactly one value.
+/// Private class representing a sequence of exactly one value.
 @interface RACUnarySequence : RACSequence
 @end

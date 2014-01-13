@@ -7,15 +7,83 @@
 //
 
 #import "NSObject+RACPropertySubscribing.h"
-#import "EXTScope.h"
+#import "RACEXTScope.h"
 #import "NSObject+RACDeallocating.h"
 #import "NSObject+RACDescription.h"
 #import "NSObject+RACKVOWrapper.h"
 #import "RACCompoundDisposable.h"
 #import "RACDisposable.h"
 #import "RACKVOTrampoline.h"
-#import "RACReplaySubject.h"
+#import "RACSubscriber.h"
 #import "RACSignal+Operations.h"
+#import "RACTuple.h"
+#import <libkern/OSAtomic.h>
+
+@implementation NSObject (RACPropertySubscribing)
+
+- (RACSignal *)rac_valuesForKeyPath:(NSString *)keyPath observer:(NSObject *)observer {
+	return [[[self
+		rac_valuesAndChangesForKeyPath:keyPath options:NSKeyValueObservingOptionInitial observer:observer]
+		reduceEach:^(id value, NSDictionary *change) {
+			return value;
+		}]
+		setNameWithFormat:@"RACObserve(%@, %@)", self.rac_description, keyPath];
+}
+
+- (RACSignal *)rac_valuesAndChangesForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options observer:(NSObject *)observer {
+	keyPath = [keyPath copy];
+
+	NSRecursiveLock *objectLock = [[NSRecursiveLock alloc] init];
+	objectLock.name = @"com.github.ReactiveCocoa.NSObjectRACPropertySubscribing";
+
+	__block __unsafe_unretained NSObject *unsafeSelf = self;
+	__block __unsafe_unretained NSObject *unsafeObserver = observer;
+
+	RACSignal *deallocSignal = [[RACSignal
+		zip:@[
+			self.rac_willDeallocSignal,
+			observer.rac_willDeallocSignal ?: [RACSignal never]
+		]]
+		doCompleted:^{
+			// Forces deallocation to wait if the object variables are currently
+			// being read on another thread.
+			[objectLock lock];
+			@onExit {
+				[objectLock unlock];
+			};
+
+			unsafeSelf = nil;
+			unsafeObserver = nil;
+		}];
+
+	return [[[RACSignal
+		createSignal:^ RACDisposable * (id<RACSubscriber> subscriber) {
+			// Hold onto the lock the whole time we're setting up the KVO
+			// observation, because any resurrection that might be caused by our
+			// retaining below must be balanced out by the time -dealloc returns
+			// (if another thread is waiting on the lock above).
+			[objectLock lock];
+			@onExit {
+				[objectLock unlock];
+			};
+
+			__strong NSObject *observer __attribute__((objc_precise_lifetime)) = unsafeObserver;
+			__strong NSObject *self __attribute__((objc_precise_lifetime)) = unsafeSelf;
+
+			if (self == nil) {
+				[subscriber sendCompleted];
+				return nil;
+			}
+
+			return [self rac_observeKeyPath:keyPath options:options observer:observer block:^(id value, NSDictionary *change) {
+				[subscriber sendNext:RACTuplePack(value, change)];
+			}];
+		}]
+		takeUntil:deallocSignal]
+		setNameWithFormat:@"%@ -rac_valueAndChangesForKeyPath: %@ options: %lu observer: %@", self.rac_description, keyPath, (unsigned long)options, observer.rac_description];
+}
+
+@end
 
 static RACSignal *signalWithoutChangesFor(Class class, NSObject *object, NSString *keyPath, NSKeyValueObservingOptions options, NSObject *observer) {
 	NSCParameterAssert(object != nil);
@@ -34,7 +102,10 @@ static RACSignal *signalWithoutChangesFor(Class class, NSObject *object, NSStrin
 		}];
 }
 
-@implementation NSObject (RACPropertySubscribing)
+@implementation NSObject (RACPropertySubscribingDeprecated)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 + (RACSignal *)rac_signalFor:(NSObject *)object keyPath:(NSString *)keyPath observer:(NSObject *)observer {
 	return signalWithoutChangesFor(self, object, keyPath, 0, observer);
@@ -60,8 +131,8 @@ static RACSignal *signalWithoutChangesFor(Class class, NSObject *object, NSStrin
 			[subscriber sendCompleted];
 		}];
 
-		[observer rac_addDeallocDisposable:deallocDisposable];
-		[object rac_addDeallocDisposable:deallocDisposable];
+		[observer.rac_deallocDisposable addDisposable:deallocDisposable];
+		[object.rac_deallocDisposable addDisposable:deallocDisposable];
 
 		RACCompoundDisposable *observerDisposable = observer.rac_deallocDisposable;
 		RACCompoundDisposable *objectDisposable = object.rac_deallocDisposable;
@@ -82,7 +153,9 @@ static RACSignal *signalWithoutChangesFor(Class class, NSObject *object, NSStrin
 }
 
 - (RACDisposable *)rac_deriveProperty:(NSString *)keyPath from:(RACSignal *)signal {
-	return [signal toProperty:keyPath onObject:self];
+	return [signal setKeyPath:keyPath onObject:self];
 }
+
+#pragma clang diagnostic pop
 
 @end
