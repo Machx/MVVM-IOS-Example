@@ -65,7 +65,8 @@ static NSUInteger const kMaxUploads = 5;
 	}];
 	
 	//only take the maxPointUpdates number of score updates
-	[[RACObserve(self,scoreStepper.value) take:self.viewModel.maxPointUpdates] subscribeNext:^(id newPoints) {
+    //skip 1 because we don't want the 1st value provided, only changes
+	[[[RACObserve(self,scoreStepper.value) skip:1] take:self.viewModel.maxPointUpdates] subscribeNext:^(id newPoints) {
 		@strongify(self);
 		self.viewModel.points = [newPoints doubleValue];
 		self.scoreUpdates++;
