@@ -32,11 +32,10 @@ static NSUInteger const kMaxUploads = 5;
 	self.viewModel = [CDWPlayerViewModel new];
 	
 	//using with @strongify(self) this makes sure that self isn't retained in the blocks
-	//this is declared int libextobjc's EXTScope.h file
+	//this is declared in RACEXTScope.h
 	@weakify(self);
 	
 	//Start Binding our properties
-	//RAC(self.nameField.text) = [RACAbleWithStart(self.viewModel.playerName) distinctUntilChanged];
     RAC(self,nameField.text) = [RACObserve(self.viewModel, playerName) distinctUntilChanged];
 	
 	[[self.nameField.rac_textSignal distinctUntilChanged] subscribeNext:^(NSString *x) {
