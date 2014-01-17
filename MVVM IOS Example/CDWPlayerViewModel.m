@@ -64,6 +64,7 @@
 		[[RACScheduler mainThreadScheduler] schedule:^{
 			//this creates a reference to weak self ( @weakify(self); )
 			//makes sure self isn't retained
+            //TODO: shouldn't reference a UI element in the view model. probably need an upload signal signal
 			@strongify(self);
 			NSString *msg = [NSString stringWithFormat:@"Updated %@ with %.0f points",self.playerName,self.points];
 			
