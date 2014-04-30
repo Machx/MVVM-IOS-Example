@@ -116,6 +116,43 @@ static void RACSwizzleRespondsToSelector(Class class) {
 	class_replaceMethod(class, respondsToSelectorSEL, imp_implementationWithBlock(newRespondsToSelector), method_getTypeEncoding(respondsToSelectorMethod));
 }
 
+static void RACSwizzleGetClass(Class class, Class statedClass) {
+	SEL selector = @selector(class);
+	Method method = class_getInstanceMethod(class, selector);
+	IMP newIMP = imp_implementationWithBlock(^(id self) {
+		return statedClass;
+	});
+	class_replaceMethod(class, selector, newIMP, method_getTypeEncoding(method));
+}
+
+static void RACSwizzleMethodSignatureForSelector(Class class) {
+	IMP newIMP = imp_implementationWithBlock(^(id self, SEL selector) {
+		// Don't send the -class message to the receiver because we've changed
+		// that to return the original class.
+		Class actualClass = object_getClass(self);
+		Method method = class_getInstanceMethod(actualClass, selector);
+		if (method == NULL) {
+			// Messages that the original class dynamically implements fall
+			// here.
+			//
+			// Call the original class' -methodSignatureForSelector:.
+			struct objc_super target = {
+				.super_class = class_getSuperclass(class),
+				.receiver = self,
+			};
+			NSMethodSignature * (*messageSend)(struct objc_super *, SEL, SEL) = (__typeof__(messageSend))objc_msgSendSuper;
+			return messageSend(&target, @selector(methodSignatureForSelector:), selector);
+		}
+
+		char const *encoding = method_getTypeEncoding(method);
+		return [NSMethodSignature signatureWithObjCTypes:encoding];
+	});
+
+	SEL selector = @selector(methodSignatureForSelector:);
+	Method methodSignatureForSelectorMethod = class_getInstanceMethod(class, selector);
+	class_replaceMethod(class, selector, newIMP, method_getTypeEncoding(methodSignatureForSelectorMethod));
+}
+
 // It's hard to tell which struct return types use _objc_msgForward, and
 // which use _objc_msgForward_stret instead, so just exclude all struct, array,
 // union, complex and vector return types.
@@ -144,7 +181,7 @@ static RACSignal *NSObjectRACSignalForSelector(NSObject *self, SEL selector, Pro
 		Class class = RACSwizzleClass(self);
 		NSCAssert(class != nil, @"Could not swizzle class of %@", self);
 
-		subject = [[RACSubject subject] setNameWithFormat:@"%@ -rac_signalForSelector: %@", self.rac_description, NSStringFromSelector(selector)];
+		subject = [[RACSubject subject] setNameWithFormat:@"%@ -rac_signalForSelector: %s", self.rac_description, sel_getName(selector)];
 		objc_setAssociatedObject(self, aliasSelector, subject, OBJC_ASSOCIATION_RETAIN);
 
 		[self.rac_deallocDisposable addDisposable:[RACDisposable disposableWithBlock:^{
@@ -237,6 +274,9 @@ static Class RACSwizzleClass(NSObject *self) {
 			if (![swizzledClasses() containsObject:className]) {
 				RACSwizzleForwardInvocation(baseClass);
 				RACSwizzleRespondsToSelector(baseClass);
+				RACSwizzleGetClass(baseClass, statedClass);
+				RACSwizzleGetClass(object_getClass(baseClass), statedClass);
+				RACSwizzleMethodSignatureForSelector(baseClass);
 				[swizzledClasses() addObject:className];
 			}
 		}
@@ -253,6 +293,12 @@ static Class RACSwizzleClass(NSObject *self) {
 
 		RACSwizzleForwardInvocation(subclass);
 		RACSwizzleRespondsToSelector(subclass);
+
+		RACSwizzleGetClass(subclass, statedClass);
+		RACSwizzleGetClass(object_getClass(subclass), statedClass);
+
+		RACSwizzleMethodSignatureForSelector(subclass);
+
 		objc_registerClassPair(subclass);
 	}
 

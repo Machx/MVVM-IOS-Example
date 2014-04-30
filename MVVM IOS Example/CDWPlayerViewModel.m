@@ -7,6 +7,7 @@
 //
 
 #import "CDWPlayerViewModel.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @interface CDWPlayerViewModel ()
@@ -55,6 +56,7 @@
 	//using with @strongify(self) this makes sure that self isn't retained in the blocks
 	//this is declared int libextobjc's EXTScope.h file
 	@weakify(self);
+    
 	[[RACScheduler scheduler] schedule:^{
 		sleep(1);
 		//pretend we are uploading to a server on a backround thread...

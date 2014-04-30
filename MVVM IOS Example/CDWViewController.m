@@ -8,6 +8,7 @@
 
 #import "CDWViewController.h"
 #import "CDWPlayerViewModel.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 
 @interface CDWViewController ()
@@ -34,9 +35,9 @@ static NSUInteger const kMaxUploads = 5;
 	//using with @strongify(self) this makes sure that self isn't retained in the blocks
 	//this is declared in RACEXTScope.h
 	@weakify(self);
-	
+    
 	//Start Binding our properties
-    RAC(self,nameField.text) = [RACObserve(self.viewModel, playerName) distinctUntilChanged];
+    RAC(self.nameField,text) = [RACObserve(self.viewModel, playerName) distinctUntilChanged];
 	
 	[[self.nameField.rac_textSignal distinctUntilChanged] subscribeNext:^(NSString *x) {
 		//this creates a reference to self that when used with @weakify(self);
@@ -47,25 +48,25 @@ static NSUInteger const kMaxUploads = 5;
     
 	//the score property is a double, RC gives us updates as NSNumber which we just call
 	//stringValue on and bind that to the scorefield text
-	RAC(self,scoreField.text) = [RACObserve(self,viewModel.points) map:^id(NSNumber *value) {
+	RAC(self.scoreField,text) = [RACObserve(self.viewModel,points) map:^id(NSNumber *value) {
 		return [value stringValue];
 	}];
 	
 	//Setup bind the steppers values
 	self.scoreStepper.value = self.viewModel.points;
-	RAC(self,scoreStepper.stepValue) = RACObserve(self,viewModel.stepAmount);
-	RAC(self,scoreStepper.maximumValue) = RACObserve(self,viewModel.maxPoints);
-	RAC(self,scoreStepper.minimumValue) = RACObserve(self,viewModel.minPoints);
+	RAC(self.scoreStepper,stepValue) = RACObserve(self.viewModel,stepAmount);
+	RAC(self.scoreStepper,maximumValue) = RACObserve(self.viewModel,maxPoints);
+	RAC(self.scoreStepper,minimumValue) = RACObserve(self.viewModel,minPoints);
 	//bind the hidden field to a signal keeping track if
 	//we've updated less than a certain number times as the view model specifies
-	RAC(self,scoreStepper.hidden) = [RACObserve(self,scoreUpdates) map:^id(NSNumber *x) {
+	RAC(self.scoreStepper,hidden) = [RACObserve(self,scoreUpdates) map:^id(NSNumber *x) {
 		@strongify(self);
 		return @(x.intValue >= self.viewModel.maxPointUpdates);
 	}];
 	
 	//only take the maxPointUpdates number of score updates
     //skip 1 because we don't want the 1st value provided, only changes
-	[[[RACObserve(self,scoreStepper.value) skip:1] take:self.viewModel.maxPointUpdates] subscribeNext:^(id newPoints) {
+	[[[RACObserve(self.scoreStepper,value) skip:1] take:self.viewModel.maxPointUpdates] subscribeNext:^(id newPoints) {
 		@strongify(self);
 		self.viewModel.points = [newPoints doubleValue];
 		self.scoreUpdates++;
@@ -84,7 +85,7 @@ static NSUInteger const kMaxUploads = 5;
 	}];
 	
 	//let the upload(save) button only be enabled when the view model says its valid
-	RAC(self,uploadButton.enabled) = self.viewModel.modelIsValidSignal;
+	RAC(self.uploadButton,enabled) = self.viewModel.modelIsValidSignal;
 	
 	//set the control action for our button to be the ViewModels action method
 	[self.uploadButton addTarget:self.viewModel

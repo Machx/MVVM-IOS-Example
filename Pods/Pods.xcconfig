@@ -1,6 +1,6 @@
 FRAMEWORK_SEARCH_PATHS = $(inherited) "$(SDKROOT)/Developer/Library/Frameworks" "$(DEVELOPER_LIBRARY_DIR)/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/Expecta" "${PODS_ROOT}/Headers/ReactiveCocoa" "${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa" "${PODS_ROOT}/Headers/Specta"
-OTHER_CFLAGS = $(inherited) "-isystem${PODS_ROOT}/Headers" "-isystem${PODS_ROOT}/Headers/Expecta" "-isystem${PODS_ROOT}/Headers/ReactiveCocoa" "-isystem${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa" "-isystem${PODS_ROOT}/Headers/Specta"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/Expecta" -isystem "${PODS_ROOT}/Headers/ReactiveCocoa" -isystem "${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa" -isystem "${PODS_ROOT}/Headers/Specta"
 OTHER_LDFLAGS = -ObjC -framework Foundation -framework XCTest
 PODS_ROOT = ${SRCROOT}/Pods
