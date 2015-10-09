@@ -38,7 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		48ED39B722F7D41B9357EEEF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		749FB239A684F43F48773F84 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B8CCFA1216E58F9D0031996A /* MVVM IOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVVM IOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8CCFA1516E58F9D0031996A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8CCFA1716E58F9D0031996A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		863D30EBDF212B2E1C3D37A6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				48ED39B722F7D41B9357EEEF /* Pods.debug.xcconfig */,
+				749FB239A684F43F48773F84 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B8CCFA0916E58F9C0031996A = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +108,7 @@
 				B8CCFA3F16E58F9D0031996A /* MVVM IOS ExampleTests */,
 				B8CCFA1416E58F9D0031996A /* Frameworks */,
 				B8CCFA1316E58F9D0031996A /* Products */,
-				7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */,
+				863D30EBDF212B2E1C3D37A6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -209,7 +219,7 @@
 			name = "MVVM IOS ExampleTests";
 			productName = "MVVM IOS ExampleTests";
 			productReference = B8CCFA3816E58F9D0031996A /* MVVM IOS ExampleTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -288,7 +298,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -408,7 +418,7 @@
 		};
 		B8CCFA4B16E58F9D0031996A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */;
+			baseConfigurationReference = 48ED39B722F7D41B9357EEEF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MVVM IOS Example/MVVM IOS Example-Prefix.pch";
@@ -420,7 +430,7 @@
 		};
 		B8CCFA4C16E58F9D0031996A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7BA3736AA4454F1F8DD19BC7 /* Pods.xcconfig */;
+			baseConfigurationReference = 749FB239A684F43F48773F84 /* Pods.release.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MVVM IOS Example/MVVM IOS Example-Prefix.pch";
